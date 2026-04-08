@@ -1,0 +1,24 @@
+# System
+.DS_store
+/.vscode
+
+# Development folders
+Back_ups
+Support
+Browser_snippets/tamper monkey readme.txt
+functions/temp.js
+
+# Unused sources 
+src/fonts/other
+src/flags
+src/app-icons/unused
+screenshots/other
+
+# Confidential
+data/*
+!data/fleet_age.js
+!data/fleet.js
+!data/aircraft_type.js
+!data/breaks.js
+!data/positions.js
+!data/qualifications.js

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>JSON</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>public.json</string>
+			</array>
+		</dict>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>ms-outlook</string>
+	</array>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>KiS Reports uses speech recognition to transcribe your voice notes into report text.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>KiS Reports needs microphone access to record your voice for speech-to-text transcription.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.gulflensstudio.kisextensions</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kisextensions</string>
+				<string>crewpositions</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
