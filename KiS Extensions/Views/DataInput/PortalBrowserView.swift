@@ -73,6 +73,7 @@ struct PortalBrowserView: View {
                                 Image(systemName: "arrow.down.doc")
                                 Text("Extract Data")
                             }
+                            .padding(.horizontal, 8)
                         }
                     }
                     .buttonStyle(.borderedProminent)
@@ -273,7 +274,14 @@ struct PortalBrowserView: View {
             var value = safeParse(localStorage.getItem(item));
             if (value) {
                 var key = item.split(" ", 1)[0].split("_").slice(-2).join("_");
-                if (dataToGo[key]) dataToGo[key].flightData = value;
+                if (dataToGo[key]) {
+                    if (!dataToGo[key].flightData) {
+                        dataToGo[key].flightData = value;
+                    } else if (value.FlightData) {
+                        dataToGo[key].flightData.FlightData =
+                            (dataToGo[key].flightData.FlightData || []).concat(value.FlightData);
+                    }
+                }
             }
         });
 
@@ -304,7 +312,12 @@ struct PortalBrowserView: View {
             });
         });
 
-        var sorted = Object.entries(dataToGo)
+        var loaded = {};
+        Object.keys(dataToGo).forEach(function(key) {
+            if (dataToGo[key].crewData) loaded[key] = dataToGo[key];
+        });
+
+        var sorted = Object.entries(loaded)
             .sort(function(a, b) { return new Date(a[1].shortInfo.flightDate) - new Date(b[1].shortInfo.flightDate); })
             .reduce(function(r, entry) { r[entry[0]] = entry[1]; return r; }, {});
 

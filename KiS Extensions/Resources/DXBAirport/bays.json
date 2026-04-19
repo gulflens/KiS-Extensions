@@ -1,0 +1,4941 @@
+{
+  "_meta": {
+    "schemaVersion": "0.2.0",
+    "_lastVerified": "2026-05-04",
+    "_primarySource": "Emirates Standards & Procedures - Concourse Layouts - October 2025",
+    "_secondarySources": [
+      "Emirates Group Learning and Development - Dubai Airport Overview",
+      "Dubai Airports - New Departures Gate Guide (FINAL.pdf)"
+    ],
+    "_notes": "Bay number != Gate number. Bay = ground operations identifier. Gate = passenger-facing identifier. Both should be searchable.",
+    "fieldDefinitions": {
+      "bayId": "Internal Emirates ground ops bay identifier",
+      "gateId": "Public-facing gate identifier",
+      "oldGateId": "Pre-renumbering gate label (where applicable, from FINAL.pdf)",
+      "stand.code": "E (wide-body, NOT A380) | F (A380 capable)",
+      "stand.duda": "Dual Upper Deck Access. True = upper-deck bridge for A380",
+      "stand.directBoarding": "Passengers walk apron-side directly to aircraft",
+      "biometricBoarding": "Gate has biometric (face recognition) boarding",
+      "operationalStatus": "open | closed",
+      "bridges.hasUpperDeckBridge": "Same as stand.duda",
+      "bridges.totalCount": "Total jetbridge count (NULL = not specified by source)"
+    }
+  },
+  "bays": [
+    {
+      "bayId": "A01",
+      "gateId": "A05",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 1 (pink: Non-DUDA A380)"
+      ],
+      "_notes": "Non-DUDA A380 stand. A380 boards via main deck only."
+    },
+    {
+      "bayId": "A02",
+      "gateId": "A04",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (DUDA, no BIO per page 2 - A4 not in BIO list)"
+      ]
+    },
+    {
+      "bayId": "A03",
+      "gateId": "A03",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "A04",
+      "gateId": "A02",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "A05",
+      "gateId": "A01",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "A06",
+      "gateId": "A24",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_notes": "Bay A06 = Gate A24. NOT to be confused with REMOTE_A6 (separate west apron remote stand)."
+    },
+    {
+      "bayId": "A07",
+      "gateId": "A23",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_notes": "Bay A07 = Gate A23. NOT to be confused with REMOTE_A7."
+    },
+    {
+      "bayId": "A08",
+      "gateId": "A22",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "A09",
+      "gateId": "A21",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "A10",
+      "gateId": "A20",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_notes": "S&P shows 'A010' (typo for A10)"
+    },
+    {
+      "bayId": "D01",
+      "gateId": "A08",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (pink: Non-DUDA A380)"
+      ]
+    },
+    {
+      "bayId": "D02",
+      "gateId": "A09",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D03",
+      "gateId": "A10",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D04",
+      "gateId": "A11",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D05",
+      "gateId": "A12",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D06",
+      "gateId": "A13",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D07",
+      "gateId": "A14",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D08",
+      "gateId": "A15",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D09",
+      "gateId": "A16",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "D10",
+      "gateId": "A17",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (pink: Non-DUDA A380)"
+      ]
+    },
+    {
+      "bayId": "REMOTE_A6",
+      "gateId": "A6",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 2 - Direct Boarding Remote Gates (West)"
+      ],
+      "_notes": "West apron remote, direct boarding (no bus). Pax walk apron from terminal door. Aircraft uses airstairs."
+    },
+    {
+      "bayId": "REMOTE_A6a",
+      "gateId": "A6a",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_A6b",
+      "gateId": "A6b",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_A7",
+      "gateId": "A7",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_A18",
+      "gateId": "A18",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "closed",
+      "_confidence": "high",
+      "_notes": "East apron remote stand. Currently CLOSED per S&P Oct 2025."
+    },
+    {
+      "bayId": "REMOTE_A19",
+      "gateId": "A19",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "closed",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_A19a",
+      "gateId": "A19a",
+      "concourse": "A",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "F",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "closed",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B14",
+      "gateId": "B6",
+      "oldGateId": "211",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025",
+        "FINAL.pdf old gate 211 → B6"
+      ]
+    },
+    {
+      "bayId": "B15",
+      "gateId": "B8",
+      "oldGateId": "212",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B16",
+      "gateId": "B10",
+      "oldGateId": "213",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B17",
+      "gateId": "B12",
+      "oldGateId": "214",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B18",
+      "gateId": "B14",
+      "oldGateId": "215",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 1 (pink: Non-DUDA A380)"
+      ],
+      "_notes": "Non-DUDA A380 stand."
+    },
+    {
+      "bayId": "B21",
+      "gateId": "B20",
+      "oldGateId": "218",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (pink: Non-DUDA A380)"
+      ]
+    },
+    {
+      "bayId": "B22",
+      "gateId": "B22",
+      "oldGateId": "219",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B23",
+      "gateId": "B24",
+      "oldGateId": "220",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (BIO gate B24)"
+      ]
+    },
+    {
+      "bayId": "B24",
+      "gateId": "B26",
+      "oldGateId": "221",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (BIO gate B26)"
+      ]
+    },
+    {
+      "bayId": "B25",
+      "gateId": "B28",
+      "oldGateId": "222",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B26",
+      "gateId": "B32",
+      "oldGateId": "223",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (pink: Non-DUDA A380)"
+      ]
+    },
+    {
+      "bayId": "F16",
+      "gateId": "B9",
+      "oldGateId": "204",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium",
+      "_notes": "Code F (A380 capable). DUDA status uncertain - VERIFY against full chart. C-B has 5 DUDA total; only F18-F21 confidently identified."
+    },
+    {
+      "bayId": "F17",
+      "gateId": "B11",
+      "oldGateId": "203",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium",
+      "_notes": "Code F. DUDA uncertain - VERIFY."
+    },
+    {
+      "bayId": "F18",
+      "gateId": "B13",
+      "oldGateId": "202",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (DUDA + BIO)"
+      ]
+    },
+    {
+      "bayId": "F19",
+      "gateId": "B15",
+      "oldGateId": "201",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "F20",
+      "gateId": "B17",
+      "oldGateId": "232",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "F21",
+      "gateId": "B19",
+      "oldGateId": "231",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "F22",
+      "gateId": "B21",
+      "oldGateId": "230",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium",
+      "_notes": "Code F. DUDA uncertain - one of F22-F26 is the 5th DUDA gate. VERIFY."
+    },
+    {
+      "bayId": "F23",
+      "gateId": "B23",
+      "oldGateId": "229",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F24",
+      "gateId": "B25",
+      "oldGateId": "228",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F25",
+      "gateId": "B27",
+      "oldGateId": "227",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F26",
+      "gateId": "B29",
+      "oldGateId": "226",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": null
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "medium",
+      "_sources": [
+        "S&P Oct 2025 (BIO gate B29)"
+      ],
+      "_notes": "Code F + BIO. Possible 5th DUDA gate given centrality. VERIFY."
+    },
+    {
+      "bayId": "REMOTE_B01",
+      "gateId": "B1",
+      "oldGateId": "206",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 3 - Remote Gates"
+      ],
+      "_notes": "Remote stand. Bus boarding from gate lounge B1."
+    },
+    {
+      "bayId": "REMOTE_B02",
+      "gateId": "B2",
+      "oldGateId": "207",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_B03",
+      "gateId": "B3",
+      "oldGateId": "208",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_B04",
+      "gateId": "B4",
+      "oldGateId": "209",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_B05",
+      "gateId": "B5",
+      "oldGateId": "210",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "REMOTE_B31a",
+      "gateId": "B31a",
+      "concourse": "B",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B01",
+      "gateId": "C2",
+      "oldGateId": "102",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B02",
+      "gateId": "C4",
+      "oldGateId": "104",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B03",
+      "gateId": "C6",
+      "oldGateId": "106",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B04",
+      "gateId": "C8",
+      "oldGateId": "108",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B05",
+      "gateId": "C10",
+      "oldGateId": "110",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B06",
+      "gateId": "C12",
+      "oldGateId": "112",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B07",
+      "gateId": null,
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_notes": "Bay B07 listed in S&P Oct 2025 but gate cell empty in table - inactive or special-purpose? VERIFY."
+    },
+    {
+      "bayId": "B08",
+      "gateId": "C14",
+      "oldGateId": "114",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (BIO + Direct Boarding stand)"
+      ]
+    },
+    {
+      "bayId": "B09",
+      "gateId": "C16",
+      "oldGateId": "116",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B10",
+      "gateId": "C18",
+      "oldGateId": "118",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high"
+    },
+    {
+      "bayId": "B11",
+      "gateId": "C20",
+      "oldGateId": "120",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (BIO + Direct Boarding)"
+      ]
+    },
+    {
+      "bayId": "B12",
+      "gateId": "C22",
+      "oldGateId": "122",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (Direct Boarding)"
+      ]
+    },
+    {
+      "bayId": "F03",
+      "gateId": "C03",
+      "oldGateId": "103",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium",
+      "_notes": "Code F. Non-DUDA per S&P explicit DUDA list (only C21, C23 in C are DUDA)."
+    },
+    {
+      "bayId": "F04",
+      "gateId": "C05",
+      "oldGateId": "105",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F05",
+      "gateId": "C07",
+      "oldGateId": "107",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F06",
+      "gateId": "C09",
+      "oldGateId": "109",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F07",
+      "gateId": "C11",
+      "oldGateId": "111",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F08",
+      "gateId": "C13",
+      "oldGateId": "113",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": true,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 (BIO + Direct Boarding)"
+      ]
+    },
+    {
+      "bayId": "F09",
+      "gateId": "C17",
+      "oldGateId": "117",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F10",
+      "gateId": "C19",
+      "oldGateId": "119",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "_confidence": "medium"
+    },
+    {
+      "bayId": "F12",
+      "gateId": "C21",
+      "oldGateId": "121",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 4 (DUDA Gates: C21, C23) + Direct Boarding"
+      ]
+    },
+    {
+      "bayId": "F13",
+      "gateId": "C23",
+      "oldGateId": "123",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "F",
+        "duda": true
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "A380",
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": true
+      },
+      "hasStairs": false,
+      "_confidence": "high",
+      "_sources": [
+        "S&P Oct 2025 page 4 (DUDA + Direct Boarding)"
+      ]
+    },
+    {
+      "bayId": "REMOTE_C12a",
+      "gateId": "C12a",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "closed",
+      "_confidence": "high",
+      "_notes": "C12a (Majlis) - currently closed per S&P Oct 2025."
+    },
+    {
+      "bayId": "REMOTE_C15",
+      "gateId": "C15",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high",
+      "_notes": "C15 (Echo North) - open."
+    },
+    {
+      "bayId": "REMOTE_C15a",
+      "gateId": "C15a",
+      "concourse": "C",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [
+        "B777",
+        "A350"
+      ],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "high",
+      "_notes": "C15a (Echo North) - open."
+    },
+    {
+      "bayId": "D1",
+      "gateId": "D1",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D2",
+      "gateId": "D2",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D3",
+      "gateId": "D3",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D4",
+      "gateId": "D4",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D5",
+      "gateId": "D5",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D6",
+      "gateId": "D6",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D7",
+      "gateId": "D7",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D8",
+      "gateId": "D8",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D9",
+      "gateId": "D9",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D10",
+      "gateId": "D10",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D11",
+      "gateId": "D11",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D12",
+      "gateId": "D12",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D13",
+      "gateId": "D13",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D14",
+      "gateId": "D14",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D15",
+      "gateId": "D15",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D16",
+      "gateId": "D16",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D17",
+      "gateId": "D17",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D18",
+      "gateId": "D18",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D19",
+      "gateId": "D19",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D20",
+      "gateId": "D20",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D21",
+      "gateId": "D21",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D22",
+      "gateId": "D22",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D23",
+      "gateId": "D23",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D24",
+      "gateId": "D24",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D25",
+      "gateId": "D25",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D26",
+      "gateId": "D26",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D27",
+      "gateId": "D27",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D28",
+      "gateId": "D28",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D29",
+      "gateId": "D29",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D30",
+      "gateId": "D30",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D31",
+      "gateId": "D31",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "D32",
+      "gateId": "D32",
+      "concourse": "D",
+      "terminal": "T1",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": null,
+        "directBoarding": null
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": null,
+        "hasUpperDeckBridge": null
+      },
+      "hasStairs": false,
+      "_confidence": "low",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 1 / Concourse D section)",
+        "Dubai Airports airline directory (https://www.dubaiairports.ae/airlines)"
+      ],
+      "_notes": "T1 Concourse D serves 100+ non-Emirates international carriers. Public sources state 17 active gates within D1-D32 range and 2 A380 stands; per-gate breakdown is not publicly published. Bay==Gate identity used since internal ground-ops IDs aren't available publicly."
+    },
+    {
+      "bayId": "F1",
+      "gateId": "F1",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F2",
+      "gateId": "F2",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F3",
+      "gateId": "F3",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F4",
+      "gateId": "F4",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F5",
+      "gateId": "F5",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F6",
+      "gateId": "F6",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F7",
+      "gateId": "F7",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F8",
+      "gateId": "F8",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F9",
+      "gateId": "F9",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F10",
+      "gateId": "F10",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F11",
+      "gateId": "F11",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "F12",
+      "gateId": "F12",
+      "concourse": "F",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "Wikipedia: Dubai International Airport (Terminal 2 / Concourse F section)",
+        "Lounge Pair: DXB Terminal 2 lounge and terminal guide"
+      ],
+      "_notes": "T2 boarding lounge — buses to a remote aircraft stand on Apron E. 12 lounges (F1-F12) feed ~43 remote stands; the per-stand identifiers are not publicly published. flydubai is the primary operator with 50+ regional/low-cost carriers also using T2."
+    },
+    {
+      "bayId": "G01",
+      "gateId": "G01",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G02",
+      "gateId": "G02",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G03",
+      "gateId": "G03",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G04",
+      "gateId": "G04",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G05",
+      "gateId": "G05",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G06",
+      "gateId": "G06",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G07",
+      "gateId": "G07",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G08",
+      "gateId": "G08",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G09",
+      "gateId": "G09",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G10",
+      "gateId": "G10",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G11",
+      "gateId": "G11",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G12",
+      "gateId": "G12",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G13",
+      "gateId": "G13",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G14",
+      "gateId": "G14",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G15",
+      "gateId": "G15",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G16",
+      "gateId": "G16",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G17",
+      "gateId": "G17",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G18",
+      "gateId": "G18",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G19",
+      "gateId": "G19",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G20",
+      "gateId": "G20",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G21",
+      "gateId": "G21",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "G22",
+      "gateId": "G22",
+      "concourse": "G",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (Apron G label confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron G — east-side remote stand area between Concourse A's east apron and the Royal Airwing. Used for overnight parking, maintenance staging, charter, and overflow positions. Stand IDs G01-G22 sourced from IFATC's community sim database; Emirates internal ground-ops may use different bay numbers — verify against current S&P or Jeppesen 10-9 if available. Bus boarding only (no jetbridges)."
+    },
+    {
+      "bayId": "Q01",
+      "gateId": "Q01",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q02",
+      "gateId": "Q02",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q03",
+      "gateId": "Q03",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q04",
+      "gateId": "Q04",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q05",
+      "gateId": "Q05",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q06",
+      "gateId": "Q06",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q07",
+      "gateId": "Q07",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q08",
+      "gateId": "Q08",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q09",
+      "gateId": "Q09",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q10",
+      "gateId": "Q10",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "Q11",
+      "gateId": "Q11",
+      "concourse": "Q",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron Q — north-central area near the Emirates Technical Centre. Q01-Q11 are EK maintenance staging positions sourced from IFATC. Not normally used for revenue passenger ops; cabin crew unlikely to encounter unless on a maintenance ferry or repositioning."
+    },
+    {
+      "bayId": "S01",
+      "gateId": "S01",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S02",
+      "gateId": "S02",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S03",
+      "gateId": "S03",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S04",
+      "gateId": "S04",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S05",
+      "gateId": "S05",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S06",
+      "gateId": "S06",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S07",
+      "gateId": "S07",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S08",
+      "gateId": "S08",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S09",
+      "gateId": "S09",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S10",
+      "gateId": "S10",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S11",
+      "gateId": "S11",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S12",
+      "gateId": "S12",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S13",
+      "gateId": "S13",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S14",
+      "gateId": "S14",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "S15",
+      "gateId": "S15",
+      "concourse": "S",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "stub",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron S — additional remote stand area. Specific operational purpose not publicly documented; stand IDs S01-S15 sourced from IFATC sim database. Likely overflow / cargo / GA. Verify with current S&P or Jeppesen 10-9."
+    },
+    {
+      "bayId": "E04",
+      "gateId": "E04",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E05",
+      "gateId": "E05",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E06",
+      "gateId": "E06",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E07",
+      "gateId": "E07",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E08",
+      "gateId": "E08",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E09",
+      "gateId": "E09",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E10",
+      "gateId": "E10",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E11",
+      "gateId": "E11",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E12",
+      "gateId": "E12",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E13",
+      "gateId": "E13",
+      "concourse": "E",
+      "terminal": "T2",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E remote aircraft position serving T2 boarding lounges F1-F12. These are the actual stands where T2 aircraft park; passengers reach them via bus from one of the F-numbered boarding lounges. IFATC documents E04-E13 (10 stands), but Wikipedia states ~43 remote stands feed F1-F12 in total — significant coverage gap remains."
+    },
+    {
+      "bayId": "E30",
+      "gateId": "E30",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E31",
+      "gateId": "E31",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E32",
+      "gateId": "E32",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E33",
+      "gateId": "E33",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E34",
+      "gateId": "E34",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E35",
+      "gateId": "E35",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E36",
+      "gateId": "E36",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E37",
+      "gateId": "E37",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "E38",
+      "gateId": "E38",
+      "concourse": "E",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Apron E General Aviation overflow positions. E30-E38 catalogued by IFATC; serves charter, business jets, executive flights. Cabin crew ops irrelevant unless deadheading on a charter."
+    },
+    {
+      "bayId": "H01",
+      "gateId": "H01",
+      "concourse": "H",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Dubai Royal Air Wing terminal gate at the far east end of the airport. Restricted access; not in revenue passenger flow. H01-H02 listed by IFATC as terminal gates for the Royal flights."
+    },
+    {
+      "bayId": "H02",
+      "gateId": "H02",
+      "concourse": "H",
+      "terminal": "T3",
+      "type": "contact",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": false,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Dubai Royal Air Wing terminal gate at the far east end of the airport. Restricted access; not in revenue passenger flow. H01-H02 listed by IFATC as terminal gates for the Royal flights."
+    },
+    {
+      "bayId": "H03",
+      "gateId": "H03",
+      "concourse": "H",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Dubai Royal Air Wing hangar-adjacent position. Used for Royal Air Wing aircraft staging; restricted access. H03-H04 listed by IFATC."
+    },
+    {
+      "bayId": "H04",
+      "gateId": "H04",
+      "concourse": "H",
+      "terminal": "T3",
+      "type": "remote",
+      "stand": {
+        "code": "E",
+        "duda": false,
+        "directBoarding": false
+      },
+      "biometricBoarding": false,
+      "aircraftCapability": [],
+      "bridges": {
+        "totalCount": 0,
+        "hasUpperDeckBridge": false
+      },
+      "hasStairs": true,
+      "operationalStatus": "open",
+      "_confidence": "low",
+      "_sources": [
+        "IFATC OMDB gate database (https://ifatc.org/gates?code=OMDB) — community-sourced sim ATC reference",
+        "UAE GCAA AIP OMDB Aerodrome Chart (apron labels confirmed in 2014 chart)"
+      ],
+      "_notes": "Dubai Royal Air Wing hangar-adjacent position. Used for Royal Air Wing aircraft staging; restricted access. H03-H04 listed by IFATC."
+    }
+  ]
+}

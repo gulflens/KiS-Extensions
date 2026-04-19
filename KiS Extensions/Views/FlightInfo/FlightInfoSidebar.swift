@@ -75,8 +75,16 @@ struct FlightInfoSidebar: View {
             Label("Languages", systemImage: "bubble.left.and.text.bubble.right")
                 .font(.subheadline.bold())
 
-            // Arabic speakers
-            let arabicCount = crewMembers.filter { $0.languages.contains("Arabic") }.count
+            let langCounts: [String: Int] = {
+                var counts: [String: Int] = [:]
+                for member in crewMembers {
+                    for lang in member.languages {
+                        counts[lang, default: 0] += 1
+                    }
+                }
+                return counts
+            }()
+            let arabicCount = langCounts["Arabic"] ?? 0
             HStack {
                 Text("Arabic")
                     .font(.caption)
@@ -87,14 +95,12 @@ struct FlightInfoSidebar: View {
                     .foregroundStyle(arabicCount > 0 ? .green : .red)
             }
 
-            // All unique languages on the crew
-            let allLangs = Set(crewMembers.flatMap { $0.languages })
-            let sortedLangs = allLangs.sorted().filter { $0 != "Arabic" }
+            let sortedLangs = langCounts.keys.sorted().filter { $0 != "Arabic" }
 
             if !sortedLangs.isEmpty {
                 Divider()
                 ForEach(sortedLangs, id: \.self) { lang in
-                    let count = crewMembers.filter { $0.languages.contains(lang) }.count
+                    let count = langCounts[lang] ?? 0
                     HStack {
                         Text(lang)
                             .font(.caption)
@@ -154,10 +160,10 @@ struct FlightInfoSidebar: View {
 
             Divider()
 
-            // Crew breakdown
+            let gradeCounts = Dictionary(grouping: crewMembers, by: \.grade).mapValues(\.count)
             let grades: [CrewGrade] = [.PUR, .CSV, .FG1, .GR1, .W, .GR2, .CSA]
             ForEach(grades) { grade in
-                let count = crewMembers.filter { $0.grade == grade }.count
+                let count = gradeCounts[grade] ?? 0
                 if count > 0 {
                     HStack {
                         Text(grade.rawValue)

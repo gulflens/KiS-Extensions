@@ -10,6 +10,37 @@ struct BreaksData {
         return allBreaks[operationType]
     }
 
+    /// Returns the break map for crew seats (no CRC) based on the aircraft type and cabin class count.
+    static func crewSeatsBreaks(for aircraftType: String, classes: Int) -> [String: Int]? {
+        switch (aircraftType, classes) {
+        case ("A380", _): return a380_4class_noCRC
+        case ("B777", 4): return b773_4class_noCRC
+        case ("B777", _): return b773_3class_noCRC
+        case ("A350", _): return a350_3class
+        default: return nil
+        }
+    }
+
+    // MARK: - CRC / Crew Seat Capacity
+
+    /// Per-break capacity for CRC configurations (bunk count).
+    static func crcCapacity(for operationType: Int) -> Int? {
+        switch operationType {
+        case 1, 2, 3, 4, 5, 901, 904, 12, 16, 912: return 8   // B777 CRC
+        case 9, 15: return 9                                     // A380 MD-CRC
+        case 10, 11: return 12                                   // A380 LD-CRC
+        default: return nil
+        }
+    }
+
+    /// Per-break capacity for crew seats (no CRC) configurations.
+    static func crewSeatsCapacity(for aircraftType: String) -> Int? {
+        switch aircraftType {
+        case "B777": return 4
+        default: return nil
+        }
+    }
+
     // MARK: - Break definitions
 
     private static let a380_4class_LDCRC: [String: Int] = [
@@ -70,8 +101,15 @@ struct BreaksData {
     private static let b773_3class_noCRC: [String: Int] = [
         "L1": 1, "R2": 1, "R5A": 1, "L4": 1,
         "R1": 2, "R2A": 2, "R4 (R2A)": 2, "R3": 2, "R5": 2,
-        "L2A": 3, "L4 (L2A)": 3, "L5": 3, "L5A": 3,
+        "L2A": 3, "L4 (L2A)": 3, "L5": 3, "L5A": 3, "R5C": 3,
         "PUR": 4, "L2": 4, "L3": 4, "R4": 4,
+    ]
+
+    private static let b773_4class_noCRC: [String: Int] = [
+        "L1": 1, "R2": 1, "R5A": 1, "L4": 1,
+        "R1": 2, "R2A": 2, "R4 (R2A)": 2, "R5": 2, "R5C": 2,
+        "L2A": 3, "L4 (L2A)": 3, "L5": 3, "L5A": 3, "L3": 3,
+        "PUR": 4, "L2": 4, "R4": 4, "R3": 4,
     ]
 
     private static let a380_4class_noCRC: [String: Int] = [
@@ -124,8 +162,11 @@ struct BreaksData {
         // B773 3 class no CRC (types 6, 17)
         6: b773_3class_noCRC, 17: b773_3class_noCRC,
 
-        // A380 2 class — not defined in JS breaks, uses same as 3 class
-        // 7: not explicitly defined, falls through
+        // A380 2 class no CRC
+        7: a380_4class_noCRC,
+
+        // A380 3 class no CRC
+        8: a380_4class_noCRC,
 
         // A380 3 class MD-CRC (types 9, 15)
         9: a380_3class_MDCRC, 15: a380_3class_MDCRC,

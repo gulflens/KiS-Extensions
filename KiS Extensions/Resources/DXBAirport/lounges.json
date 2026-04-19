@@ -1,0 +1,367 @@
+{
+  "_meta": {
+    "schemaVersion": "0.1.0",
+    "_confidence": "MIXED — see individual entries",
+    "_lastVerified": "2026-05-04",
+    "_notes": "Access rules encoded from Emirates official lounge access policy pages and Skywards programme rules. Prices in approxPriceUSD/AED are from articles dated 2024-2026 and require verification on emirates.com before product use. Schema is data-driven: the LoungeAccessEngine in Swift reads these rules without code changes per lounge.",
+    "ruleEvaluationOrder": [
+      "1. Check 'denyConditions' first (e.g. arriving pax denied)",
+      "2. Check 'complimentary' rules — first match wins, return allowed with guest entitlement",
+      "3. Check 'paidAccess' rules — if matched, return paid with price",
+      "4. If no match, return denied"
+    ],
+    "fieldDefinitions": {
+      "id": "Stable identifier",
+      "operator": "emirates | marhaba | ahlan | plazaPremium",
+      "kind": "first | business | shared | thirdParty",
+      "concourse": "A | B | C",
+      "nearestGate": "Closest gate ID for navigation purposes",
+      "accessRules.complimentary[].match": "Predicate: any field match grants access",
+      "accessRules.complimentary[].guests": "{ adults, childrenUnder17 } maximums",
+      "accessRules.paidAccess[].approxPriceAED": "Indicative only — verify before display"
+    }
+  },
+  "lounges": [
+    {
+      "id": "EK_FIRST_CONCOURSE_A",
+      "name": "Emirates First Class Lounge — Concourse A",
+      "operator": "emirates",
+      "kind": "first",
+      "terminal": "T3",
+      "concourse": "A",
+      "level": "Upper level (above Business Class Lounge)",
+      "nearestGate": "A1",
+      "openingHours": "24/7",
+      "directBoarding": true,
+      "amenities": ["dining", "champagneBar", "showers", "spa", "businessCenter", "dutyFree", "cigarBar", "daybeds", "wifi"],
+      "areaSqm": 9000,
+      "accessRules": {
+        "denyConditions": [
+          { "journeyType": "arriving" }
+        ],
+        "complimentary": [
+          { "match": { "cabinClass": "F" }, "guests": null, "_note": "All First Class pax" },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_source": "EK Skywards Platinum tier benefits" },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low", "_note": "iO tier rules not publicly documented; assumed >= Platinum" }
+        ],
+        "paidAccess": [
+          { "match": { "cabinClass": "J" }, "approxPriceUSD": 158, "approxPriceAED": 580, "_confidence": "low", "_note": "Price from loungepair.com Dec 2025; verify on emirates.com" },
+          { "match": { "skywardsTier": "Gold" }, "approxPriceUSD": 158, "_note": "Paid upgrade from complimentary J lounge access" },
+          { "match": { "skywardsTier": "Silver" }, "approxPriceUSD": 158, "_note": "Paid upgrade" },
+          { "match": { "cabinClass": ["W", "Y"] }, "approxPriceUSD": 263, "_confidence": "low" }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": [
+        "emirates.com/us/english/experience/our-lounges/",
+        "loungepair.com (Dec 2025)",
+        "indianeagle.com (Oct 2025)"
+      ],
+      "_notes": "Largest first class lounge in the world (~9,000 m² per loungepair.com). Direct boarding to A380 gates from lounge level."
+    },
+    {
+      "id": "EK_BUSINESS_CONCOURSE_A",
+      "name": "Emirates Business Class Lounge — Concourse A",
+      "operator": "emirates",
+      "kind": "business",
+      "terminal": "T3",
+      "concourse": "A",
+      "level": "Mezzanine / second floor above main concourse level",
+      "nearestGate": "A8",
+      "openingHours": "24/7",
+      "directBoarding": true,
+      "amenities": ["dining", "bar", "champagneBar", "costaCoffee", "showers", "spa", "businessCenter", "kidsArea", "smokingRoom", "wifi", "daybeds"],
+      "areaSqm": 16000,
+      "accessRules": {
+        "denyConditions": [
+          { "journeyType": "arriving" }
+        ],
+        "complimentary": [
+          { "match": { "cabinClass": ["F", "J"] }, "guests": null },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 } },
+          { "match": { "skywardsTier": "Gold" }, "guests": { "adults": 1, "childrenUnder17": 0 }, "_source": "EK partner T&Cs: Gold +1 guest" },
+          { "match": { "skywardsTier": "Silver" }, "guests": null, "_source": "EK partner T&Cs: Silver self only" },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low" },
+          { "match": { "skywardsSkysurfer": "Gold" }, "guests": null, "_note": "Self only, must be with eligible adult per Skysurfers FAQ" }
+        ],
+        "paidAccess": [
+          { "match": { "skywardsTier": "Blue" }, "approxPriceUSD": 175, "approxPriceAED": 642, "_note": "Non-Skywards-member rate per Time Out Dubai 2024" },
+          { "match": { "skywardsTier": "Blue", "skywardsMember": true }, "approxPriceUSD": 150, "approxPriceAED": 550 }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": [
+        "emirates.com/us/english/experience/our-lounges/partners/terms-and-conditions/",
+        "emirates.com/us/english/help/faq-topics/emirates-skywards/",
+        "loungepair.com",
+        "timeoutdubai.com"
+      ],
+      "_notes": "16,000 m² — largest EK Business lounge. Direct boarding from lounge level."
+    },
+    {
+      "id": "EK_FIRST_CONCOURSE_B",
+      "name": "Emirates First Class Lounge — Concourse B",
+      "operator": "emirates",
+      "kind": "first",
+      "terminal": "T3",
+      "concourse": "B",
+      "level": "Upper level",
+      "nearestGate": "B17",
+      "openingHours": "24/7",
+      "directBoarding": false,
+      "amenities": ["dining", "moetChandonChampagneBar", "showers", "spa", "businessCenter", "wifi"],
+      "areaSqm": 12600,
+      "capacityPax": 1800,
+      "accessRules": {
+        "denyConditions": [{ "journeyType": "arriving" }],
+        "complimentary": [
+          { "match": { "cabinClass": "F" }, "guests": null },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 } },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low" }
+        ],
+        "paidAccess": [
+          { "match": { "cabinClass": "J" }, "approxPriceUSD": 158, "_confidence": "low" },
+          { "match": { "skywardsTier": ["Gold", "Silver"] }, "approxPriceUSD": 158, "_note": "Paid upgrade from J lounge entitlement" }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["dubaiairportguide.com", "airport.online", "loungepair.com"],
+      "_notes": "Some sources note Concourse B First Class lounge has been under refurbishment; verify current status before shipping."
+    },
+    {
+      "id": "EK_BUSINESS_CONCOURSE_B",
+      "name": "Emirates Business Class Lounge — Concourse B",
+      "operator": "emirates",
+      "kind": "business",
+      "terminal": "T3",
+      "concourse": "B",
+      "level": "Mezzanine level above concourse",
+      "nearestGate": "B17",
+      "entranceDescription": "Between gates B16-B18",
+      "openingHours": "24/7",
+      "directBoarding": false,
+      "amenities": ["buffet", "alcoholicBeverages", "healthyHub", "selfServeDessert", "saladBar", "familyRoom", "prayerRooms", "showers", "wifi"],
+      "areaSqm": 13500,
+      "capacityPax": 3000,
+      "accessRules": {
+        "denyConditions": [{ "journeyType": "arriving" }],
+        "complimentary": [
+          { "match": { "cabinClass": ["F", "J"] }, "guests": null },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 } },
+          { "match": { "skywardsTier": "Gold" }, "guests": { "adults": 1, "childrenUnder17": 0 } },
+          { "match": { "skywardsTier": "Silver" }, "guests": null },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low" },
+          { "match": { "skywardsSkysurfer": "Gold" }, "guests": null },
+          { "match": { "operator": "flydubai", "cabinClass": "J" }, "guests": null, "_source": "EK partner T&Cs: flydubai J pax depart from T3" },
+          { "match": { "operator": "flydubai", "skywardsTier": ["Gold", "Platinum"] }, "guests": null, "_note": "flydubai pax with Gold/Platinum status — concourse B/C only based on departure gate" }
+        ],
+        "paidAccess": [
+          { "match": { "skywardsTier": "Blue" }, "approxPriceUSD": 175 },
+          { "match": { "skywardsTier": "Blue", "skywardsMember": true }, "approxPriceUSD": 150 }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": [
+        "emirates.com/us/english/experience/our-lounges/partners/terms-and-conditions/",
+        "emirates.com/us/english/help/faq-topics/emirates-skywards/",
+        "loungepair.com",
+        "dubaiairportguide.com"
+      ],
+      "_notes": "Largest EK Business lounge by capacity. Houses Moet & Chandon Champagne bar."
+    },
+    {
+      "id": "EK_FIRST_CONCOURSE_C",
+      "name": "Emirates First Class Lounge — Concourse C",
+      "operator": "emirates",
+      "kind": "first",
+      "terminal": "T3",
+      "concourse": "C",
+      "level": "Same level as Dubai International Hotel",
+      "nearestGate": "C9",
+      "openingHours": "24/7",
+      "directBoarding": false,
+      "amenities": ["dining", "showers", "businessCenter", "wifi"],
+      "accessRules": {
+        "denyConditions": [{ "journeyType": "arriving" }],
+        "complimentary": [
+          { "match": { "cabinClass": "F" }, "guests": null },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 } },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low" }
+        ],
+        "paidAccess": [
+          { "match": { "cabinClass": "J" }, "approxPriceUSD": 158, "_confidence": "low" },
+          { "match": { "skywardsTier": ["Gold", "Silver"] }, "approxPriceUSD": 158 }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["loungepair.com", "indianeagle.com"]
+    },
+    {
+      "id": "EK_BUSINESS_CONCOURSE_C",
+      "name": "Emirates Business Class Lounge — Concourse C",
+      "operator": "emirates",
+      "kind": "business",
+      "terminal": "T3",
+      "concourse": "C",
+      "level": "Lounge complex via escalator/elevator from concourse",
+      "nearestGate": "C9",
+      "entranceDescription": "Lounge complex serves gates C9 and C23 vicinity",
+      "openingHours": "24/7",
+      "directBoarding": false,
+      "amenities": ["buffet", "alcoholicBeverages", "prayerRooms", "iceCreamCart", "showers", "workstations", "tvs", "wifi", "businessCenter", "chargingPorts"],
+      "accessRules": {
+        "denyConditions": [{ "journeyType": "arriving" }],
+        "complimentary": [
+          { "match": { "cabinClass": ["F", "J"] }, "guests": null },
+          { "match": { "skywardsTier": "Platinum" }, "guests": { "adults": 1, "childrenUnder17": 2 } },
+          { "match": { "skywardsTier": "Gold" }, "guests": { "adults": 1, "childrenUnder17": 0 } },
+          { "match": { "skywardsTier": "Silver" }, "guests": null },
+          { "match": { "skywardsTier": "iO" }, "guests": { "adults": 1, "childrenUnder17": 2 }, "_confidence": "low" },
+          { "match": { "skywardsSkysurfer": "Gold" }, "guests": null },
+          { "match": { "operator": "flydubai", "cabinClass": "J" }, "guests": null }
+        ],
+        "paidAccess": [
+          { "match": { "skywardsTier": "Blue" }, "approxPriceUSD": 175 },
+          { "match": { "skywardsTier": "Blue", "skywardsMember": true }, "approxPriceUSD": 150 }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["emirates.com partner T&Cs", "loungepair.com"]
+    },
+    {
+      "id": "EK_LOUNGE_CONCOURSE_C",
+      "name": "The Emirates Lounge — Concourse C",
+      "operator": "emirates",
+      "kind": "shared",
+      "terminal": "T3",
+      "concourse": "C",
+      "nearestGate": "C9",
+      "entranceDescription": "Next to Gate 9, Concourse C",
+      "openingHours": "24/7",
+      "amenities": ["dining", "drinks", "snacks", "wifi"],
+      "accessRules": {
+        "denyConditions": [{ "journeyType": "arriving" }],
+        "complimentary": [
+          { "match": { "skywardsTier": ["Gold", "Platinum"] }, "guests": null, "_note": "Per Time Out Dubai 2024: 'Gold and platinum tier Emirates Skywards members can access at no cost'" },
+          { "match": { "cabinClass": ["F", "J"] }, "guests": null }
+        ],
+        "paidAccess": [
+          { "match": { "skywardsTier": ["Blue", "Silver"] }, "approxPriceUSD": null, "_note": "Paid access available; price NOT verified" }
+        ]
+      },
+      "_confidence": "low",
+      "_sources": ["timeoutdubai.com (April 2024)", "emirates.com lounges page"],
+      "_notes": "Premium lounge separate from F/J class lounges in Concourse C. 'Reopened' per Time Out 2024. Access tier rules conflict between sources — VERIFY."
+    },
+    {
+      "id": "MARHABA_CONCOURSE_A",
+      "name": "Marhaba Lounge — Concourse A",
+      "operator": "marhaba",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "A",
+      "entranceDescription": "Between gates A2 and A3, Level 5 (entrance via elevator from perfume area of Duty Free)",
+      "nearestGate": "A3",
+      "openingHours": "24/7",
+      "amenities": ["food", "bar", "wifi", "showersChargesApply", "kidsRoom", "smokingRoom"],
+      "accessRules": {
+        "complimentary": [],
+        "paidAccess": [
+          { "match": { "anyPax": true }, "approxPriceAED": 175, "_note": "Open paid access; operated by dnata (Emirates Group)" }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["airport-dubai.net", "indianeagle.com"]
+    },
+    {
+      "id": "MARHABA_CONCOURSE_B",
+      "name": "Marhaba Lounge — Concourse B",
+      "operator": "marhaba",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "B",
+      "entranceDescription": "Departures, close to Gate B26",
+      "nearestGate": "B26",
+      "openingHours": "24/7",
+      "amenities": ["food", "bar", "wifi"],
+      "accessRules": {
+        "paidAccess": [
+          { "match": { "anyPax": true }, "approxPriceAED": 175 }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["airport-dubai.net"]
+    },
+    {
+      "id": "AHLAN_CONCOURSE_A",
+      "name": "Ahlan Lounge — Concourse A",
+      "operator": "ahlan",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "A",
+      "entranceDescription": "Gate A1, Concourse A, Level 6 (above EK Business Class Lounge level, same level as Dubai International Hotel)",
+      "nearestGate": "A1",
+      "openingHours": "24/7",
+      "amenities": ["buffet", "drinks", "massageChairs", "wifi", "newspapers"],
+      "accessRules": {
+        "paidAccess": [
+          { "match": { "anyPax": true }, "approxPriceAED": null, "_note": "Open paid access; price unverified" }
+        ]
+      },
+      "_confidence": "medium",
+      "_sources": ["emirates.com/us/english/dubai-experience/activities/10533/"]
+    },
+    {
+      "id": "AHLAN_CONCOURSE_B",
+      "name": "Ahlan Lounge — Concourse B",
+      "operator": "ahlan",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "B",
+      "entranceDescription": "Gate B26, Concourse B (above McDonald's)",
+      "nearestGate": "B26",
+      "openingHours": "24/7",
+      "amenities": ["buffet", "drinks", "massageChairs", "wifi"],
+      "accessRules": {
+        "paidAccess": [{ "match": { "anyPax": true }, "_note": "Price unverified" }]
+      },
+      "_confidence": "medium",
+      "_sources": ["emirates.com Dubai Experience page"]
+    },
+    {
+      "id": "AHLAN_CONCOURSE_C",
+      "name": "Ahlan Lounge — Concourse C",
+      "operator": "ahlan",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "C",
+      "entranceDescription": "Gate C13, Concourse C (same level as Dubai International Hotel)",
+      "nearestGate": "C13",
+      "openingHours": "24/7",
+      "amenities": ["buffet", "drinks", "wifi"],
+      "accessRules": {
+        "paidAccess": [{ "match": { "anyPax": true }, "_note": "Price unverified" }]
+      },
+      "_confidence": "medium",
+      "_sources": ["emirates.com Dubai Experience page"]
+    },
+    {
+      "id": "PLAZA_PREMIUM_CONCOURSE_A",
+      "name": "Plaza Premium Lounge — Concourse A",
+      "operator": "plazaPremium",
+      "kind": "thirdParty",
+      "terminal": "T3",
+      "concourse": "A",
+      "nearestGate": null,
+      "openingHours": "24/7",
+      "amenities": ["food", "drinks", "showers", "wifi"],
+      "accessRules": {
+        "paidAccess": [
+          { "match": { "anyPax": true }, "approxPriceAED": 180, "_note": "Also accessible via Priority Pass / Lounge Key" }
+        ]
+      },
+      "_confidence": "low",
+      "_sources": ["airport-dubai.net"]
+    }
+  ]
+}

@@ -3,21 +3,21 @@ import SwiftData
 
 @Model
 final class SavedTrip {
-    @Attribute(.unique) var tripKey: String
-    var flightNumber: String
-    var flightLegs: [String]
-    var flightDate: Date
-    var sectors: Int
-    var durations: [Double]
-    var sectorsPerDuty: [Int]
+    var tripKey: String = ""
+    var flightNumber: String = ""
+    var flightLegs: [String] = []
+    var flightDate: Date = Date()
+    var sectors: Int = 0
+    var durations: [Double] = []
+    var sectorsPerDuty: [Int] = []
     var aircraftTail: String?
     var serviceType: String?
     var registration: String?
-    var savedAt: Date
-    var notes: String
+    var savedAt: Date = Date()
+    var notes: String = ""
 
     @Relationship(deleteRule: .cascade, inverse: \SavedCrewAllocation.savedTrip)
-    var crewAllocations: [SavedCrewAllocation]
+    var crewAllocations: [SavedCrewAllocation] = []
 
     // Store raw JSON so trip can be re-imported / re-allocated
     var rawJSON: Data?
@@ -115,11 +115,24 @@ final class SavedTrip {
 
     /// Update crew allocations from a modified ParsedTrip
     func updateAllocations(from trip: ParsedTrip) {
+        let incomingStaffNumbers = Set(trip.crewMembers.map { $0.staffNumber })
+
         for member in trip.crewMembers {
             if let existing = crewAllocations.first(where: { $0.staffNumber == member.staffNumber }) {
                 existing.update(from: member)
+            } else {
+                // New crew member (manual override add)
+                let newAlloc = SavedCrewAllocation(from: member)
+                newAlloc.savedTrip = self
+                crewAllocations.append(newAlloc)
             }
         }
+
+        // Remove deleted crew (manual override removal)
+        crewAllocations.removeAll { alloc in
+            !incomingStaffNumbers.contains(alloc.staffNumber)
+        }
+
         savedAt = Date()
     }
 
