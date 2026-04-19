@@ -66,7 +66,14 @@ flightDataKey.forEach(item => {
     let value = safeParse(localStorage.getItem(item));
     if (value) {
         let key = item.split(" ", 1)[0].split("_").slice(-2).join("_");
-        if (dataToGo[key]) dataToGo[key].flightData = value;
+        if (dataToGo[key]) {
+            if (!dataToGo[key].flightData) {
+                dataToGo[key].flightData = value;
+            } else if (value.FlightData) {
+                dataToGo[key].flightData.FlightData =
+                    (dataToGo[key].flightData.FlightData || []).concat(value.FlightData);
+            }
+        }
     }
 });
 

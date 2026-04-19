@@ -17,14 +17,6 @@
 			</array>
 		</dict>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>ms-outlook</string>
-	</array>
-	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>KiS Reports uses speech recognition to transcribe your voice notes into report text.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>KiS Reports needs microphone access to record your voice for speech-to-text transcription.</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -36,6 +28,14 @@
 				<string>crewpositions</string>
 			</array>
 		</dict>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>ms-outlook</string>
 	</array>
 </dict>
 </plist>

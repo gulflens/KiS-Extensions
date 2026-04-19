@@ -10,13 +10,43 @@ struct KiS_ExtensionsApp: App {
             AppSettings.self,
             SavedTrip.self,
             SavedCrewAllocation.self,
-            KiSReportRecord.self,
+            PlannedFlight.self,
+            PlannedSector.self,
+            PolaroidEvidence.self,
+            PolaroidStack.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+        let cloudConfig = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false,
+            cloudKitDatabase: .private("iCloud.Gulflens-Studio.KiS-Extensions")
+        )
+        let localConfig = ModelConfiguration(
+            schema: schema,
+            isStoredInMemoryOnly: false,
+            cloudKitDatabase: .none
+        )
+
+        func makeContainer(_ config: ModelConfiguration) throws -> ModelContainer {
+            let container = try ModelContainer(for: schema, configurations: [config])
+            try Self.ensureDefaultSettings(in: container)
+            return container
+        }
+
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            return try makeContainer(cloudConfig)
         } catch {
-            fatalError("Could not create ModelContainer: \(error)")
+            print("[KiS] CloudKit container init failed: \(error). Wiping store and retrying.")
+            Self.removeStoreFiles(at: cloudConfig.url)
+            do {
+                return try makeContainer(cloudConfig)
+            } catch {
+                print("[KiS] CloudKit retry failed: \(error). Falling back to local-only store.")
+                do {
+                    return try makeContainer(localConfig)
+                } catch {
+                    fatalError("Local-only fallback also failed: \(error)")
+                }
+            }
         }
     }()
 
@@ -76,5 +106,25 @@ struct KiS_ExtensionsApp: App {
         } catch {
             appState.showError(error.localizedDescription)
         }
+    }
+
+    private static func removeStoreFiles(at url: URL) {
+        let fm = FileManager.default
+        try? fm.removeItem(at: url)
+        let path = url.path(percentEncoded: false)
+        try? fm.removeItem(atPath: path + "-wal")
+        try? fm.removeItem(atPath: path + "-shm")
+    }
+
+    private static func ensureDefaultSettings(in container: ModelContainer) throws {
+        var descriptor = FetchDescriptor<AppSettings>()
+        descriptor.fetchLimit = 1
+
+        guard try container.mainContext.fetch(descriptor).isEmpty else {
+            return
+        }
+
+        container.mainContext.insert(AppSettings())
+        try container.mainContext.save()
     }
 }

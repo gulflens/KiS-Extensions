@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# Xcode user data
+xcuserdata/
+*.xcuserstate
+
+# Archives
+*.tar.gz
+
+# Build
+build/
+DerivedData/
+
+# Local reference materials (videos, PDFs, images for decision-making)
+Reference/

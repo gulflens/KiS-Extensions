@@ -125,6 +125,20 @@ struct OperationTypeResolver {
                     return (thisFlightPositions, thisFlightBreaks)
                 }
                 thisFlightPositions = VCMRulesEngine.apply(vcm: vcm, positions: thisFlightPositions, aircraftType: baseType, isULR: isULR)
+
+                // Recompute per-grade surpluses after VCM cascading
+                var postVCMVariations: [String: Int] = [:]
+                for grade in grades {
+                    let posCount = thisFlightPositions[grade]?.allPositions.count ?? 0
+                    let crewCount = crewData.filter { $0.grade.rawValue == grade }.count
+                    let diff = crewCount - posCount
+                    if diff > 0 {
+                        postVCMVariations[grade] = diff
+                    }
+                }
+                if !postVCMVariations.isEmpty {
+                    thisFlightPositions = ExtraRulesEngine.apply(positions: thisFlightPositions, variations: postVCMVariations)
+                }
             } else {
                 thisFlightPositions = ExtraRulesEngine.apply(positions: thisFlightPositions, variations: variations)
             }

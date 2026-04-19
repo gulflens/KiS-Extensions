@@ -54,9 +54,10 @@ struct JSONParser {
                 sectorsPerDuty: shortInfo.sectorsPerDuty ?? [sectors]
             )
 
+            let allFlightItems = tripDTO.flightData?.FlightData ?? []
             let flightData = FlightData(
-                aircraftTail: tripDTO.flightData?.FlightData?.first?.AircraftTail,
-                serviceType: tripDTO.flightData?.FlightData?.first?.ServiceType
+                aircraftTail: allFlightItems.first(where: { $0.AircraftTail != nil })?.AircraftTail,
+                serviceType: allFlightItems.first(where: { $0.ServiceType != nil })?.ServiceType
             )
 
             let rawCrewData = tripDTO.crewData ?? []

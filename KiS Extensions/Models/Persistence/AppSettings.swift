@@ -22,6 +22,12 @@ final class AppSettings {
     // General
     var appearanceModeRaw: Int = 1
 
+    // Flight Planner
+    var openAllCardsSimultaneously: Bool = true
+
+    // Polaroid Evidence
+    var polaroidAutoSave: Bool = true
+
     // Crew Positions
     var additionalInfo: Bool = true
     var ramadan: Bool = false

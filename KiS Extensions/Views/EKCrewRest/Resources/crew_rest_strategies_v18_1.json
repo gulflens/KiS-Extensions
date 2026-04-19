@@ -1,0 +1,1786 @@
+{
+  "version": "18.1",
+  "publishedAt": "2026-04",
+  "lrvRestTable": [
+    {
+      "label": "< 14 hrs",
+      "value": "2 hr",
+      "minBlockMin": null,
+      "maxBlockMin": 839
+    },
+    {
+      "label": "14h – 14h 59m",
+      "value": "3 hr",
+      "minBlockMin": 840,
+      "maxBlockMin": 899
+    },
+    {
+      "label": "15h – 15h 59m",
+      "value": "3 hr 30 min",
+      "minBlockMin": 900,
+      "maxBlockMin": 959
+    },
+    {
+      "label": "≥ 16 hrs",
+      "value": "4 hr",
+      "minBlockMin": 960,
+      "maxBlockMin": null
+    }
+  ],
+  "nonLrvRestTable": [
+    {
+      "label": "Up to 3h 59m",
+      "value": "Meal break only",
+      "location": "Jump seats",
+      "minBlockMin": null,
+      "maxBlockMin": 239
+    },
+    {
+      "label": "4h – 9h 29m",
+      "value": "45 min – 1 hr",
+      "location": "Jump seats or soft-blocked YC (last 2 rows aft, LHS or RHS) · CRC if fitted, time permitting",
+      "minBlockMin": 240,
+      "maxBlockMin": 569
+    },
+    {
+      "label": "9h 30m – 13h 59m",
+      "value": "1 hr – 1 hr 30 min",
+      "location": "Hard-blocked YC seats",
+      "minBlockMin": 570,
+      "maxBlockMin": 839
+    }
+  ],
+  "nonLrvNotes": "Note 1: When CRC is available on 9h 30m – 13h 59m, extend crew rest up to 30 min, time permitting. Note 2: If any of the sectors is below 9h 29m, adjust rest timing to 45 min – 1 hr.",
+  "specialSectors": [
+    {
+      "id": "dxb-cky",
+      "name": "DXB – CKY",
+      "mandatoryMin": 180,
+      "kind": "CCAP",
+      "useSpecific": null,
+      "note": null
+    },
+    {
+      "id": "nrt-dxb",
+      "name": "NRT – DXB",
+      "mandatoryMin": 180,
+      "kind": "CCAP",
+      "useSpecific": null,
+      "note": null
+    },
+    {
+      "id": "hnd-dxb",
+      "name": "HND – DXB",
+      "mandatoryMin": 180,
+      "kind": "CCAP",
+      "useSpecific": null,
+      "note": null
+    },
+    {
+      "id": "ek255w",
+      "name": "EK 255 BCN – MEX (winter)",
+      "mandatoryMin": 180,
+      "kind": "CCAP",
+      "useSpecific": null,
+      "note": "Applicable only during winter schedule 26OCT – 29MAR. On EK 255 BCN/MEX (3 Class), while the first group is having their rest, Purser or one GR1 to remain in WC/YC to ensure Premium Economy and Economy Class have 4 crew members collectively to meet customer needs at all times."
+    },
+    {
+      "id": "ek231",
+      "name": "EK 231 DXB – IAD",
+      "mandatoryMin": null,
+      "kind": "LRV",
+      "useSpecific": "specific.MDCRC.IADYYZ",
+      "note": null
+    },
+    {
+      "id": "ek241",
+      "name": "EK 241 DXB – YYZ",
+      "mandatoryMin": null,
+      "kind": "LRV",
+      "useSpecific": "specific.MDCRC.IADYYZ",
+      "note": null
+    }
+  ],
+  "strategies": {
+    "LRV.B777.200.2.CRC": {
+      "page": 7,
+      "src": "LRV B777-200 · 2 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "LRV.B777.200.3.CRC": {
+      "page": 7,
+      "src": "LRV B777-200 · 3 Class (J,W,Y) · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "LRV.B777.300.3.CRC": {
+      "page": 7,
+      "src": "LRV B777-300 · 3 Class (F,J,Y) · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins. On flights with 3 FG1s the Purser pairs with an FG1 member for breaks per service demands."
+      }
+    },
+    "LRV.B777.300.4.CRC": {
+      "page": 7,
+      "src": "LRV B777-300 · 4 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins. On flights with 3 FG1s the Purser pairs with an FG1 member for breaks per service demands."
+      }
+    },
+    "LRV.A380..3.MDCRC": {
+      "page": 8,
+      "src": "LRV A380 · 3 Class · MD-CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "LRV.A380..4.MDCRC": {
+      "page": 8,
+      "src": "LRV A380 · 4 Class · MD-CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 1 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV"
+            },
+            {
+              "cls": "Y",
+              "text": "4 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "LRV.A380..3.LDCRC": {
+      "page": 8,
+      "src": "LRV A380 · 3 Class · LD-CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 4 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            },
+            {
+              "cls": "S",
+              "text": "CSA"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 10,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "LRV.A380..4.LDCRC": {
+      "page": 8,
+      "src": "LRV A380 · 4 Class · LD-CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 4 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            },
+            {
+              "cls": "S",
+              "text": "CSA"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV / 1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "4 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "LRV.A350..3.CRC": {
+      "page": 9,
+      "src": "LRV A350 · 3 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "specific.MDCRC.IADYYZ": {
+      "page": 10,
+      "src": "EK 231 DXB-IAD & EK 241 DXB-YYZ · MD-CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 4 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 8,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "CCAP.B777.200LR.2.CRC": {
+      "page": 11,
+      "src": "CCAP B777-200 LR · 2 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "CCAP.B777.200LR.3.CRC": {
+      "page": 11,
+      "src": "CCAP B777-200 LR · 3 Class · CRC",
+      "note": "Note 1 (winter only, 26OCT – 29MAR): On EK 255 BCN/MEX (3 Class), while the first group is having their rest, Purser or one GR1 crew to remain in WC/YC to ensure Premium Economy and Economy Class have 4 crew members collectively to meet customer needs at all times.",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "CCAP.B777.300.GENERIC.CRC": {
+      "page": 11,
+      "src": "CCAP B777-300 · CRC",
+      "generic": {
+        "g1": "50% of crew including CSV(s) and Business Class galley operator",
+        "g2": "Remaining crew including Purser"
+      },
+      "note": "When no CRC is available, refer to OM-A 7.7.1.2."
+    },
+    "CCAP.A380..GENERIC.CRC": {
+      "page": 11,
+      "src": "CCAP A380 · CRC",
+      "generic": {
+        "g1": "50% of crew including CSV(s) and Business Class galley operator",
+        "g2": "Remaining crew including Purser"
+      },
+      "note": "When no CRC is available, refer to OM-A 7.7.1.2. Refer to the rest strategy for MD-CRC 4 Class LRV (9 Bunks) on page 8.",
+      "seeAlso": "LRV.A380..4.MDCRC"
+    },
+    "NonLRV.B777.200.2.HardBlocked": {
+      "page": 12,
+      "src": "Non-LRV B777-200 · 2 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.200.3.HardBlocked": {
+      "page": 12,
+      "src": "Non-LRV B777-200 · 3 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.300.2.HardBlocked": {
+      "page": 12,
+      "src": "Non-LRV B777-300 · 2 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 3,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 3,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.300.3.HardBlocked": {
+      "page": 12,
+      "src": "Non-LRV B777-300 · 3 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 3,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.300.4.HardBlocked": {
+      "page": 12,
+      "src": "Non-LRV B777-300 · 4 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 4,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.200LR.2.CRC": {
+      "page": 12,
+      "src": "Non-LRV B777-200 LR · 2 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.200LR.3.CRC": {
+      "page": 12,
+      "src": "Non-LRV B777-200 LR · 3 Class · CRC",
+      "note": "Note 1: On B777-200 LR 3 class, Purser or 1 GR1 to be in WC/YC during 1st break to ensure they have 4 crew at any time in WC & YC collectively.",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.B777.300LR.3.CRC": {
+      "page": 12,
+      "src": "Non-LRV B777-300 LR · 3 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "Purser"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "NonLRV.B777.300LR.4.CRC": {
+      "page": 12,
+      "src": "Non-LRV B777-300 LR · 4 Class · CRC",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "Purser"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "NonLRV.A380..2.HardBlocked": {
+      "page": 13,
+      "src": "Non-LRV A380 · 2 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 5,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 5,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.A380..3.HardBlocked": {
+      "page": 13,
+      "src": "Non-LRV A380 · 3 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.A380..4.HardBlocked": {
+      "page": 13,
+      "src": "Non-LRV A380 · 4 Class · Hard-Blocked",
+      "note": "CSA can start rest before other cabins.",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 1 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 4",
+          "crew": 6,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.A380..3.9bunks": {
+      "page": 13,
+      "src": "Non-LRV A380 · 3 Class · 9 Bunks",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 7,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 8,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.A380..4.9bunks": {
+      "page": 13,
+      "src": "Non-LRV A380 · 4 Class · 9 Bunks",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 9,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1 / CSA"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 8,
+          "lines": [
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "CSV / 2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 8,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "F",
+              "text": "1 FG1"
+            },
+            {
+              "cls": "J",
+              "text": "3 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        }
+      ]
+    },
+    "NonLRV.A380..3.12bunks": {
+      "page": 13,
+      "src": "Non-LRV A380 · 3 Class · 12 Bunks",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 4 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "5 GR2"
+            },
+            {
+              "cls": "S",
+              "text": "CSA"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 10,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "NonLRV.A380..4.12bunks": {
+      "page": 13,
+      "src": "Non-LRV A380 · 4 Class · 12 Bunks",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "CSV / 4 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "CSV / 1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "3 GR2"
+            },
+            {
+              "cls": "S",
+              "text": "CSA"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 11,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "4 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 4 GR2"
+            }
+          ]
+        }
+      ],
+      "fClass": {
+        "groups": [
+          "1 FG1",
+          "1 FG1",
+          "1 FG1"
+        ],
+        "note": "F Class splits into 3 groups · can start rest before other cabins."
+      }
+    },
+    "NonLRV.A350..3.HardBlocked": {
+      "page": 14,
+      "src": "Non-LRV A350 · 3 Class · Hard-Blocked",
+      "groups": [
+        {
+          "name": "Group 1",
+          "crew": 5,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "2 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 2",
+          "crew": 5,
+          "lines": [
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "W",
+              "text": "1 GR2"
+            },
+            {
+              "cls": "Y",
+              "text": "CSV / 2 GR2"
+            }
+          ]
+        },
+        {
+          "name": "Group 3",
+          "crew": 3,
+          "lines": [
+            {
+              "cls": "P",
+              "text": "Purser"
+            },
+            {
+              "cls": "J",
+              "text": "1 GR1"
+            },
+            {
+              "cls": "Y",
+              "text": "1 GR2"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

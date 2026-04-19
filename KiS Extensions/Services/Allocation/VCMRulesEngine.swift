@@ -115,8 +115,8 @@ struct VCMRulesEngine {
         case 8, 9, 11:
             if vcm < 0 {
                 removePosition(&p, grade: "GR2", from: .remain, position: "ML4")
-                removePosition(&p, grade: "GR1", from: .df, position: "ML4A")
-                addPosition(&p, grade: "GR1", to: .df, position: "ML4 (ML4A)")
+                removePosition(&p, grade: "GR1", from: .remain, position: "ML4A")
+                addPosition(&p, grade: "GR1", to: .remain, position: "ML4 (ML4A)")
             }
             if vcm < -1 {
                 removePosition(&p, grade: "GR2", from: .df, position: "MR5")

@@ -59,6 +59,7 @@ enum CrewTableStyle {
     static let cellPadH: CGFloat = 4
     static let rowPadV: CGFloat  = 0
     static let rowHeight: CGFloat = 24
+    static let sectionHeaderHeight: CGFloat = 24
 }
 
 /// Wraps table content and applies the correct border width from environment.
@@ -76,6 +77,7 @@ private struct ExportBorderAwareTable<Content: View>: View {
 
 /// Measures actual text content to produce tight-fit column widths.
 struct ColumnWidths {
+    var rowNum: CGFloat
     var grade: CGFloat
     var name: CGFloat
     var positionWidths: [CGFloat]  // one width per sector
@@ -92,7 +94,7 @@ struct ColumnWidths {
 
     /// Total width of all columns (excluding hidden ones).
     func totalWidth(sectors: Int, hasBreaks: [Bool], hiddenColumns: Set<String>) -> CGFloat {
-        var w: CGFloat = 0
+        var w: CGFloat = rowNum
         if !hiddenColumns.contains("grade") { w += grade }
         if !hiddenColumns.contains("name") { w += name }
         for i in 0..<sectors {
@@ -140,6 +142,7 @@ struct ColumnWidths {
 
         // Header minimum widths (full label, single-line headers)
         let hFont = headerFont
+        let rowNum = max(measure("N.", font: hFont), measure("\(crew.count)", font: caption)) + 8
         var grade = measure("Grade", font: hFont)
         var name = measure("Nickname", font: hFont)
         let positionMin = measure("Position", font: hFont)
@@ -163,7 +166,7 @@ struct ColumnWidths {
             nationality = max(nationality, measure(m.nationality, font: caption))
             languages = max(languages, measure(m.languages.joined(separator: ", "), font: caption))
             tig = max(tig, measure(m.timeInGrade, font: caption))
-            comment = max(comment, measure(m.comment, font: caption))
+            comment = max(comment, measure(CommentFormatter.singleLine(m.comment), font: caption))
 
             let totalFlown = m.destinationExperience.values.reduce(0, +)
             if totalFlown > 0 {
@@ -209,7 +212,7 @@ struct ColumnWidths {
             }
         }
 
-        // Cap comment so it doesn't blow out
+        // Cap comment so it doesn't blow out — full text is shown via tap/hover popover
         comment = min(comment, 300)
         // Cap languages
         languages = min(languages, 200)
@@ -220,7 +223,7 @@ struct ColumnWidths {
         }
 
         return ColumnWidths(
-            grade: grade, name: name, positionWidths: perSectorPosition, breakCol: breakCol,
+            rowNum: rowNum, grade: grade, name: name, positionWidths: perSectorPosition, breakCol: breakCol,
             fullName: fullName, staff: staff, flag: flag,
             nationality: nationality, languages: languages, tig: tig,
             badges: badges, flown: flown, comment: comment
@@ -247,18 +250,16 @@ struct CrewTableView: View {
     @State private var activeCrewIndex: Int? = nil
     @State private var activeSector: Int? = nil
     @State private var zoomScale: CGFloat = 1.0
-    @State private var steadyZoom: CGFloat = 1.0   // committed zoom before gesture
     @State private var availableSize: CGSize = .zero
     @State private var colWidths = ColumnWidths(
-        grade: 38, name: 120, positionWidths: [80], breakCol: 45,
+        rowNum: 28, grade: 38, name: 120, positionWidths: [80], breakCol: 45,
         fullName: 160, staff: 58, flag: 22, nationality: 100,
         languages: 160, tig: 90, badges: 120, flown: 60, comment: 260
     )
 
     // Briefing mode + share/export state
     @State private var briefingMode: Bool = false
-    @State private var shareItems: [Any] = []
-    @State private var showShareSheet = false
+    @State private var shareURL: ShareableURL? = nil
 
     // Save state
     @State private var isSaved = false
@@ -269,20 +270,28 @@ struct CrewTableView: View {
     @State private var tripNotes: String = ""
     @State private var showNotesPopover = false
 
-    private var settings: AppSettings {
-        settingsArray.first ?? AppSettings()
-    }
+    // Override state
+    @State private var overrideMode = false
+    @State private var overrideSheetMode: CrewOverrideMode? = nil
 
-    /// Scale factor that fits the full table width into the available display width.
+    private var settings: AppSettings? { settingsArray.first }
+
+    /// Scale factor that fits the full table into the available display area.
     private var fitZoomScale: CGFloat {
-        guard availableSize.width > 0 else { return 1.0 }
+        guard availableSize.width > 0, availableSize.height > 0 else { return 1.0 }
         let tableW = colWidths.totalWidth(
             sectors: trip.flightInfo.sectors,
             hasBreaks: hasBreaks,
             hiddenColumns: hiddenColumns
         )
         guard tableW > 0 else { return 1.0 }
-        return availableSize.width / tableW
+        let widthScale = availableSize.width / tableW
+        let breakRows = breakSectorIndices.isEmpty ? 0 : (breakSectorIndices.map { breakGroups(for: $0).count }.max() ?? 0) + 3
+        let totalRows = CGFloat(crewMembers.count + 10 + breakRows)
+        let tableH = totalRows * CrewTableStyle.rowHeight
+        guard tableH > 0 else { return widthScale }
+        let heightScale = availableSize.height / tableH
+        return min(widthScale, heightScale)
     }
 
     var body: some View {
@@ -297,54 +306,23 @@ struct CrewTableView: View {
 
             // Main content
             HStack(spacing: 0) {
-                // Crew table with native ScrollView panning + pinch-to-zoom
                 GeometryReader { geo in
-                    let scaledTableW = colWidths.totalWidth(
-                        sectors: trip.flightInfo.sectors,
-                        hasBreaks: hasBreaks,
-                        hiddenColumns: hiddenColumns
-                    ) * zoomScale
-                    let scaledTableH = CGFloat(crewMembers.count + 10) * CrewTableStyle.rowHeight * zoomScale
-
-                    ScrollView([.horizontal, .vertical], showsIndicators: true) {
+                    ZoomableTableView(zoomScale: $zoomScale, fitScale: fitZoomScale) {
                         tableContent
                             .environment(\.briefingMode, briefingMode)
-                            .scaleEffect(zoomScale, anchor: .topLeading)
-                            .frame(
-                                width: max(scaledTableW, geo.size.width),
-                                height: max(scaledTableH, geo.size.height),
-                                alignment: .topLeading
-                            )
-                    }
-                    .defaultScrollAnchor(.topLeading)
-                    .gesture(
-                        MagnifyGesture()
-                            .onChanged { value in
-                                let newScale = steadyZoom * value.magnification
-                                zoomScale = min(max(newScale, 0.25), 3.0)
-                            }
-                            .onEnded { value in
-                                let newScale = steadyZoom * value.magnification
-                                zoomScale = min(max(newScale, 0.25), 3.0)
-                                steadyZoom = zoomScale
-                            }
-                    )
-                    .onTapGesture(count: 2) {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            zoomScale = fitZoomScale
-                            steadyZoom = fitZoomScale
-                        }
                     }
                     .background(CrewTableStyle.pageBG)
                     .onAppear {
                         availableSize = geo.size
                         DispatchQueue.main.async {
                             zoomScale = fitZoomScale
-                            steadyZoom = fitZoomScale
                         }
                     }
                     .onChange(of: geo.size) { _, newSize in
                         availableSize = newSize
+                        if zoomScale < fitZoomScale {
+                            zoomScale = fitZoomScale
+                        }
                     }
                 }
 
@@ -361,7 +339,7 @@ struct CrewTableView: View {
                     .frame(width: 440)
                 }
 
-                if showFlightInfo && settings.additionalInfo {
+                if showFlightInfo && (settings?.additionalInfo ?? true) {
                     Divider()
                     FlightInfoSidebar(trip: trip, crewMembers: crewMembers)
                 }
@@ -373,6 +351,7 @@ struct CrewTableView: View {
         .onAppear {
             runAllocation()
             checkIfSaved()
+            saveTrip()
         }
         .onChange(of: crewMembers) { _, newMembers in
             // Recalculate column widths when crew data changes (e.g. badges added)
@@ -382,7 +361,6 @@ struct CrewTableView: View {
                 hasBreaks: hasBreaks
             )
 
-            guard isSaved else { return }
             autoSaveTask?.cancel()
             autoSaveTask = Task {
                 try? await Task.sleep(for: .seconds(1))
@@ -399,8 +377,24 @@ struct CrewTableView: View {
                 saveTrip()
             }
         }
-        .sheet(isPresented: $showShareSheet) {
-            ActivityView(items: shareItems)
+        .sheet(item: $shareURL) { item in
+            ActivityView(items: [item.url])
+        }
+        .sheet(item: $overrideSheetMode) { mode in
+            NavigationStack {
+                CrewOverrideSheet(
+                    mode: mode,
+                    sectors: trip.flightInfo.sectors,
+                    onSave: { member in
+                        handleOverrideSave(mode: mode, member: member)
+                    },
+                    onDelete: {
+                        if case .edit(_, let index) = mode {
+                            removeCrew(at: index)
+                        }
+                    }
+                )
+            }
         }
 
     }
@@ -417,17 +411,73 @@ struct CrewTableView: View {
         ) - 24 // subtract the outer padding already accounted for in totalWidth
     }
 
-    private var tableContent: some View {
-        ExportBorderAwareTable {
-            VStack(alignment: .leading, spacing: 0) {
-                headerRow
-                crewRows
+    private static let titleDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "dd MMM yyyy"
+        return f
+    }()
+
+    @ViewBuilder
+    private func makeTableContent(includeLink: Bool, isExport: Bool = false, showOverrideControls: Bool = false) -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            // Centered flight title
+            HStack(spacing: 6) {
+                Text("EK \(trip.flightInfo.flightNumber)")
+                    .font(.subheadline.bold())
+                Text("|")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.red)
+                Text(trip.flightInfo.flightLegs.joined(separator: " – "))
+                    .font(.subheadline.bold().monospaced())
+                Text("|")
+                    .font(.subheadline.bold())
+                    .foregroundStyle(.red)
+                Text(Self.titleDateFormatter.string(from: trip.flightInfo.flightDate))
+                    .font(.subheadline.bold())
             }
-            .frame(width: tableWidth)
-            .clipped()
-            .background(CrewTableStyle.cardBG)
+            .frame(width: tableWidth, alignment: .center)
+            .padding(.bottom, 4)
+
+            HStack(alignment: .top, spacing: 4) {
+                if showOverrideControls {
+                    overrideColumn
+                }
+
+                ExportBorderAwareTable {
+                    VStack(alignment: .leading, spacing: 0) {
+                        headerRow
+                        crewRows
+                    }
+                    .frame(width: tableWidth)
+                    .clipped()
+                    .background(CrewTableStyle.cardBG)
+                }
+            }
+
+            breakSummaries()
+
+            Text("* Positions may be adjusted to accommodate MFP2.0 or other operational requirements")
+                .font(.caption)
+                .foregroundStyle(.primary.opacity(0.7))
+
+            if includeLink {
+                HStack(spacing: 0) {
+                    Text("* To change your comment, visit ")
+                        .font(.caption)
+                        .foregroundStyle(.primary.opacity(0.7))
+                    Link("apps-crewportal.emirates.group/my.policy", destination: URL(string: "https://apps-crewportal.emirates.group/my.policy")!)
+                        .font(.caption)
+                    Text(" and then press \"Edit\"")
+                        .font(.caption)
+                        .foregroundStyle(.primary.opacity(0.7))
+                }
+            }
         }
         .padding(12)
+    }
+
+    private var tableContent: some View {
+        makeTableContent(includeLink: true, showOverrideControls: overrideMode)
     }
 
     // MARK: - Error Banner
@@ -468,6 +518,7 @@ struct CrewTableView: View {
 
     private var headerRow: some View {
         HStack(spacing: 0) {
+            headerCell("N.", width: colWidths.rowNum)
             if !hiddenColumns.contains("grade") {
                 headerCell("Grade", width: colWidths.grade, id: "grade")
             }
@@ -513,7 +564,7 @@ struct CrewTableView: View {
     @ViewBuilder
     private func headerCell(_ title: String, width: CGFloat, id: String? = nil) -> some View {
         HeaderCellView(title: title, width: width, id: id) { colId in
-            if settings.clickableHeaders {
+            if settings?.clickableHeaders ?? true {
                 withAnimation { _ = hiddenColumns.insert(colId) }
             }
         }
@@ -557,7 +608,13 @@ extension CrewTableView {
     private var crewRows: some View {
         let positions = displayPositions
         return ForEach(gradeGroups, id: \.0) { grade, indices in
-            GradeSectionHeader(grade: grade, count: indices.count)
+            GradeSectionHeader(
+                grade: grade,
+                count: indices.count,
+                onAddCrew: overrideMode ? {
+                    overrideSheetMode = .add(grade: grade)
+                } : nil
+            )
 
             ForEach(Array(indices.enumerated()), id: \.element) { sectionIdx, idx in
                 CrewRowView(
@@ -576,12 +633,38 @@ extension CrewTableView {
                         if focused {
                             activeCrewIndex = crewIdx
                             activeSector = sector
-                        } else if activeCrewIndex == crewIdx && activeSector == sector {
-                            activeCrewIndex = nil
-                            activeSector = nil
                         }
-                    }
+                    },
+                    isManualOverride: crewMembers[idx].isManualOverride
                 )
+            }
+        }
+    }
+
+    // MARK: - Override Column (outside the table border)
+
+    /// A column of edit buttons that aligns with each crew row, shown to the
+    /// left of the bordered table when override mode is active.
+    private var overrideColumn: some View {
+        VStack(alignment: .center, spacing: 0) {
+            // Spacer matching header row height
+            Color.clear.frame(width: 28, height: CrewTableStyle.rowHeight)
+
+            ForEach(gradeGroups, id: \.0) { grade, indices in
+                // Spacer matching section header height
+                Color.clear.frame(width: 28, height: CrewTableStyle.sectionHeaderHeight)
+
+                ForEach(indices, id: \.self) { idx in
+                    Button {
+                        overrideSheetMode = .edit(member: crewMembers[idx], index: idx)
+                    } label: {
+                        Image(systemName: "pencil.circle.fill")
+                            .font(.system(size: 14))
+                            .foregroundStyle(.orange)
+                    }
+                    .buttonStyle(.plain)
+                    .frame(width: 28, height: CrewTableStyle.rowHeight)
+                }
             }
         }
     }
@@ -618,7 +701,13 @@ extension CrewTableView {
     private var gradeGroups: [(CrewGrade, [Int])] {
         let order: [CrewGrade] = [.PUR, .CSV, .FG1, .GR1, .W, .GR2, .CSA]
         return order.compactMap { grade in
-            let indices = crewMembers.indices.filter { crewMembers[$0].grade == grade }
+            let indices = crewMembers.indices
+                .filter { crewMembers[$0].grade == grade }
+                .sorted {
+                    let numA = Int(crewMembers[$0].staffNumber.filter(\.isNumber)) ?? 0
+                    let numB = Int(crewMembers[$1].staffNumber.filter(\.isNumber)) ?? 0
+                    return numA < numB
+                }
             return indices.isEmpty ? nil : (grade, indices)
         }
     }
@@ -626,10 +715,102 @@ extension CrewTableView {
     private var currentBreaks: [String: Int] {
         guard let reg = trip.registration,
               let typeCode = FleetRegistry.fleet[reg] else { return [:] }
+
+        if trip.flightInfo.selectedFacility == Facility.crewSeats.rawValue,
+           let entry = FleetLoader.shared.entry(forSuffix: String(reg.suffix(3))),
+           let crewSeatsBreaks = BreaksData.crewSeatsBreaks(for: entry.type, classes: entry.classes) {
+            return crewSeatsBreaks
+        }
+
         let opType = OperationTypeResolver.resolve(
             registration: reg, isULR: trip.flightInfo.isULR, crewData: crewMembers
         ) ?? typeCode
         return BreaksData.clonedBreaks(for: opType) ?? [:]
+    }
+
+    private var currentBreakCapacity: Int? {
+        guard let reg = trip.registration,
+              let typeCode = FleetRegistry.fleet[reg] else { return nil }
+
+        if trip.flightInfo.selectedFacility == Facility.crewSeats.rawValue {
+            guard let entry = FleetLoader.shared.entry(forSuffix: String(reg.suffix(3))) else { return nil }
+            return BreaksData.crewSeatsCapacity(for: entry.type)
+        }
+
+        let opType = OperationTypeResolver.resolve(
+            registration: reg, isULR: trip.flightInfo.isULR, crewData: crewMembers
+        ) ?? typeCode
+        return BreaksData.crcCapacity(for: opType)
+    }
+
+    // MARK: - Break Summary
+
+    private var breakSectorIndices: [Int] {
+        (0..<trip.flightInfo.sectors).filter { sector in
+            hasBreaks.indices.contains(sector) && hasBreaks[sector] && !breakGroups(for: sector).isEmpty
+        }
+    }
+
+    @ViewBuilder
+    private func breakSummaries() -> some View {
+        let indices = breakSectorIndices
+        if !indices.isEmpty {
+            let spacing: CGFloat = 16
+            let totalSpacing = spacing * CGFloat(max(indices.count - 1, 0))
+            let perTableWidth = (tableWidth - totalSpacing) / CGFloat(indices.count)
+            HStack(alignment: .top, spacing: spacing) {
+                ForEach(indices, id: \.self) { sector in
+                    BreakSummaryTable(
+                        groups: breakGroups(for: sector),
+                        totalWidth: perTableWidth,
+                        sectorLabel: sectorLabel(for: sector),
+                        capacity: currentBreakCapacity
+                    )
+                }
+            }
+        }
+    }
+
+    private func breakGroups(for sector: Int) -> [BreakGroupEntry] {
+        struct MemberInfo {
+            let nickname: String
+            let grade: String
+        }
+        var grouped: [Int: [MemberInfo]] = [:]
+        for member in crewMembers {
+            guard !member.isSupy else { continue }
+            if let brk = member.breaks[sector] {
+                grouped[brk, default: []].append(MemberInfo(nickname: member.nickname, grade: member.grade.rawValue))
+            }
+        }
+        return grouped
+            .sorted { $0.key < $1.key }
+            .map { entry in
+                let members = entry.value
+                let seniors = members.filter { ["PUR", "CSV"].contains($0.grade) }.map(\.nickname).joined(separator: ", ")
+                let fg1 = members.filter { $0.grade == "FG1" }.map(\.nickname).joined(separator: ", ")
+                let gr1 = members.filter { ["GR1", "W"].contains($0.grade) }.map(\.nickname).joined(separator: ", ")
+                let gr2 = members.filter { ["GR2", "CSA"].contains($0.grade) }.map(\.nickname).joined(separator: ", ")
+                return BreakGroupEntry(breakNumber: entry.key, count: members.count, seniors: seniors, fg1: fg1, gr1: gr1, gr2: gr2)
+            }
+    }
+
+    private func sectorLabel(for sector: Int) -> String {
+        let legs = trip.flightInfo.flightLegs
+        let totalSectors = trip.flightInfo.sectors
+
+        if legs.count == totalSectors + 1 {
+            return "\(legs[sector]) - \(legs[sector + 1])"
+        }
+
+        // Portal scraper omits the final DXB: ["DXB", "TPE"] for a 2-sector round trip
+        if legs.count == totalSectors, legs.indices.contains(sector) {
+            let dep = legs[sector]
+            let arr = (sector + 1 < legs.count) ? legs[sector + 1] : "DXB"
+            return "\(dep) - \(arr)"
+        }
+
+        return "Sector \(sector + 1)"
     }
 
     // MARK: - Column Registry
@@ -666,7 +847,14 @@ extension CrewTableView {
     /// mode and forced to light color scheme so screenshots/PDFs look
     /// consistent regardless of the device's appearance.
     private var exportView: some View {
-        tableContent
+        makeTableContent(includeLink: true, isExport: true)
+            .environment(\.briefingMode, true)
+            .environment(\.exportBorderWidth, CrewTableStyle.exportBorderWidth)
+            .environment(\.colorScheme, .light)
+    }
+
+    private var imageExportView: some View {
+        makeTableContent(includeLink: false)
             .environment(\.briefingMode, true)
             .environment(\.exportBorderWidth, CrewTableStyle.exportBorderWidth)
             .environment(\.colorScheme, .light)
@@ -674,17 +862,20 @@ extension CrewTableView {
 
     @MainActor
     private func shareAsImage() {
-        let renderer = ImageRenderer(content: exportView)
+        let renderer = ImageRenderer(content: imageExportView)
         renderer.scale = 3.0 // retina+ for crisp screenshots
-        guard let uiImage = renderer.uiImage else { return }
-        shareItems = [uiImage]
-        showShareSheet = true
+        guard let uiImage = renderer.uiImage,
+              let data = uiImage.pngData() else { return }
+        let filename = "Positions EK\(trip.flightInfo.flightNumber).png"
+        let url = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
+        try? data.write(to: url)
+        shareURL = ShareableURL(url: url)
     }
 
     @MainActor
     private func shareAsPDF() {
         let renderer = ImageRenderer(content: exportView)
-        let filename = "KiS Extensions EK\(trip.flightInfo.flightNumber).pdf"
+        let filename = "Positions EK\(trip.flightInfo.flightNumber).pdf"
         let url = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
 
         renderer.render { size, renderToContext in
@@ -696,8 +887,7 @@ extension CrewTableView {
             pdf.closePDF()
         }
 
-        shareItems = [url]
-        showShareSheet = true
+        shareURL = ShareableURL(url: url)
     }
 
     // MARK: - Toolbar
@@ -730,15 +920,6 @@ extension CrewTableView {
                         )
                     }
 
-                    // Flight Info
-                    actionBarButton(
-                        icon: showFlightInfo ? "info.circle.fill" : "info.circle",
-                        label: "Info",
-                        isActive: showFlightInfo
-                    ) {
-                        showFlightInfo.toggle()
-                    }
-
                     // Notes
                     actionBarButton(
                         icon: tripNotes.isEmpty ? "note.text" : "note.text.badge.plus",
@@ -764,19 +945,6 @@ extension CrewTableView {
                         .padding()
                     }
 
-                    Divider()
-                        .frame(height: 30)
-                        .padding(.horizontal, 4)
-
-                    // Briefing Mode
-                    actionBarButton(
-                        icon: briefingMode ? "doc.text.fill" : "doc.text",
-                        label: "Briefing",
-                        isActive: briefingMode
-                    ) {
-                        briefingMode.toggle()
-                    }
-
                     if doPositions {
                         Divider()
                             .frame(height: 30)
@@ -796,8 +964,60 @@ extension CrewTableView {
                         .frame(height: 30)
                         .padding(.horizontal, 4)
 
+                    // SUPY toggle (works when any position cell of a crew member is focused)
+                    supyToolbarButton
+
+                    Divider()
+                        .frame(height: 30)
+                        .padding(.horizontal, 4)
+
                     // Allocated badge buttons (active only when a position cell is focused)
                     badgeToolbarButtons
+                }
+            }
+
+            Spacer()
+
+            // Right-aligned: Send Email, Override, Info and Briefing
+            HStack(spacing: 1) {
+                actionBarButton(
+                    icon: "envelope",
+                    label: "Send Email"
+                ) {
+                    sendCrewEmail()
+                }
+
+                Divider()
+                    .frame(height: 30)
+                    .padding(.horizontal, 4)
+
+                // Override mode
+                actionBarButton(
+                    icon: overrideMode ? "pencil.circle.fill" : "pencil.circle",
+                    label: "Override",
+                    isActive: overrideMode
+                ) {
+                    withAnimation { overrideMode.toggle() }
+                }
+
+                Divider()
+                    .frame(height: 30)
+                    .padding(.horizontal, 4)
+
+                actionBarButton(
+                    icon: showFlightInfo ? "info.circle.fill" : "info.circle",
+                    label: "Info",
+                    isActive: showFlightInfo
+                ) {
+                    showFlightInfo.toggle()
+                }
+
+                actionBarButton(
+                    icon: briefingMode ? "doc.text.fill" : "doc.text",
+                    label: "Briefing",
+                    isActive: briefingMode
+                ) {
+                    briefingMode.toggle()
                 }
             }
         }
@@ -812,6 +1032,38 @@ extension CrewTableView {
         activeCrewIndex != nil && activeSector != nil
     }
 
+    /// SUPY toggle button — works when any crew member's position cell is focused.
+    private var supyToolbarButton: some View {
+        let hasTarget = activeCrewIndex != nil
+        let isActive: Bool = {
+            guard let ci = activeCrewIndex else { return false }
+            return crewMembers[ci].isSupy
+        }()
+
+        return Button {
+            guard let ci = activeCrewIndex else { return }
+            crewMembers[ci].isSupy.toggle()
+            if crewMembers[ci].isSupy {
+                crewMembers[ci].positions = [:]
+                crewMembers[ci].breaks = [:]
+                crewMembers[ci].allocatedBadges = [:]
+            }
+        } label: {
+            Text("SUPY")
+                .font(.system(size: 13, weight: .heavy))
+                .foregroundStyle(.white)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 8)
+                .background(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .fill(AllocatedBadgeIcon.color(for: AllocatedBadgeCodes.SUPY))
+                        .opacity(hasTarget ? (isActive ? 0.35 : 1.0) : 0.15)
+                )
+        }
+        .buttonStyle(.plain)
+        .disabled(!hasTarget)
+    }
+
     /// The badge toggle buttons shown in the action bar.
     private var badgeToolbarButtons: some View {
         let badges: [(String, Int)] = [
@@ -821,7 +1073,7 @@ extension CrewTableView {
             ("PA", AllocatedBadgeCodes.PA),
             ("UD", AllocatedBadgeCodes.UD),
         ]
-        return HStack(spacing: 4) {
+        return HStack(spacing: 10) {
             ForEach(badges, id: \.1) { name, code in
                 let isActive: Bool = {
                     guard let ci = activeCrewIndex, let s = activeSector else { return false }
@@ -832,12 +1084,12 @@ extension CrewTableView {
                     toggleAllocatedBadge(code)
                 } label: {
                     Text(name)
-                        .font(.system(size: 11, weight: .heavy))
+                        .font(.system(size: 13, weight: .heavy))
                         .foregroundStyle(.white)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 4)
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 8)
                         .background(
-                            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                            RoundedRectangle(cornerRadius: 6, style: .continuous)
                                 .fill(AllocatedBadgeIcon.color(for: code))
                                 .opacity(hasBadgeTarget ? (isActive ? 0.35 : 1.0) : 0.15)
                         )
@@ -873,16 +1125,16 @@ extension CrewTableView {
     }
 
     private func actionBarItem(icon: String, label: String, isActive: Bool = false) -> some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 6) {
             Image(systemName: icon)
-                .font(.system(size: 12))
+                .font(.system(size: 20))
             Text(label)
-                .font(.system(size: 11, weight: .medium))
+                .font(.system(size: 15, weight: .medium))
                 .lineLimit(1)
         }
         .foregroundStyle(isActive ? Color.accentColor : .primary)
-        .padding(.horizontal, 8)
-        .padding(.vertical, 5)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 10)
         .contentShape(Rectangle())
     }
 
@@ -891,9 +1143,7 @@ extension CrewTableView {
         ToolbarItemGroup(placement: .topBarLeading) {
             Button {
                 withAnimation(.easeInOut(duration: 0.2)) {
-                    let newScale = max(zoomScale - 0.25, 0.25)
-                    zoomScale = newScale
-                    steadyZoom = newScale
+                    zoomScale = max(zoomScale - 0.25, 0.15)
                 }
             } label: {
                 Image(systemName: "minus.magnifyingglass")
@@ -901,21 +1151,14 @@ extension CrewTableView {
             }
 
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    let newScale = min(zoomScale + 0.25, 3.0)
-                    zoomScale = newScale
-                    steadyZoom = newScale
-                }
+                zoomScale = min(zoomScale + 0.25, 4.0)
             } label: {
                 Image(systemName: "plus.magnifyingglass")
                     .font(.system(size: 20))
             }
 
             Button {
-                withAnimation(.easeInOut(duration: 0.2)) {
-                    zoomScale = fitZoomScale
-                    steadyZoom = fitZoomScale
-                }
+                zoomScale = fitZoomScale
             } label: {
                 Image(systemName: "arrow.up.left.and.arrow.down.right")
                     .font(.system(size: 20))
@@ -951,24 +1194,17 @@ extension CrewTableView {
 
             Menu {
                 Button {
-                    shareAsImage()
-                } label: {
-                    Label("Share as Image", systemImage: "photo")
-                }
-
-                Button {
                     shareAsPDF()
                 } label: {
                     Label("Share as PDF", systemImage: "doc.richtext")
                 }
 
-                Divider()
-
                 Button {
-                    copyTable()
+                    shareAsImage()
                 } label: {
-                    Label(copiedFeedback ? "Copied!" : "Copy as Text", systemImage: copiedFeedback ? "checkmark" : "doc.on.doc")
+                    Label("Share as Image", systemImage: "photo")
                 }
+
             } label: {
                 Image(systemName: "square.and.arrow.up")
                     .font(.system(size: 20))
@@ -979,20 +1215,33 @@ extension CrewTableView {
     // MARK: - Actions
 
     private func runAllocation() {
-        hasBreaks = trip.flightInfo.durations.map { $0 > 7.0 }
+        hasBreaks = trip.flightInfo.hasBreaks
+
+        // Preserve SUPY staff numbers so the flag survives regeneration
+        let supyStaffNumbers = Set(crewMembers.filter(\.isSupy).map(\.staffNumber))
 
         var members = trip.crewMembers
         CrewLoader.checkBirthdays(&members, flightDate: trip.flightInfo.flightDate, durations: trip.flightInfo.durations)
 
+        // Restore SUPY flags from previous state
+        for i in members.indices where supyStaffNumbers.contains(members[i].staffNumber) {
+            members[i].isSupy = true
+        }
+
+        // Separate SUPY crew — they observe only, no positions
+        let supyCrew = members.filter(\.isSupy)
+        let activeCrew = members.filter { !$0.isSupy }
+
         if doPositions, let registration = trip.registration {
             let result = AllocationEngine.allocate(
-                crewData: members,
+                crewData: activeCrew,
                 registration: registration,
                 isULR: trip.flightInfo.isULR,
                 numberOfDuties: trip.flightInfo.sectors,
-                hasBreaks: hasBreaks
+                hasBreaks: hasBreaks,
+                selectedFacility: trip.flightInfo.selectedFacility
             )
-            var allocated = result.crewMembers.sorted { $0.index < $1.index }
+            var allocated = result.crewMembers
 
             // Auto-add IR badge to position cells for crew doing DF
             for i in allocated.indices where allocated[i].doingDF {
@@ -1005,7 +1254,9 @@ extension CrewTableView {
                 }
             }
 
-            crewMembers = allocated
+            // Merge SUPY crew back and sort by original index
+            allocated.append(contentsOf: supyCrew)
+            crewMembers = allocated.sorted { $0.index < $1.index }
             allocationErrors = result.errors
         } else {
             crewMembers = members.sorted { $0.index < $1.index }
@@ -1020,7 +1271,9 @@ extension CrewTableView {
     }
 
     private func regenerate() {
+        let manualCrew = crewMembers.filter { $0.isManualOverride }
         runAllocation()
+        crewMembers.append(contentsOf: manualCrew)
     }
 
     private func checkIfSaved() {
@@ -1055,10 +1308,70 @@ extension CrewTableView {
         }
     }
 
+    // MARK: - Override Helpers
+
+    private func handleOverrideSave(mode: CrewOverrideMode, member: CrewMember) {
+        switch mode {
+        case .add:
+            addManualCrew(member)
+        case .edit(_, let index):
+            applyCrewOverride(member, at: index)
+        }
+    }
+
+    private func addManualCrew(_ member: CrewMember) {
+        var newMember = member
+        newMember.isManualOverride = true
+
+        // Find all indices of crew in the same grade section
+        let sectionIndices = crewMembers.indices.filter { crewMembers[$0].grade == member.grade }
+
+        if sectionIndices.isEmpty {
+            // No existing crew of this grade — append
+            newMember.index = member.grade.indexModifier + 99
+            crewMembers.append(newMember)
+        } else {
+            // Assign index that keeps staff number ordering within the section
+            // Find insertion point: after the last member whose staffNumber sorts before this one
+            let insertAfter = sectionIndices.last { crewMembers[$0].staffNumber < newMember.staffNumber }
+            let insertAt: Int
+            if let after = insertAfter {
+                newMember.index = crewMembers[after].index + 1
+                insertAt = after + 1
+            } else {
+                // New member sorts before all existing — insert at section start
+                newMember.index = crewMembers[sectionIndices.first!].index
+                insertAt = sectionIndices.first!
+            }
+            crewMembers.insert(newMember, at: insertAt)
+        }
+    }
+
+    private func applyCrewOverride(_ updated: CrewMember, at index: Int) {
+        guard crewMembers.indices.contains(index) else { return }
+        var member = updated
+        member.isManualOverride = true
+        crewMembers[index] = member
+    }
+
+    private func removeCrew(at index: Int) {
+        guard crewMembers.indices.contains(index) else { return }
+        crewMembers.remove(at: index)
+    }
+
     private func applyCustomPositions(_ newPositions: PositionMap) {
         // Re-run allocation with custom positions — future enhancement
         showPositionEditor = false
         regenerate()
+    }
+
+    private func sendCrewEmail() {
+        let emails = crewMembers.map { "s\($0.staffNumber)@emirates.com" }
+        let joined = emails.joined(separator: ",")
+        UIPasteboard.general.string = emails.joined(separator: "\n")
+        if let url = URL(string: "mailto:\(joined)") {
+            UIApplication.shared.open(url)
+        }
     }
 
     private func copyTable() {
@@ -1087,6 +1400,7 @@ extension CrewTableView {
 struct GradeSectionHeader: View {
     let grade: CrewGrade
     let count: Int
+    var onAddCrew: (() -> Void)? = nil
     @Environment(\.exportBorderWidth) private var borderW
 
     var body: some View {
@@ -1112,9 +1426,18 @@ struct GradeSectionHeader: View {
             Text("\(count) \(count == 1 ? "crew" : "crew")")
                 .font(.system(size: 10, weight: .medium))
                 .foregroundColor(accent.text.opacity(0.75))
+
+            if let onAddCrew {
+                Button(action: onAddCrew) {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 16))
+                        .foregroundStyle(accent.text.opacity(0.8))
+                }
+                .buttonStyle(.plain)
+            }
         }
         .padding(.horizontal, 14)
-        .padding(.vertical, 4)
+        .frame(height: CrewTableStyle.sectionHeaderHeight)
         .background(accent.bg)
         .overlay(alignment: .bottom) {
             Rectangle().fill(CrewTableStyle.cellBorder)
@@ -1146,6 +1469,143 @@ struct GradeSectionHeader: View {
     }
 }
 
+// MARK: - Break Summary Table
+
+struct BreakGroupEntry {
+    let breakNumber: Int
+    let count: Int
+    let seniors: String
+    let fg1: String
+    let gr1: String
+    let gr2: String
+}
+
+struct BreakSummaryTable: View {
+    let groups: [BreakGroupEntry]
+    let totalWidth: CGFloat
+    let sectorLabel: String
+    var capacity: Int? = nil
+
+    @Environment(\.exportBorderWidth) private var borderW
+
+    private let breakColWidth: CGFloat = 90
+    private let countColWidth: CGFloat = 50
+    private var effectiveWidth: CGFloat { totalWidth }
+    private var hasFG1: Bool { groups.contains { !$0.fg1.isEmpty } }
+    private var gradeColumnCount: CGFloat { hasFG1 ? 4 : 3 }
+    private var gradeColWidth: CGFloat { max((effectiveWidth - breakColWidth - countColWidth) / gradeColumnCount, 60) }
+
+    private static let ordinalLabels = ["1st Break", "2nd Break", "3rd Break", "4th Break", "5th Break", "6th Break"]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack(spacing: 8) {
+                Text("Break Summary: \(sectorLabel)")
+                    .font(.subheadline.bold())
+                if let cap = capacity {
+                    Text("Capacity: \(cap)")
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                }
+            }
+
+            VStack(spacing: 0) {
+                HStack(spacing: 0) {
+                    summaryHeaderCell("Break", width: breakColWidth)
+                    summaryHeaderCell("Crew", width: countColWidth)
+                    summaryHeaderCell("Seniors", width: gradeColWidth)
+                    if hasFG1 { summaryHeaderCell("FG1", width: gradeColWidth) }
+                    summaryHeaderCell("GR1", width: gradeColWidth)
+                    summaryHeaderCell("GR2", width: gradeColWidth)
+                }
+                .background(CrewTableStyle.headerBG)
+
+                ForEach(0..<groups.count, id: \.self) { index in
+                    let group = groups[index]
+                    let label = group.breakNumber <= Self.ordinalLabels.count
+                        ? Self.ordinalLabels[group.breakNumber - 1]
+                        : "\(group.breakNumber)th Break"
+
+                    HStack(alignment: .top, spacing: 0) {
+                        Text(label)
+                            .font(.system(size: 11, weight: .bold))
+                            .padding(.horizontal, CrewTableStyle.cellPadH)
+                            .frame(width: breakColWidth, alignment: .center)
+                            .frame(minHeight: CrewTableStyle.rowHeight)
+                            .overlay(alignment: .trailing) {
+                                Rectangle().fill(CrewTableStyle.cellBorder).frame(width: borderW)
+                            }
+
+                        crewCountCell(count: group.count)
+                            .frame(width: countColWidth, alignment: .center)
+                            .frame(minHeight: CrewTableStyle.rowHeight)
+                            .overlay(alignment: .trailing) {
+                                Rectangle().fill(CrewTableStyle.cellBorder).frame(width: borderW)
+                            }
+
+                        gradeCell(group.seniors)
+                        if hasFG1 { gradeCell(group.fg1) }
+                        gradeCell(group.gr1)
+                        gradeCell(group.gr2)
+                    }
+                    .background(index.isMultiple(of: 2) ? CrewTableStyle.cardBG : CrewTableStyle.altRowBG)
+                    .overlay(alignment: .bottom) {
+                        Rectangle().fill(CrewTableStyle.cellBorder).frame(height: borderW)
+                    }
+                }
+            }
+            .frame(width: effectiveWidth)
+            .background(CrewTableStyle.cardBG)
+            .border(CrewTableStyle.cardBorder, width: borderW)
+        }
+        .padding(.top, 12)
+    }
+
+    @ViewBuilder
+    private func gradeCell(_ text: String) -> some View {
+        Text(text)
+            .font(.caption)
+            .padding(.horizontal, CrewTableStyle.cellPadH)
+            .padding(.vertical, 4)
+            .frame(width: gradeColWidth, alignment: .leading)
+            .frame(minHeight: CrewTableStyle.rowHeight)
+            .overlay(alignment: .trailing) {
+                Rectangle().fill(CrewTableStyle.cellBorder).frame(width: borderW)
+            }
+    }
+
+    @ViewBuilder
+    private func crewCountCell(count: Int) -> some View {
+        let overCapacity = capacity.map { count > $0 } ?? false
+        if let cap = capacity {
+            Text("\(count) / \(cap)")
+                .font(.system(size: 12, weight: .semibold))
+                .foregroundStyle(overCapacity ? .red : .primary)
+                .padding(.horizontal, CrewTableStyle.cellPadH)
+        } else {
+            Text("\(count)")
+                .font(.system(size: 12, weight: .semibold))
+                .padding(.horizontal, CrewTableStyle.cellPadH)
+        }
+    }
+
+    @ViewBuilder
+    private func summaryHeaderCell(_ title: String, width: CGFloat) -> some View {
+        Text(title)
+            .font(.system(size: 10, weight: .heavy))
+            .foregroundStyle(CrewTableStyle.headerText)
+            .padding(.horizontal, CrewTableStyle.cellPadH)
+            .padding(.vertical, 6)
+            .frame(width: width, alignment: .center)
+            .overlay(alignment: .trailing) {
+                Rectangle().fill(CrewTableStyle.headerDivider).frame(width: borderW)
+            }
+            .overlay(alignment: .bottom) {
+                Rectangle().fill(CrewTableStyle.cellBorder).frame(height: borderW)
+            }
+    }
+}
+
 // MARK: - Crew Row
 
 struct CrewRowView: View {
@@ -1156,18 +1616,27 @@ struct CrewRowView: View {
     let sectors: Int
     let hasBreaks: [Bool]
     let hiddenColumns: Set<String>
-    let settings: AppSettings
+    let settings: AppSettings?
     let allBreaks: [String: Int]
     let colWidths: ColumnWidths
     let duplicatePositions: [Int: Set<String>]
     let onPositionFocus: (Int, Int, Bool) -> Void // (crewIndex, sector, focused)
+    var isManualOverride: Bool = false
 
     @Environment(\.exportBorderWidth) private var borderW
+    @Environment(\.briefingMode) private var briefingMode
     private static let cellBorder = CrewTableStyle.cellBorder
     private static let rH = CrewTableStyle.rowHeight
 
     var body: some View {
         HStack(spacing: 0) {
+            // Row number
+            gridCell(width: colWidths.rowNum, alignment: .center) {
+                Text("\(rowIndex + 1)")
+                    .font(.system(size: 11, weight: .semibold, design: .monospaced))
+                    .foregroundStyle(.primary)
+            }
+
             // Grade
             if !hiddenColumns.contains("grade") {
                 gridCell(width: colWidths.grade, alignment: .center) {
@@ -1268,6 +1737,10 @@ struct CrewRowView: View {
                 let portalBadges = member.badges.filter { !AllocatedBadgeCodes.all.contains($0) }
                 gridCell(width: colWidths.badges, alignment: .center, padH: 4) {
                     HStack(spacing: 3) {
+                        if member.isSupy {
+                            AllocatedBadgeIcon(code: AllocatedBadgeCodes.SUPY)
+                        }
+
                         // Inflight Retail rating (1–20; 21 = no rating)
                         if member.ratingIR <= 20 {
                             IRBadgeView(rank: member.ratingIR)
@@ -1291,16 +1764,18 @@ struct CrewRowView: View {
 
             // Comment
             if !hiddenColumns.contains("comment") {
-                gridCell(width: colWidths.comment) {
-                    Text(member.comment)
-                        .font(.caption)
-                        .lineLimit(1)
-                        .help(member.comment)
-                }
+                CommentCell(comment: member.comment, width: colWidths.comment)
             }
         }
         .frame(height: Self.rH)
         .background(rowBackground)
+        .overlay(alignment: .leading) {
+            if isManualOverride && !briefingMode {
+                Rectangle()
+                    .fill(Color.orange)
+                    .frame(width: 3)
+            }
+        }
         .overlay(alignment: .bottom) {
             Rectangle().fill(Self.cellBorder)
                 .frame(height: borderW)
@@ -1325,7 +1800,10 @@ struct CrewRowView: View {
     }
 
     private var rowBackground: Color {
-        sectionRowIndex.isMultiple(of: 2)
+        if isManualOverride && !briefingMode {
+            return Color.orange.opacity(0.08)
+        }
+        return sectionRowIndex.isMultiple(of: 2)
             ? CrewTableStyle.cardBG
             : CrewTableStyle.altRowBG
     }
@@ -1345,7 +1823,7 @@ struct CrewRowView: View {
     }
 
     private func autoCorrectBreak(sector: Int) {
-        guard settings.breakAutoCorrection,
+        guard settings?.breakAutoCorrection ?? true,
               let position = member.positions[sector],
               let breakGroup = allBreaks[position] else { return }
         member.breaks[sector] = breakGroup
@@ -1431,6 +1909,10 @@ struct PositionCell: View {
                 }
             }
             .clipped()
+            .contentShape(Rectangle())
+            .simultaneousGesture(TapGesture().onEnded {
+                if !briefingMode { onFocusChanged(true) }
+            })
             .background(
                 isAlert
                     ? Self.alertColor
@@ -1470,6 +1952,56 @@ struct BreakCell: View {
             Rectangle().fill(CrewTableStyle.cellBorder)
                 .frame(width: borderW)
         }
+    }
+}
+
+// MARK: - Comment Cell
+
+/// Collapses multi-line comments into a single line for inline display.
+enum CommentFormatter {
+    static func singleLine(_ text: String) -> String {
+        text.components(separatedBy: .newlines)
+            .map { $0.trimmingCharacters(in: .whitespaces) }
+            .filter { !$0.isEmpty }
+            .joined(separator: " - ")
+    }
+}
+
+/// Comment cell with tap-to-popover and hover tooltip for the full text.
+/// Multi-line comments are flattened to one line (separated by " - ") in the cell;
+/// the popover preserves the original multi-line formatting.
+struct CommentCell: View {
+    let comment: String
+    let width: CGFloat
+    @State private var showPopover = false
+    @Environment(\.exportBorderWidth) private var borderW
+
+    private var flattened: String { CommentFormatter.singleLine(comment) }
+
+    var body: some View {
+        Text(flattened)
+            .font(.caption)
+            .lineLimit(1)
+            .truncationMode(.tail)
+            .padding(.horizontal, CrewTableStyle.cellPadH)
+            .frame(width: width, height: CrewTableStyle.rowHeight, alignment: .leading)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                guard !flattened.isEmpty else { return }
+                showPopover = true
+            }
+            .popover(isPresented: $showPopover) {
+                Text(comment)
+                    .font(.callout)
+                    .padding(12)
+                    .frame(maxWidth: 360)
+                    .presentationCompactAdaptation(.popover)
+            }
+            .help(comment)
+            .overlay(alignment: .trailing) {
+                Rectangle().fill(CrewTableStyle.cellBorder)
+                    .frame(width: borderW)
+            }
     }
 }
 
@@ -1542,8 +2074,10 @@ enum AllocatedBadgeCodes {
     static let IR = -3
     static let PA = -4
 
+    static let SUPY = -5
+
     /// All allocatable badge codes.
-    static let all: Set<Int> = [MFP, W, UD, IR, PA]
+    static let all: Set<Int> = [MFP, W, UD, IR, PA, SUPY]
 }
 
 /// Small icon for allocated badges displayed in the position cell.
@@ -1569,6 +2103,7 @@ struct AllocatedBadgeIcon: View {
         case AllocatedBadgeCodes.UD: return "UD"
         case AllocatedBadgeCodes.IR: return "IR"
         case AllocatedBadgeCodes.PA: return "PA"
+        case AllocatedBadgeCodes.SUPY: return "SUPY"
         default: return "?"
         }
     }
@@ -1587,15 +2122,22 @@ struct AllocatedBadgeIcon: View {
             return Color(red: 41/255, green: 41/255, blue: 170/255)
         case AllocatedBadgeCodes.IR:
             return Color(red: 0.86, green: 0.08, blue: 0.24)
+        case AllocatedBadgeCodes.SUPY:
+            return Color(red: 0.4, green: 0.78, blue: 0.4)
         default: return .gray
         }
     }
 }
 
+// MARK: - Shareable URL wrapper
+
+struct ShareableURL: Identifiable {
+    let id = UUID()
+    let url: URL
+}
+
 // MARK: - UIActivityViewController wrapper
 
-/// Lightweight bridge so we can present a system share sheet for either a
-/// UIImage (Share as Image) or a file URL (Share as PDF) from SwiftUI.
 struct ActivityView: UIViewControllerRepresentable {
     let items: [Any]
 
@@ -1606,5 +2148,143 @@ struct ActivityView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }
 
+// MARK: - Zoomable Table Viewport
 
+struct ZoomableTableView<Content: View>: UIViewRepresentable {
+    @Binding var zoomScale: CGFloat
+    var fitScale: CGFloat
+    @ViewBuilder var content: Content
+
+    func makeCoordinator() -> Coordinator { Coordinator(parent: self) }
+
+    func makeUIView(context: Context) -> UIScrollView {
+        let sv = UIScrollView()
+        sv.delegate = context.coordinator
+        sv.minimumZoomScale = max(0.1, fitScale)
+        sv.maximumZoomScale = 4.0
+        sv.bouncesZoom = false
+        sv.showsHorizontalScrollIndicator = true
+        sv.showsVerticalScrollIndicator = true
+        sv.backgroundColor = .clear
+
+        let host = UIHostingController(rootView: content)
+        host.view.backgroundColor = .clear
+        sv.addSubview(host.view)
+        context.coordinator.hostedView = host.view
+        context.coordinator.hostController = host
+
+        let size = host.sizeThatFits(in: CGSize(
+            width: CGFloat.greatestFiniteMagnitude,
+            height: CGFloat.greatestFiniteMagnitude
+        ))
+        host.view.frame = CGRect(origin: .zero, size: size)
+        sv.contentSize = size
+        context.coordinator.naturalContentSize = size
+
+        let doubleTap = UITapGestureRecognizer(
+            target: context.coordinator,
+            action: #selector(Coordinator.handleDoubleTap(_:))
+        )
+        doubleTap.numberOfTapsRequired = 2
+        sv.addGestureRecognizer(doubleTap)
+
+        return sv
+    }
+
+    func updateUIView(_ sv: UIScrollView, context: Context) {
+        context.coordinator.parent = self
+
+        var contentSizeChanged = false
+        if let host = context.coordinator.hostController {
+            host.rootView = content
+
+            let size = host.sizeThatFits(in: CGSize(
+                width: CGFloat.greatestFiniteMagnitude,
+                height: CGFloat.greatestFiniteMagnitude
+            ))
+            let old = context.coordinator.naturalContentSize
+            if abs(old.width - size.width) > 1 || abs(old.height - size.height) > 1 {
+                contentSizeChanged = true
+                context.coordinator.naturalContentSize = size
+                host.view.transform = .identity
+                host.view.frame = CGRect(origin: .zero, size: size)
+                sv.contentSize = size
+            }
+        }
+
+        sv.minimumZoomScale = max(0.1, fitScale)
+
+        guard !context.coordinator.isUserInteracting else { return }
+
+        let target = max(sv.minimumZoomScale, min(zoomScale, sv.maximumZoomScale))
+        if contentSizeChanged {
+            sv.setZoomScale(target, animated: false)
+        } else if abs(sv.zoomScale - target) > 0.01 {
+            sv.setZoomScale(target, animated: true)
+        }
+        context.coordinator.centerContent(in: sv)
+    }
+
+    class Coordinator: NSObject, UIScrollViewDelegate {
+        var parent: ZoomableTableView
+        var hostedView: UIView?
+        var hostController: UIHostingController<Content>?
+        var isUserInteracting = false
+        var naturalContentSize: CGSize = .zero
+
+        init(parent: ZoomableTableView) { self.parent = parent }
+
+        func viewForZooming(in scrollView: UIScrollView) -> UIView? { hostedView }
+
+        func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+            isUserInteracting = true
+        }
+
+        func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+            isUserInteracting = true
+        }
+
+        func scrollViewDidZoom(_ scrollView: UIScrollView) {
+            centerContent(in: scrollView)
+        }
+
+        func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+            if !decelerate { endInteraction(scrollView) }
+        }
+
+        func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            endInteraction(scrollView)
+        }
+
+        func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+            endInteraction(scrollView)
+        }
+
+        private func endInteraction(_ scrollView: UIScrollView) {
+            isUserInteracting = false
+            parent.zoomScale = scrollView.zoomScale
+        }
+
+        func centerContent(in scrollView: UIScrollView) {
+            guard hostedView != nil else { return }
+            let boundsSize = scrollView.bounds.size
+            let scaledSize = CGSize(
+                width: naturalContentSize.width * scrollView.zoomScale,
+                height: naturalContentSize.height * scrollView.zoomScale
+            )
+            let xOffset = max(0, (boundsSize.width - scaledSize.width) / 2)
+            let yOffset = max(0, (boundsSize.height - scaledSize.height) / 2)
+            scrollView.contentInset = UIEdgeInsets(
+                top: yOffset, left: xOffset, bottom: yOffset, right: xOffset
+            )
+        }
+
+        @objc func handleDoubleTap(_ gesture: UITapGestureRecognizer) {
+            guard let sv = gesture.view as? UIScrollView else { return }
+            let target = parent.fitScale
+            sv.setZoomScale(target, animated: true)
+            parent.zoomScale = target
+        }
+    }
+}
 

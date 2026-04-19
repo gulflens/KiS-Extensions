@@ -1,0 +1,87 @@
+{
+  "_meta": {
+    "schemaVersion": "0.2.1",
+    "_lastVerified": "2026-05-04",
+    "_primarySource": "Emirates groupworld FAQ (internal company portal)",
+    "_secondarySources": [
+      "Emirates Group L&D - Dubai Airport Overview (topology)",
+      "Emirates Standards & Procedures Oct 2025 (concourse layouts)"
+    ],
+    "_notes": "Topology and APM transit timings now sourced from authoritative internal docs. Walking edge times within concourses still need measurement.",
+    "graphRules": {
+      "node": "{ id, kind: gate|waypoint|trainStation, concourse?, coordinates? }",
+      "edge": "Edges may carry rideTimeSeconds + expectedWaitSeconds (for train) OR timeSeconds (for walk).",
+      "edgeKind": {
+        "walk": "Direct walk on level surface.",
+        "train": "APM. Compute total = expectedWait + dwell + ride + dwell.",
+        "stairs": "Includes vertical movement",
+        "elevator": "Vertical only (Concourse A/B atrium 'Sky Trains' high-capacity lifts)"
+      }
+    },
+    "apmOperationalNotes": {
+      "system": "Automated People Mover (APM) - driverless, situated below aircraft taxi way",
+      "lines": "Two segregated lines: arrivals line and departures line",
+      "frequency": {
+        "peak": "2 trains continuously running per line",
+        "offPeak": "1 train per line in 'on-demand shuttle mode'"
+      },
+      "capacity": {
+        "departures": "200 pax (4 carriages × 50)",
+        "arrivals": "250 pax"
+      },
+      "stationDwellSeconds": { "arrivals": 25, "departures": 34 },
+      "rideTimeSeconds": 120,
+      "_source": "Emirates groupworld FAQ"
+    }
+  },
+  "nodes": [
+    { "id": "T3_MAIN_DEPARTURES", "kind": "waypoint", "label": "T3 Main - Departures Level", "_confidence": "high" },
+    { "id": "APM_T3_B_STATION", "kind": "trainStation", "label": "APM Station - T3/Concourse B side", "_confidence": "high", "_notes": "Stations connect to two major public levels of T3 per FAQ" },
+    { "id": "APM_CONCOURSE_A_STATION", "kind": "trainStation", "label": "APM Station - Concourse A (partially underground)", "_confidence": "high" },
+    { "id": "CONCOURSE_A_HUB", "kind": "waypoint", "concourse": "A", "label": "Concourse A central atrium", "_confidence": "medium" },
+    { "id": "CONCOURSE_B_HUB", "kind": "waypoint", "concourse": "B", "label": "Concourse B central atrium (near B15)", "_confidence": "medium" },
+    { "id": "CONCOURSE_C_HUB", "kind": "waypoint", "concourse": "C", "label": "Concourse C central area (near C13)", "_confidence": "medium" },
+    { "id": "B_C_WALKWAY", "kind": "waypoint", "label": "B↔C control tower walkway", "_confidence": "high" }
+  ],
+  "edges": [
+    {
+      "from": "T3_MAIN_DEPARTURES", "to": "CONCOURSE_B_HUB", "kind": "walk",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "T3 main integrated with Concourse B. MEASURE on next layover."
+    },
+    {
+      "from": "T3_MAIN_DEPARTURES", "to": "APM_T3_B_STATION", "kind": "walk",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "Walk from T3 main floor to APM platform. MEASURE."
+    },
+    {
+      "from": "CONCOURSE_B_HUB", "to": "APM_T3_B_STATION", "kind": "walk",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "From Concourse B central atrium down to APM platform. MEASURE."
+    },
+    {
+      "from": "APM_T3_B_STATION", "to": "APM_CONCOURSE_A_STATION", "kind": "train",
+      "rideTimeSeconds": 120,
+      "stationDwellSeconds": 30,
+      "expectedWaitSeconds": { "peak": 60, "offPeak": 180 },
+      "_confidence": "high",
+      "_sources": ["EK groupworld FAQ - 'Journey time between concourse A and B is estimated at two minutes'"],
+      "_notes": "Total transit estimate: peak ~4 min (wait 60 + dwell 30 + ride 120 + dwell 30), off-peak ~6 min."
+    },
+    {
+      "from": "APM_CONCOURSE_A_STATION", "to": "CONCOURSE_A_HUB", "kind": "elevator",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "Concourse A station is partially underground; vertical transport via 'Sky Train' high-capacity lifts in central atrium per FAQ. MEASURE."
+    },
+    {
+      "from": "CONCOURSE_B_HUB", "to": "B_C_WALKWAY", "kind": "walk",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "B side entry to control tower walkway. MEASURE."
+    },
+    {
+      "from": "B_C_WALKWAY", "to": "CONCOURSE_C_HUB", "kind": "walk",
+      "timeSeconds": null, "_confidence": "stub",
+      "_notes": "C side exit. ~300m total walkway distance per public sources. MEASURE actual walking time."
+    }
+  ]
+}

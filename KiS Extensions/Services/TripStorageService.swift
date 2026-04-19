@@ -15,8 +15,20 @@ struct TripStorageService {
         descriptor.fetchLimit = 1
 
         if let existing = try modelContext.fetch(descriptor).first {
-            existing.updateAllocations(from: trip)
+            let preservedNotes = existing.notes
+            existing.flightNumber = trip.flightInfo.flightNumber
+            existing.flightLegs = trip.flightInfo.flightLegs
+            existing.flightDate = trip.flightInfo.flightDate
+            existing.sectors = trip.flightInfo.sectors
+            existing.durations = trip.flightInfo.durations
+            existing.sectorsPerDuty = trip.flightInfo.sectorsPerDuty
+            existing.aircraftTail = trip.flightData.aircraftTail
+            existing.serviceType = trip.flightData.serviceType
             existing.registration = trip.registration
+            existing.rawJSON = try? JSONEncoder().encode(trip.rawCrewData)
+            existing.savedAt = Date()
+            existing.notes = preservedNotes
+            existing.updateAllocations(from: trip)
             try modelContext.save()
             return existing
         }

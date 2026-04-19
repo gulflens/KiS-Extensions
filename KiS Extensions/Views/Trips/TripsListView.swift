@@ -27,13 +27,12 @@ struct TripsListView: View {
         @Bindable var appState = appState
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                // Current & upcoming flights
                 if upcomingIndices.isEmpty && olderIndices.isEmpty {
                     ContentUnavailableView("No Trips", systemImage: "airplane", description: Text("Import crew data to see trips here."))
                         .frame(maxWidth: .infinity, minHeight: 300)
                 } else {
                     if !upcomingIndices.isEmpty {
-                        VStack(spacing: 12) {
+                        VStack(spacing: 16) {
                             ForEach(upcomingIndices, id: \.self) { index in
                                 TripSelectionCard(
                                     trip: $appState.parsedTrips[index],
@@ -69,7 +68,7 @@ struct TripsListView: View {
                             .buttonStyle(.plain)
 
                             if showOlderFlights {
-                                VStack(spacing: 12) {
+                                VStack(spacing: 16) {
                                     ForEach(olderIndices, id: \.self) { index in
                                         TripSelectionCard(
                                             trip: $appState.parsedTrips[index],
@@ -86,6 +85,7 @@ struct TripsListView: View {
             }
             .padding()
         }
+        .background(Color(.systemGroupedBackground))
         .navigationTitle("Select Trip")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -112,224 +112,332 @@ struct TripSelectionCard: View {
     let onListOnly: () -> Void
 
     @State private var regDraft: String = ""
-    @State private var breakToggles: [Bool] = []
     @FocusState private var regFocused: Bool
 
     private static let dateFormatter: DateFormatter = {
         let f = DateFormatter()
-        f.dateFormat = "dd MMM"
+        f.dateFormat = "dd MMM yyyy"
+        return f
+    }()
+
+    private static let dayOfWeekFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "EEEE"
         return f
     }()
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            // MARK: Header — blue row
-            HStack(spacing: 8) {
-                Text("EK \(trip.flightInfo.flightNumber)")
-                    .font(.headline)
+            // MARK: Header
+            VStack(alignment: .leading, spacing: 6) {
+                HStack(spacing: 10) {
+                    Text("EK \(trip.flightInfo.flightNumber)")
+                        .font(.title2.bold())
 
-                Text(trip.flightInfo.flightLegs.joined(separator: " – "))
-                    .font(.subheadline)
-                    .monospaced()
-                    .opacity(0.85)
-                    .lineLimit(1)
+                    Text(trip.flightInfo.flightLegs.joined(separator: " — "))
+                        .font(.title2.bold().monospaced())
 
-                Spacer()
+                    if trip.flightInfo.isULR {
+                        Text("ULR")
+                            .font(.caption.bold())
+                            .foregroundStyle(.white)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 3)
+                            .background(.red)
+                            .clipShape(Capsule())
+                    }
 
-                Label(Self.dateFormatter.string(from: trip.flightInfo.flightDate), systemImage: "calendar")
-                    .font(.subheadline)
+                    Spacer()
+                }
 
-                Label(durationText, systemImage: "clock")
-                    .font(.subheadline)
-
-                if trip.flightInfo.isULR {
-                    Text("ULR")
-                        .font(.caption2.bold())
-                        .foregroundStyle(.blue)
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(.white)
-                        .clipShape(Capsule())
+                HStack(spacing: 12) {
+                    Text(Self.dateFormatter.string(from: trip.flightInfo.flightDate))
+                        .font(.subheadline.weight(.semibold))
+                    Text(Self.dayOfWeekFormatter.string(from: trip.flightInfo.flightDate))
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
                 }
             }
-            .foregroundStyle(.white)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 8)
-            .background(Color.blue)
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color(.secondarySystemGroupedBackground))
 
-            // MARK: Body — single row
-            HStack(spacing: 12) {
-                // Registration input
-                HStack(spacing: 2) {
-                    Image(systemName: "airplane")
-                        .font(.caption)
-                        .foregroundStyle(regDraft.isEmpty ? .orange : .blue)
-                        .padding(.trailing, 4)
+            Divider()
 
-                    Text("A6-")
-                        .font(.caption.weight(.semibold).monospaced())
-                        .foregroundStyle(.primary)
-                        .fixedSize()
+            // MARK: Details Grid
+            VStack(alignment: .leading, spacing: 16) {
+                // Aircraft row
+                HStack(spacing: 16) {
+                    detailLabel("Aircraft")
 
-                    TextField("___", text: $regDraft)
-                        .textInputAutocapitalization(.characters)
-                        .autocorrectionDisabled()
-                        .font(.caption.weight(.semibold).monospaced())
-                        .foregroundStyle(regForegroundStyle)
-                        .focused($regFocused)
-                        .submitLabel(.done)
-                        .onSubmit { commitRegistration() }
-                        .onChange(of: regFocused) { _, focused in
-                            if !focused { commitRegistration() }
-                        }
-                        .onChange(of: regDraft) { _, newValue in
-                            if newValue.count > 3 {
-                                regDraft = String(newValue.prefix(3))
+                    HStack(spacing: 2) {
+                        Image(systemName: "airplane")
+                            .font(.subheadline)
+                            .foregroundStyle(regDraft.isEmpty ? .orange : .primary)
+                            .padding(.trailing, 4)
+
+                        Text("A6-")
+                            .font(.subheadline.weight(.semibold).monospaced())
+                            .foregroundStyle(.primary)
+                            .fixedSize()
+
+                        TextField("___", text: $regDraft)
+                            .textInputAutocapitalization(.characters)
+                            .autocorrectionDisabled()
+                            .font(.subheadline.weight(.semibold).monospaced())
+                            .foregroundStyle(regForegroundStyle)
+                            .focused($regFocused)
+                            .submitLabel(.done)
+                            .onSubmit { commitRegistration() }
+                            .onChange(of: regFocused) { _, focused in
+                                if !focused { commitRegistration() }
                             }
-                        }
-                        .onAppear {
-                            regDraft = suffixFromRegistration(trip.registration)
-                            syncBreakToggles()
-                        }
-                        .onChange(of: trip.registration) { _, newValue in
-                            if !regFocused { regDraft = suffixFromRegistration(newValue) }
-                        }
-                        .frame(width: 36)
+                            .onChange(of: regDraft) { _, newValue in
+                                if newValue.count > 3 {
+                                    regDraft = String(newValue.prefix(3))
+                                }
+                            }
+                            .onAppear {
+                                regDraft = suffixFromRegistration(trip.registration)
+                                syncHasBreaks()
+                            }
+                            .onChange(of: trip.registration) { _, newValue in
+                                if !regFocused { regDraft = suffixFromRegistration(newValue) }
+                            }
+                            .frame(width: 40)
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(
+                        RoundedRectangle(cornerRadius: 6)
+                            .fill(Color(.systemGray6))
+                    )
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(regDraft.isEmpty ? Color.orange.opacity(0.5) : Color(.systemGray4), lineWidth: 1)
+                    )
 
                     if !aircraftTypeText.isEmpty {
                         Text(aircraftTypeText)
-                            .font(.caption2)
-                            .foregroundStyle(.secondary)
-                            .lineLimit(1)
-                            .padding(.leading, 4)
+                            .font(.subheadline)
+                            .foregroundStyle(.primary)
                     }
-                }
-                .padding(.horizontal, 8)
-                .padding(.vertical, 5)
-                .background(
-                    RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemGray6))
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(regDraft.isEmpty ? Color.orange.opacity(0.5) : Color(.systemGray4), lineWidth: 1)
-                )
 
-                // Warning when no registration
-                if regDraft.isEmpty {
-                    Label("No registration", systemImage: "exclamationmark.triangle.fill")
-                        .font(.caption2.weight(.medium))
-                        .foregroundStyle(.red)
+                    if let features = aircraftFeaturesText {
+                        Text(features)
+                            .font(.subheadline.weight(.medium))
+                            .foregroundStyle(.red)
+                    }
+
+                    if regDraft.isEmpty {
+                        Label("No registration", systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption.weight(.medium))
+                            .foregroundStyle(.red)
+                    }
+
+                    Spacer()
                 }
 
-                Divider().frame(height: 16)
+                Divider()
 
-                // Sectors stepper
-                HStack(spacing: 0) {
-                    Button {
-                        if trip.flightInfo.sectors > 1 {
-                            trip.flightInfo.sectors -= 1
-                            syncBreakToggles()
+                // Sectors & crew row
+                HStack(spacing: 24) {
+                    HStack(spacing: 16) {
+                        detailLabel("Sectors")
+
+                        HStack(spacing: 4) {
+                            Button {
+                                if trip.flightInfo.sectors > 1 {
+                                    trip.flightInfo.sectors -= 1
+                                    syncHasBreaks()
+                                }
+                            } label: {
+                                Image(systemName: "minus.circle.fill")
+                                    .font(.title3)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(trip.flightInfo.sectors <= 1)
+
+                            Text("\(trip.flightInfo.sectors)")
+                                .font(.title3.weight(.semibold).monospaced())
+                                .frame(width: 24)
+                                .multilineTextAlignment(.center)
+
+                            Button {
+                                trip.flightInfo.sectors += 1
+                                syncHasBreaks()
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .font(.title3)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .buttonStyle(.plain)
                         }
-                    } label: {
-                        Image(systemName: "minus")
-                            .font(.caption2.weight(.bold))
-                            .frame(width: 24, height: 24)
                     }
-                    .buttonStyle(.plain)
-                    .disabled(trip.flightInfo.sectors <= 1)
 
-                    Text("\(trip.flightInfo.sectors)")
-                        .font(.caption.weight(.semibold).monospaced())
-                        .frame(width: 20)
-                        .multilineTextAlignment(.center)
+                    Divider().frame(height: 20)
 
-                    Button {
-                        trip.flightInfo.sectors += 1
-                        syncBreakToggles()
-                    } label: {
-                        Image(systemName: "plus")
-                            .font(.caption2.weight(.bold))
-                            .frame(width: 24, height: 24)
+                    HStack(spacing: 8) {
+                        detailLabel("Crew")
+                        Text("\(trip.crewMembers.count)")
+                            .font(.title3.weight(.semibold).monospaced())
                     }
-                    .buttonStyle(.plain)
 
-                    Text("sec")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                        .padding(.leading, 2)
+                    Divider().frame(height: 20)
+
+                    HStack(spacing: 8) {
+                        detailLabel("Duration")
+                        Text(durationText)
+                            .font(.subheadline.weight(.semibold).monospaced())
+                    }
+
+                    Spacer()
                 }
 
-                Divider().frame(height: 16)
+                Divider()
 
-                // Crew count
-                Label("\(trip.crewMembers.count) crew", systemImage: "person.2")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-
-                Divider().frame(height: 16)
-
-                // Break checkboxes
-                HStack(spacing: 8) {
-                    Text("Breaks:")
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
+                // Breaks row
+                HStack(spacing: 16) {
+                    detailLabel("Breaks")
 
                     ForEach(0..<trip.flightInfo.sectors, id: \.self) { i in
                         Button {
-                            if breakToggles.indices.contains(i) {
-                                breakToggles[i].toggle()
+                            if trip.flightInfo.hasBreaks.indices.contains(i) {
+                                trip.flightInfo.hasBreaks[i].toggle()
                             }
                         } label: {
-                            HStack(spacing: 3) {
-                                Image(systemName: (breakToggles.indices.contains(i) && breakToggles[i]) ? "checkmark.square.fill" : "square")
-                                    .foregroundStyle((breakToggles.indices.contains(i) && breakToggles[i]) ? Color.blue : .secondary)
-                                Text("S\(i + 1)")
-                                    .font(.caption2)
+                            HStack(spacing: 4) {
+                                Image(systemName: (trip.flightInfo.hasBreaks.indices.contains(i) && trip.flightInfo.hasBreaks[i]) ? "checkmark.square.fill" : "square")
+                                    .font(.title3)
+                                    .foregroundStyle((trip.flightInfo.hasBreaks.indices.contains(i) && trip.flightInfo.hasBreaks[i]) ? Color.accentColor : .secondary)
+                                Text("Sector \(i + 1)")
+                                    .font(.subheadline)
                                     .foregroundStyle(.primary)
                             }
                         }
                         .buttonStyle(.plain)
                     }
+
+                    Spacer()
                 }
 
+                // Rest facility picker
+                if facilityOptions.count > 1 {
+                    Divider()
+
+                    HStack(spacing: 16) {
+                        detailLabel("Rest")
+
+                        Picker("Rest facility", selection: facilityBinding) {
+                            ForEach(facilityOptions, id: \.rawValue) { facility in
+                                Text(facility.label).tag(facility.rawValue)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .frame(maxWidth: 300)
+
+                        Spacer()
+                    }
+                }
+            }
+            .padding(16)
+
+            Divider()
+
+            // MARK: Action Buttons
+            HStack(spacing: 12) {
                 Spacer()
 
-                if trip.registration == nil {
+                Button {
+                    onListOnly()
+                } label: {
+                    HStack(spacing: 6) {
+                        Image(systemName: "list.bullet")
+                        Text("View Crew List")
+                    }
+                    .frame(minWidth: 160)
+                }
+                .buttonStyle(.bordered)
+                .controlSize(.large)
+
+                if trip.registration != nil {
+                    Button {
+                        onGenerate()
+                    } label: {
+                        HStack(spacing: 6) {
+                            Image(systemName: "wand.and.stars")
+                            Text("Generate Positions")
+                        }
+                        .frame(minWidth: 200)
+                    }
+                    .buttonStyle(.borderedProminent)
+                    .controlSize(.large)
+                } else {
                     Button {
                         regFocused = true
                     } label: {
-                        Label("Add Registration", systemImage: "exclamationmark.triangle.fill")
+                        HStack(spacing: 6) {
+                            Image(systemName: "exclamationmark.triangle.fill")
+                            Text("Add Registration to Generate")
+                        }
+                        .frame(minWidth: 200)
                     }
                     .buttonStyle(.borderedProminent)
                     .tint(Color(red: 0.6, green: 0.1, blue: 0.1))
-                    .controlSize(.small)
-                } else {
-                    Button("Generate", systemImage: "wand.and.stars") { onGenerate() }
-                        .buttonStyle(.borderedProminent)
-                        .controlSize(.small)
+                    .controlSize(.large)
                 }
 
-                Button("List", systemImage: "list.bullet") { onListOnly() }
-                    .buttonStyle(.bordered)
-                    .controlSize(.small)
+                Spacer()
             }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
-            .background(Color(.systemBackground))
+            .padding(16)
+            .background(Color(.systemGroupedBackground))
         }
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .shadow(color: .black.opacity(0.15), radius: 8, x: 0, y: 3)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color(.systemGray3), lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
+    }
+
+    // MARK: - Subviews
+
+    private func detailLabel(_ text: String) -> some View {
+        Text(text)
+            .font(.subheadline)
+            .foregroundStyle(.secondary)
+            .frame(width: 64, alignment: .trailing)
     }
 
     // MARK: - Helpers
 
-    private func syncBreakToggles() {
+    private var facilityOptions: [Facility] {
+        let suffix = regDraft.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard suffix.count == 3,
+              let entry = FleetLoader.shared.entry(forSuffix: suffix) else { return [] }
+        return entry.facilityOptions
+    }
+
+    private var facilityBinding: Binding<String> {
+        Binding(
+            get: {
+                if let selected = trip.flightInfo.selectedFacility { return selected }
+                return facilityOptions.first?.rawValue ?? ""
+            },
+            set: { newValue in
+                trip.flightInfo.selectedFacility = newValue
+            }
+        )
+    }
+
+    private func syncHasBreaks() {
         let count = trip.flightInfo.sectors
-        if breakToggles.count < count {
-            breakToggles.append(contentsOf: Array(repeating: false, count: count - breakToggles.count))
-        } else if breakToggles.count > count {
-            breakToggles = Array(breakToggles.prefix(count))
+        if trip.flightInfo.hasBreaks.count < count {
+            trip.flightInfo.hasBreaks.append(contentsOf: Array(repeating: false, count: count - trip.flightInfo.hasBreaks.count))
+        } else if trip.flightInfo.hasBreaks.count > count {
+            trip.flightInfo.hasBreaks = Array(trip.flightInfo.hasBreaks.prefix(count))
         }
     }
 
@@ -338,6 +446,18 @@ struct TripSelectionCard: View {
               let typeCode = FleetRegistry.fleet[reg],
               let acType = AircraftTypes.types[typeCode] else { return "" }
         return acType.description
+    }
+
+    private var aircraftFeaturesText: String? {
+        let suffix = regDraft.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        guard suffix.count == 3,
+              let entry = FleetLoader.shared.entry(forSuffix: suffix) else { return nil }
+        var parts: [String] = []
+        parts.append(entry.crc ?? "No CRC")
+        parts.append(entry.hasCrewSeats ? "Crew seats" : "No crew seats")
+        parts.append("\(entry.capacity) pax")
+        parts.append(entry.configuration)
+        return parts.joined(separator: " · ")
     }
 
     private var fullRegistration: String {

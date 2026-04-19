@@ -7,6 +7,28 @@ struct FlightInfo: Sendable {
     var sectors: Int
     var durations: [Double]
     var sectorsPerDuty: [Int]
+    var hasBreaks: [Bool]
+    var selectedFacility: String?
+
+    init(
+        flightNumber: String,
+        flightLegs: [String],
+        flightDate: Date,
+        sectors: Int,
+        durations: [Double],
+        sectorsPerDuty: [Int],
+        hasBreaks: [Bool]? = nil,
+        selectedFacility: String? = nil
+    ) {
+        self.flightNumber = flightNumber
+        self.flightLegs = flightLegs
+        self.flightDate = flightDate
+        self.sectors = sectors
+        self.durations = durations
+        self.sectorsPerDuty = sectorsPerDuty
+        self.hasBreaks = hasBreaks ?? durations.map { $0 > 3.5 }
+        self.selectedFacility = selectedFacility
+    }
 
     var isULR: Bool {
         guard let maxDuration = durations.max() else { return false }

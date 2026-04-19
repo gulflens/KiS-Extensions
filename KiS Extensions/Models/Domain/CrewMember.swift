@@ -25,4 +25,6 @@ struct CrewMember: Identifiable, Sendable, Equatable {
     var nationality: String
     var positions: [Int: String] = [:] // sector index -> position
     var breaks: [Int: Int] = [:] // sector index -> break group
+    var isManualOverride: Bool = false
+    var isSupy: Bool = false
 }

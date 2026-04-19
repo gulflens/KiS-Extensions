@@ -28,7 +28,8 @@ struct AllocationEngine {
         registration: String,
         isULR: Bool,
         numberOfDuties: Int,
-        hasBreaks: [Bool]
+        hasBreaks: [Bool],
+        selectedFacility: String? = nil
     ) -> AllocationResult {
         var crew = crewData
         var errors: [AllocationError] = []
@@ -45,7 +46,13 @@ struct AllocationEngine {
         }
 
         let positions = loaded.positions
-        let breaks = loaded.breaks
+        var breaks = loaded.breaks
+
+        if selectedFacility == Facility.crewSeats.rawValue,
+           let entry = FleetLoader.shared.entry(forSuffix: String(registration.suffix(3))),
+           let crewSeatsBreaks = BreaksData.crewSeatsBreaks(for: entry.type, classes: entry.classes) {
+            breaks = crewSeatsBreaks
+        }
 
         // Build language queues
         let languageQueues = LanguageQueueBuilder.build(from: crew)
@@ -227,6 +234,10 @@ struct AllocationEngine {
                     if let position = crew[idx].positions[i], let breakGroup = breaks[position] {
                         crew[idx].breaks[i] = breakGroup
                     }
+                }
+            } else {
+                for idx in crew.indices {
+                    crew[idx].breaks.removeValue(forKey: i)
                 }
             }
         }
