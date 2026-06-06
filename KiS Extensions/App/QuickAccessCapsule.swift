@@ -3,8 +3,8 @@ import SwiftUI
 // MARK: - Quick Access Capsule
 
 /// Floating pill-shaped quick-access bar shown above the bottom safe area on
-/// the dashboard. Two text-only shortcuts: Flight Planner and Settings. Pure
-/// shortcuts: no active state since the dashboard is the implied current page.
+/// the dashboard. Each shortcut shows its feature icon above a text label.
+/// Pure shortcuts: no active state since the dashboard is the implied page.
 struct QuickAccessCapsule: View {
     var onOpen: (FeatureID) -> Void
 
@@ -18,7 +18,9 @@ struct QuickAccessCapsule: View {
     var body: some View {
         HStack(spacing: 0) {
             ForEach(shortcuts, id: \.self) { id in
-                item(title: FeatureRegistry.module(for: id).title,
+                let module = FeatureRegistry.module(for: id)
+                item(title: module.title,
+                     systemImage: module.icon,
                      accent: AppColor.accent(for: id)) {
                     onOpen(id)
                 }
@@ -41,17 +43,22 @@ struct QuickAccessCapsule: View {
     // MARK: - Item
 
     private func item(title: String,
+                      systemImage: String,
                       accent: Color,
                       action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            Text(title)
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(accent)
-                .lineLimit(1)
-                .minimumScaleFactor(0.8)
-                .frame(maxWidth: .infinity)
-                .padding(.vertical, AppSpacing.sm)
-                .contentShape(Rectangle())
+            VStack(spacing: 4) {
+                Image(systemName: systemImage)
+                    .font(.system(size: 18, weight: .semibold))
+                Text(title)
+                    .font(.system(size: 11, weight: .semibold))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+            }
+            .foregroundStyle(accent)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, AppSpacing.xs)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
