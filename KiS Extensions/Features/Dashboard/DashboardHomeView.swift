@@ -147,8 +147,6 @@ struct DashboardHomeView: View {
         VStack(alignment: .leading, spacing: AppSpacing.md) {
             SectionHeader(title: "Features", systemImage: "square.grid.2x2")
             LazyVGrid(columns: featureColumns, spacing: AppSpacing.lg) {
-                AddTripTile(onImportPortal: onImportPortal,
-                            onAddManually: onAddManually)
                 ForEach(featureModules) { module in
                     DashboardCard(
                         title: module.title,
