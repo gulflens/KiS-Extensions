@@ -25,9 +25,6 @@ struct MainAppView: View {
     @State private var showPortalImport = false
     @State private var showAddTrip = false
 
-    /// Mirrors the key toggled by the pin button inside `DayCalendarStrip`.
-    @AppStorage("calendarStripPinned") private var isStripPinned = true
-
     var body: some View {
         VStack(spacing: 0) {
             if let opened = appState.openedFeature {
@@ -37,22 +34,13 @@ struct MainAppView: View {
                 )
                 rootView(for: opened)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-            } else if isStripPinned {
-                // Match the dashboard content's framing exactly so the strip
-                // sits in the identical position whether pinned (here) or
-                // unpinned (a scroll header) — toggling must not move the pin.
-                // The strip carries its own white-card chrome (see
-                // DayCalendarStrip); zIndex lifts its shadow over the dashboard.
-                calendarStrip
-                    .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
-                    .padding(.top, AppSpacing.xxl)
-                    .frame(maxWidth: 1180)
-                    .frame(maxWidth: .infinity)
+            } else {
+                // Calendar strip is always pinned above the dashboard.
+                // zIndex lifts the bar's bottom shadow over the dashboard.
+                calendarStripBar
                     .zIndex(1)
 
                 dashboardHome(header: nil)
-            } else {
-                dashboardHome(header: AnyView(calendarStrip))
             }
         }
         .background(AppColor.background)
@@ -90,6 +78,22 @@ struct MainAppView: View {
         )
     }
 
+    /// The calendar strip as a full-width white band across the top of the
+    /// dashboard, with a bottom drop shadow. The white background spans edge to
+    /// edge while the strip content is centered and inset to match the
+    /// dashboard's framing. Used identically whether pinned above the dashboard
+    /// or carried as its scrolling header, so toggling never moves the strip.
+    private var calendarStripBar: some View {
+        calendarStrip
+            .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
+            .padding(.top, AppSpacing.sm)
+            .padding(.bottom, AppSpacing.sm)
+            .frame(maxWidth: 1180)
+            .frame(maxWidth: .infinity)
+            .background(AppColor.surface)
+            .shadow(color: .black.opacity(0.18), radius: 14, x: 0, y: 7)
+    }
+
     /// The dashboard plus its floating quick-access capsule. `header` carries
     /// the calendar strip into the scroll view when the strip is unpinned.
     private func dashboardHome(header: AnyView?) -> some View {
@@ -100,11 +104,10 @@ struct MainAppView: View {
             scrollingHeader: header
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .safeAreaInset(edge: .bottom) {
+        .safeAreaInset(edge: .bottom, spacing: 0) {
             QuickAccessCapsule(
                 onOpen: { appState.open($0) }
             )
-            .padding(.bottom, AppSpacing.sm)
         }
     }
 

@@ -2,9 +2,10 @@ import SwiftUI
 
 // MARK: - Quick Access Capsule
 
-/// Floating pill-shaped quick-access bar shown above the bottom safe area on
-/// the dashboard. Each shortcut shows its feature icon above a text label.
-/// Pure shortcuts: no active state since the dashboard is the implied page.
+/// Full-width bar pinned to the bottom of the dashboard. Each shortcut shows
+/// its feature icon above a text label. The surface spans edge to edge and
+/// extends under the home indicator (ignoring the bottom safe area); a top
+/// hairline separates it from the content above.
 struct QuickAccessCapsule: View {
     var onOpen: (FeatureID) -> Void
 
@@ -28,17 +29,18 @@ struct QuickAccessCapsule: View {
             }
         }
         .padding(.horizontal, AppSpacing.sm)
-        .padding(.vertical, AppSpacing.sm)
+        .padding(.top, AppSpacing.sm)
+        .padding(.bottom, AppSpacing.xs)
+        .frame(maxWidth: .infinity)
         .background(
-            Capsule(style: .continuous)
-                .fill(AppColor.surfaceElevated)
+            AppColor.surface
+                .ignoresSafeArea(edges: .bottom)
         )
-        .overlay(
-            Capsule(style: .continuous)
-                .strokeBorder(AppColor.border, lineWidth: 1)
-        )
-        .shadow(color: .black.opacity(0.12), radius: 16, x: 0, y: 6)
-        .padding(.horizontal, AppSpacing.lg)
+        .overlay(alignment: .top) {
+            Rectangle()
+                .fill(AppColor.border)
+                .frame(height: 1)
+        }
     }
 
     // MARK: - Item

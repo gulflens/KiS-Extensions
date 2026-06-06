@@ -20,11 +20,6 @@ struct DayCalendarStrip: View {
     @Query private var plannedFlights: [PlannedFlight]
     @Query private var duties: [PlannedDuty]
 
-    /// Whether the strip is pinned above the dashboard (true) or scrolls with
-    /// the content (false). Shared with `MainAppView`, which reads the same key
-    /// to decide where the strip is placed.
-    @AppStorage("calendarStripPinned") private var isPinned = true
-
     @State private var visibleDayCount: Int = 7
     @State private var selectedDay: Date = Calendar.current.startOfDay(for: Date())
     @State private var centeredDay: Date?
@@ -65,20 +60,8 @@ struct DayCalendarStrip: View {
                     updateVisibleCount(for: newWidth)
                 }
             }
-            .frame(height: 96)
+            .frame(height: 82)
         }
-        // White card with a pronounced shadow so the strip reads as a distinct
-        // surface above the gray dashboard, whether pinned or scrolling.
-        .padding(AppSpacing.lg)
-        .background(
-            RoundedRectangle(cornerRadius: AppRadius.panel, style: .continuous)
-                .fill(AppColor.surface)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: AppRadius.panel, style: .continuous)
-                .strokeBorder(AppColor.border, lineWidth: 1)
-        )
-        .shadow(color: .black.opacity(0.18), radius: 14, x: 0, y: 7)
         .sheet(item: $popupContext) { ctx in
             TripSectorsSheet(
                 flight: ctx.flight,
@@ -108,11 +91,6 @@ struct DayCalendarStrip: View {
                 .animation(.snappy(duration: 0.15), value: centeredMonthLabel)
 
             HStack {
-                pinButton
-                Spacer()
-            }
-
-            HStack {
                 Spacer()
                 if !calendar.isDate(selectedDay, inSameDayAs: today) {
                     Button {
@@ -131,20 +109,6 @@ struct DayCalendarStrip: View {
             }
             .animation(.snappy(duration: 0.2), value: selectedDay)
         }
-    }
-
-    /// Leading pin toggle. Pinned keeps the strip fixed above the dashboard;
-    /// unpinned lets it scroll away with the content.
-    private var pinButton: some View {
-        Button {
-            withAnimation(.snappy(duration: 0.2)) { isPinned.toggle() }
-        } label: {
-            Image(systemName: isPinned ? "pin.fill" : "pin")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(isPinned ? AppColor.todayAccent : AppColor.textTertiary)
-        }
-        .buttonStyle(.plain)
-        .accessibilityLabel(Text(isPinned ? "Unpin calendar" : "Pin calendar"))
     }
 
     // MARK: - Day Cell
@@ -187,12 +151,12 @@ struct DayCalendarStrip: View {
 
             if segment != nil {
                 tripBar(segment, day: day, width: width)
-                    .frame(height: 32)
+                    .frame(height: 26)
             } else if let duty {
                 DutyChipView(duty: duty)
-                    .frame(height: 32)
+                    .frame(height: 26)
             } else {
-                Color.clear.frame(height: 32)
+                Color.clear.frame(height: 26)
             }
         }
         .frame(width: width)
@@ -219,39 +183,51 @@ struct DayCalendarStrip: View {
     private func tripBar(_ segment: TripSegment?, day: Date, width: CGFloat) -> some View {
         if let segment {
             let (startFrac, endFrac) = timeFractions(for: segment.span, day: day)
-            let leadingOffset = width * startFrac
             let rawWidth = width * (endFrac - startFrac)
-            let barWidth = max(rawWidth, 4) // minimum visible width for very short trips
-            let isFirstDay = segment.position == .start || segment.position == .single
-            let fullCapsuleWidth = visualCapsuleWidth(for: segment.span, cellWidth: width)
+            let isSingle = segment.position == .single
+            let isFirstDay = segment.position == .start || isSingle
+            // Minimum card width so a 4-digit flight number stays readable on
+            // short trips; multi-day trips overflow the label onto the next day.
+            let minCardWidth: CGFloat = 42
+            let barWidth = max(rawWidth, isSingle ? minCardWidth : 4)
+            // Position by start time, but keep a widened single-day card inside
+            // its cell so the whole number stays visible.
+            let leadingOffset = isSingle
+                ? min(width * startFrac, max(width - barWidth, 0))
+                : width * startFrac
+            let fullCapsuleWidth = max(visualCapsuleWidth(for: segment.span, cellWidth: width),
+                                       isFirstDay ? minCardWidth : 8)
 
             HStack(spacing: 0) {
-                Color.clear.frame(width: leadingOffset, height: 30)
+                Color.clear.frame(width: leadingOffset, height: 22)
                 Button {
                     handleBarTap(segment)
                 } label: {
                     ZStack(alignment: .leading) {
                         segment.shape
                             .fill(segment.span.color)
-                            .frame(width: barWidth, height: 30)
+                            .frame(width: barWidth, height: 22)
 
                         if isFirstDay, let labelText = barLabelText(segment.span) {
                             Text(labelText)
-                                .font(.system(size: 14, weight: .bold, design: .rounded))
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
                                 .foregroundStyle(Self.chipTextColor)
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.6)
                                 .padding(.horizontal, 4)
-                                .frame(width: fullCapsuleWidth, height: 30, alignment: .center)
+                                .frame(width: fullCapsuleWidth, height: 22, alignment: .center)
                                 .allowsHitTesting(false)
                         }
                     }
-                    .frame(width: barWidth, height: 30, alignment: .leading)
+                    .frame(width: barWidth, height: 22, alignment: .leading)
                 }
                 .buttonStyle(.plain)
                 Spacer(minLength: 0)
             }
             .frame(width: width)
+            // Match the duty chip's vertical placement so trip and duty pills
+            // share the same size and baseline.
+            .padding(.top, 4)
         } else {
             Color.clear
         }

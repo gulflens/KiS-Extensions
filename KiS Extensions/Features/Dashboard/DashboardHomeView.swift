@@ -54,18 +54,23 @@ struct DashboardHomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: AppSpacing.xxl) {
+            VStack(spacing: 0) {
+                // Full-width header (the calendar strip bar) breaks out of the
+                // content padding so its white background spans edge to edge.
                 if let scrollingHeader { scrollingHeader }
-                clocksRow
-                mainZone
-                featuresSection
-                rotationSection
-                monthSection
+
+                VStack(alignment: .leading, spacing: AppSpacing.xxl) {
+                    clocksRow
+                    mainZone
+                    featuresSection
+                    rotationSection
+                    monthSection
+                }
+                .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
+                .padding(.vertical, AppSpacing.xxl)
+                .frame(maxWidth: 1180)
+                .frame(maxWidth: .infinity)
             }
-            .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
-            .padding(.vertical, AppSpacing.xxl)
-            .frame(maxWidth: 1180)
-            .frame(maxWidth: .infinity)
         }
         .background(AppColor.background)
         .sheet(item: $editingSlot) { slot in
