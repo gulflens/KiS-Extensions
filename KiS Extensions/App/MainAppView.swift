@@ -44,8 +44,14 @@ struct MainAppView: View {
                 calendarStrip
                     .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
                     .padding(.top, AppSpacing.xxl)
+                    .padding(.bottom, AppSpacing.md)
                     .frame(maxWidth: 1180)
                     .frame(maxWidth: .infinity)
+                    // White bar with a bottom drop shadow to lift the pinned
+                    // strip off the gray dashboard below it.
+                    .background(AppColor.surface)
+                    .shadow(color: .black.opacity(0.08), radius: 8, x: 0, y: 4)
+                    .zIndex(1)
 
                 dashboardHome(header: nil)
             } else {
