@@ -28,6 +28,7 @@ struct SectorEvidenceView: View {
     @State private var showBulkDeleteConfirm = false
     @State private var shareItems: [Any] = []
     @State private var showingShareSheet = false
+    @State private var gridZoom: Double = 0.5
 
     #if canImport(UIKit)
     @State private var showingCamera = false
@@ -206,6 +207,8 @@ struct SectorEvidenceView: View {
     private var topBarRight: some View {
         if let store, !store.polaroids.isEmpty {
             HStack(spacing: 16) {
+                zoomSlider
+
                 Button(multiSelect ? "Done" : "Select") {
                     if multiSelect { exitMultiSelect() } else { enterMultiSelect() }
                 }
@@ -214,6 +217,20 @@ struct SectorEvidenceView: View {
 
                 sortMenu
             }
+        }
+    }
+
+    private var zoomSlider: some View {
+        HStack(spacing: 6) {
+            Image(systemName: "square.grid.3x3")
+                .font(.caption2)
+                .foregroundStyle(.white.opacity(0.7))
+            Slider(value: $gridZoom, in: 0...1)
+                .tint(.white)
+                .frame(width: 120)
+            Image(systemName: "square.grid.2x2")
+                .font(.caption)
+                .foregroundStyle(.white.opacity(0.7))
         }
     }
 
@@ -733,7 +750,8 @@ struct SectorEvidenceView: View {
                     selectedPolaroidIDs: $selectedPolaroidIDs,
                     selectedStackIDs: $selectedStackIDs,
                     onPolaroidOpen: { id in editPolaroidID = id },
-                    onStackOpen: { id in presentedStackID = id }
+                    onStackOpen: { id in presentedStackID = id },
+                    zoomLevel: gridZoom
                 )
             }
         } else {

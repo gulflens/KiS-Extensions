@@ -68,6 +68,10 @@ final class PlannedSector {
 
     var textAnnotationsData: Data?
 
+    // MARK: - Flight Crew Checklist (sector-scoped persistence)
+
+    var flightCrewChecklistJSON: Data?
+
     @Relationship(deleteRule: .cascade, inverse: \PolaroidEvidence.sector)
     var evidencePhotos: [PolaroidEvidence] = []
 

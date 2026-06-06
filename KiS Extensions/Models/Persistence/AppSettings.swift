@@ -19,6 +19,12 @@ enum AppearanceMode: Int, Codable, CaseIterable, Identifiable {
 
 @Model
 final class AppSettings {
+    // Profile
+    var crewName: String = ""
+    var staffNumber: String = ""
+    var rank: String = ""
+    var profileImageData: Data?
+
     // General
     var appearanceModeRaw: Int = 1
 

@@ -4,8 +4,7 @@ import SwiftData
 // MARK: - PolaroidEvidenceApp
 
 /// Mini-app root. Mirrors the FlightPlannerApp pattern: own NavigationStack
-/// rooted in `appState.polaroidEvidencePath`, leading "Dashboard" toolbar
-/// button.
+/// rooted in `appState.polaroidEvidencePath`.
 struct PolaroidEvidenceApp: View {
 
     // MARK: Environment
@@ -35,19 +34,6 @@ struct PolaroidEvidenceApp: View {
             .navigationTitle("Polaroid Evidence")
             .navigationBarTitleDisplayMode(.inline)
             .toolbarColorScheme(.dark, for: .navigationBar)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        appState.returnToDashboard()
-                    } label: {
-                        HStack(spacing: 4) {
-                            Image(systemName: "square.grid.2x2")
-                            Text("Dashboard")
-                        }
-                    }
-                }
-
-            }
             .onAppear {
                 if evidenceStore == nil {
                     evidenceStore = PolaroidEvidenceStore(context: modelContext)

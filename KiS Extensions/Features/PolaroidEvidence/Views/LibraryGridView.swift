@@ -15,6 +15,7 @@ struct LibraryGridView: View {
     @Binding var selectedStackIDs: Set<UUID>
     let onPolaroidOpen: (UUID) -> Void
     let onStackOpen: (UUID) -> Void
+    var zoomLevel: Double = 0.5
 
     // MARK: Environment
 
@@ -25,12 +26,19 @@ struct LibraryGridView: View {
 
     private func columnsForSize(_ size: CGSize) -> [GridItem] {
         let wide = size.width > size.height
-        let count: Int
+        // Slider 0 → max columns (smallest thumbs), Slider 1 → min columns (largest).
+        let minCount: Int
+        let maxCount: Int
         if hSizeClass == .regular {
-            count = wide ? 4 : 3
+            minCount = 2
+            maxCount = wide ? 7 : 6
         } else {
-            count = (vSizeClass == .compact) ? 4 : 2
+            minCount = 1
+            maxCount = (vSizeClass == .compact) ? 5 : 3
         }
+        let clamped = max(0.0, min(1.0, zoomLevel))
+        let range = Double(maxCount - minCount)
+        let count = max(minCount, min(maxCount, maxCount - Int((clamped * range).rounded())))
         return Array(repeating: GridItem(.flexible(), spacing: 20), count: count)
     }
 

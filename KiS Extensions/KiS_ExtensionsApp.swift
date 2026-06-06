@@ -12,6 +12,7 @@ struct KiS_ExtensionsApp: App {
             SavedCrewAllocation.self,
             PlannedFlight.self,
             PlannedSector.self,
+            PlannedDuty.self,
             PolaroidEvidence.self,
             PolaroidStack.self,
         ])
@@ -35,16 +36,16 @@ struct KiS_ExtensionsApp: App {
         do {
             return try makeContainer(cloudConfig)
         } catch {
-            print("[KiS] CloudKit container init failed: \(error). Wiping store and retrying.")
-            Self.removeStoreFiles(at: cloudConfig.url)
+            print("[KiS] CloudKit container init failed: \(error). Falling back to local-only store (data preserved).")
             do {
-                return try makeContainer(cloudConfig)
+                return try makeContainer(localConfig)
             } catch {
-                print("[KiS] CloudKit retry failed: \(error). Falling back to local-only store.")
+                print("[KiS] Local-only init failed: \(error). Wiping store as last resort.")
+                Self.removeStoreFiles(at: localConfig.url)
                 do {
                     return try makeContainer(localConfig)
                 } catch {
-                    fatalError("Local-only fallback also failed: \(error)")
+                    fatalError("Could not create ModelContainer after recovery: \(error)")
                 }
             }
         }
