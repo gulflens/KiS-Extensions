@@ -38,14 +38,6 @@ struct DashboardHomeView: View {
 
     private var isRegular: Bool { sizeClass == .regular }
 
-    private var heroFlight: OperationalHeroCard.Flight? {
-        DashboardFlightResolver.resolveHero(sectors: sectors)
-    }
-
-    private var rotation: OperationalContext.Rotation? {
-        OperationalContext.rotation(sectors: sectors)
-    }
-
     private var monthSummary: OperationalContext.MonthSummary {
         OperationalContext.monthSummary(sectors: sectors)
     }
@@ -61,9 +53,7 @@ struct DashboardHomeView: View {
 
                 VStack(alignment: .leading, spacing: AppSpacing.xxl) {
                     clocksRow
-                    mainZone
                     featuresSection
-                    rotationSection
                     monthSection
                 }
                 .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
@@ -124,14 +114,6 @@ struct DashboardHomeView: View {
         .onTapGesture { editingSlot = DestinationSlot(id: slot) }
     }
 
-    // MARK: - Main Zone
-
-    @ViewBuilder
-    private var mainZone: some View {
-        OperationalHeroCard(flight: heroFlight)
-            .frame(maxWidth: .infinity)
-    }
-
     // MARK: - Features
 
     /// Every mini-app, presented as tiles. The dashboard entry is skipped
@@ -161,22 +143,6 @@ struct DashboardHomeView: View {
                         action: { onOpen(module.id) }
                     )
                 }
-            }
-        }
-    }
-
-    // MARK: - Rotation
-
-    @ViewBuilder
-    private var rotationSection: some View {
-        if let rotation, rotation.steps.count > 1 {
-            VStack(alignment: .leading, spacing: AppSpacing.md) {
-                SectionHeader(title: "Rotation Overview", systemImage: "point.topleft.down.to.point.bottomright.curvepath",
-                              trailingText: rotation.title)
-                RotationStrip(rotation: rotation)
-                    .padding(AppSpacing.lg)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .dashboardCard()
             }
         }
     }
