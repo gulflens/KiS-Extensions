@@ -12,6 +12,7 @@ struct QuickAccessCapsule: View {
         .flightPlanner,
         .allocatePositions,
         .timeConverter,
+        .dxbAirport,
         .settings,
     ]
 

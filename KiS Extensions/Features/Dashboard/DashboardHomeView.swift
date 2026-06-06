@@ -131,10 +131,10 @@ struct DashboardHomeView: View {
 
     /// Every mini-app, presented as tiles. The dashboard entry is skipped
     /// since this view is the dashboard; Flight Planner, Allocate Positions,
-    /// Time Converter and Settings are skipped since they live in the bottom
-    /// toolbar.
+    /// Time Converter, DXB Airport and Settings are skipped since they live in
+    /// the bottom toolbar.
     private var featureModules: [FeatureModule] {
-        let hidden: Set<FeatureID> = [.dashboard, .flightPlanner, .allocatePositions, .timeConverter, .settings]
+        let hidden: Set<FeatureID> = [.dashboard, .flightPlanner, .allocatePositions, .timeConverter, .dxbAirport, .settings]
         return FeatureRegistry.modules.filter { !hidden.contains($0.id) }
     }
 
