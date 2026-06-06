@@ -67,6 +67,18 @@ struct DayCalendarStrip: View {
             }
             .frame(height: 96)
         }
+        // White card with a pronounced shadow so the strip reads as a distinct
+        // surface above the gray dashboard, whether pinned or scrolling.
+        .padding(AppSpacing.lg)
+        .background(
+            RoundedRectangle(cornerRadius: AppRadius.panel, style: .continuous)
+                .fill(AppColor.surface)
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: AppRadius.panel, style: .continuous)
+                .strokeBorder(AppColor.border, lineWidth: 1)
+        )
+        .shadow(color: .black.opacity(0.18), radius: 14, x: 0, y: 7)
         .sheet(item: $popupContext) { ctx in
             TripSectorsSheet(
                 flight: ctx.flight,
