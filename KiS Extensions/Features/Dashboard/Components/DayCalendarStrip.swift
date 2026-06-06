@@ -27,7 +27,7 @@ struct DayCalendarStrip: View {
 
     private let calendar: Calendar = {
         var c = Calendar(identifier: .gregorian)
-        c.timeZone = .current
+        c.timeZone = .dubai
         return c
     }()
 

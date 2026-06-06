@@ -88,7 +88,7 @@ enum OperationalContext {
 
     static func monthSummary(sectors: [PlannedSector], now: Date = .now) -> MonthSummary {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = .current
+        calendar.timeZone = .dubai
         let monthStart = calendar.dateInterval(of: .month, for: now)?.start ?? now
         let monthEnd = calendar.dateInterval(of: .month, for: now)?.end ?? now
 

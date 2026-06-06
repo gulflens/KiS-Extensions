@@ -101,7 +101,7 @@ enum DashboardFlightResolver {
     /// Start-of-day dates within `date`'s month that have at least one sector.
     static func activeDays(sectors: [PlannedSector], monthOf date: Date) -> Set<Date> {
         var calendar = Calendar(identifier: .gregorian)
-        calendar.timeZone = .current
+        calendar.timeZone = .dubai
         guard let interval = calendar.dateInterval(of: .month, for: date) else { return [] }
         let days = sectors
             .compactMap { TimedSector(sector: $0) }

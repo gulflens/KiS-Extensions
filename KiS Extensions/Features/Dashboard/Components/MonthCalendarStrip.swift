@@ -10,7 +10,7 @@ struct MonthCalendarStrip: View {
 
     private var calendar: Calendar {
         var c = Calendar(identifier: .gregorian)
-        c.timeZone = .current
+        c.timeZone = .dubai
         c.firstWeekday = 2 // Monday
         return c
     }

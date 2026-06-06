@@ -342,7 +342,7 @@ struct FlightCrewChecklistView: View {
                     Text("Take off")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
-                    steppedPicker(time: $takeoffDate, timeZone: .current)
+                    steppedPicker(time: $takeoffDate, timeZone: .dubai)
                 }
 
                 Spacer(minLength: 16)
@@ -371,7 +371,7 @@ struct FlightCrewChecklistView: View {
                             }
                         }
                     }
-                    steppedPicker(time: initialCallBinding, timeZone: .current)
+                    steppedPicker(time: initialCallBinding, timeZone: .dubai)
                 }
 
                 Spacer(minLength: 16)

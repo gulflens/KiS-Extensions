@@ -5,6 +5,16 @@ import SwiftData
 struct KiS_ExtensionsApp: App {
     @State private var appState = AppState()
 
+    init() {
+        // Interpret and display all dates/times in Dubai time, independent of
+        // the device's (possibly profile-managed, auto) time zone. This makes
+        // Calendar.current, TimeZone.current and default DateFormatters resolve
+        // to Dubai process-wide.
+        if let dubai = TimeZone(identifier: "Asia/Dubai") {
+            NSTimeZone.default = dubai
+        }
+    }
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             AppSettings.self,
@@ -128,4 +138,15 @@ struct KiS_ExtensionsApp: App {
         container.mainContext.insert(AppSettings())
         try container.mainContext.save()
     }
+}
+
+// MARK: - Dubai Time Zone
+
+extension TimeZone {
+    /// The app operates entirely in Dubai time, independent of the device's
+    /// (possibly profile-managed) zone. Use this anywhere the device zone would
+    /// otherwise leak in via `.current` / `TimeZone.current`, which — unlike
+    /// `Calendar.current` and default formatters — is not affected by setting
+    /// `NSTimeZone.default`.
+    static let dubai = TimeZone(identifier: "Asia/Dubai")!
 }
