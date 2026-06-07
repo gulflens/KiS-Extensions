@@ -643,27 +643,48 @@ struct SavedPositionsTabView: View {
 
     // MARK: - Trip Matching
 
-    private func fetchMatchingTrip() -> SavedTrip? {
-        let number = flightNumber
-            .replacingOccurrences(of: "EK", with: "")
-            .replacingOccurrences(of: "ek", with: "")
-            .trimmingCharacters(in: .whitespaces)
+    /// Normalise a flight number for comparison: keep digits only and drop
+    /// leading zeros, so "EK221", "221", "0221" and "EK 0221" all match.
+    private func normalizedFlightNo(_ raw: String) -> String {
+        let digits = raw.filter(\.isNumber)
+        guard !digits.isEmpty else { return "" }
+        let trimmed = String(digits.drop(while: { $0 == "0" }))
+        return trimmed.isEmpty ? "0" : trimmed
+    }
 
-        let calendar = Calendar.current
-        let startOfDay = calendar.startOfDay(for: flightDate)
-        guard let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay) else {
+    /// Find the saved allocation trip for this sector. Flight-number and date
+    /// formats differ between the two mini-apps, so match in code with format
+    /// normalisation and a small date tolerance rather than an exact predicate.
+    private func fetchMatchingTrip() -> SavedTrip? {
+        let target = normalizedFlightNo(flightNumber)
+        guard !target.isEmpty,
+              let all = try? modelContext.fetch(FetchDescriptor<SavedTrip>()) else {
             return nil
         }
 
-        var descriptor = FetchDescriptor<SavedTrip>(
-            predicate: #Predicate<SavedTrip> { trip in
-                trip.flightNumber == number &&
-                trip.flightDate >= startOfDay &&
-                trip.flightDate < endOfDay
-            }
-        )
-        descriptor.fetchLimit = 1
-        return try? modelContext.fetch(descriptor).first
+        let sameNumber = all.filter { normalizedFlightNo($0.flightNumber) == target }
+        guard !sameNumber.isEmpty else { return nil }
+
+        let calendar = Calendar.current
+
+        // 1) Same calendar day.
+        if let exact = sameNumber.first(where: { calendar.isDate($0.flightDate, inSameDayAs: flightDate) }) {
+            return exact
+        }
+        // 2) Within one day either side (covers timezone / day-boundary drift).
+        let targetDay = calendar.startOfDay(for: flightDate)
+        if let near = sameNumber.min(by: { a, b in
+            let da = abs(calendar.dateComponents([.day], from: targetDay, to: calendar.startOfDay(for: a.flightDate)).day ?? 99)
+            let db = abs(calendar.dateComponents([.day], from: targetDay, to: calendar.startOfDay(for: b.flightDate)).day ?? 99)
+            return da < db
+        }), let nearDays = calendar.dateComponents([.day], from: targetDay, to: calendar.startOfDay(for: near.flightDate)).day,
+           abs(nearDays) <= 1 {
+            return near
+        }
+        // 3) Only one saved trip carries this flight number: use it regardless of date.
+        if sameNumber.count == 1 { return sameNumber.first }
+
+        return nil
     }
 
     // MARK: - Sector Index Matching
