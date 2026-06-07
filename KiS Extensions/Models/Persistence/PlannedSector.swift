@@ -56,6 +56,13 @@ final class PlannedSector {
 
     var savedIsLayover: Bool?
 
+    // MARK: - Cabin override
+    //
+    /// Manual override for whether this sector's aircraft has a Premium Economy
+    /// (WC) cabin. Retrofits add Premium Economy beyond the static fleet data,
+    /// so the planner can force it on or off. `nil` means use auto-detection.
+    var wcCabinOverride: Bool?
+
     // MARK: - Per-Sector Crew Positions
 
     var crewPositionsJSON: Data?

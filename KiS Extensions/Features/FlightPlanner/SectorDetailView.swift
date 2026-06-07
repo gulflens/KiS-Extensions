@@ -201,11 +201,18 @@ struct SectorDetailView: View {
     }
 
     private var hasWCCabin: Bool {
+        // Manual override wins (retrofits add Premium Economy beyond fleet data).
+        if let override = sector.wcCabinOverride { return override }
+        return autoDetectedWCCabin
+    }
+
+    /// Premium Economy inferred from the registration: 4-class aircraft and the
+    /// A350 (a 3-class JC/WC/YC) carry it.
+    private var autoDetectedWCCabin: Bool {
         guard let reg = sector.registration else { return false }
         let clean = reg.replacingOccurrences(of: "-", with: "").uppercased()
         guard let typeCode = FleetRegistry.fleet[clean],
               let acType = AircraftTypes.types[typeCode] else { return false }
-        // Premium Economy is carried on 4-class aircraft and on the A350.
         return acType.classes >= 4 || acType.aircraftModel == "A350"
     }
 
@@ -617,6 +624,21 @@ struct SectorDetailView: View {
                             .pickerStyle(.segmented)
                             .frame(width: 140)
                         }
+
+                        Toggle(isOn: Binding(
+                            get: { hasWCCabin },
+                            set: { sector.wcCabinOverride = $0 }
+                        )) {
+                            VStack(alignment: .leading, spacing: 1) {
+                                Text("Premium Economy cabin")
+                                    .font(.body)
+                                Text("Override for retrofitted aircraft")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+                        }
+                        .tint(.purple)
+
                         Divider().padding(.horizontal, 16)
 
                         serviceTimingTable
