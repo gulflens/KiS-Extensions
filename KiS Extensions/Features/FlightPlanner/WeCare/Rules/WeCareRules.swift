@@ -11,6 +11,13 @@ import Foundation
 // operative Economy (YCL) figures in the same section are a 45-minute interval
 // split 15 + 15 + 15. YCL is therefore intentionally encoded as 45 in the JSON.
 // Do not change it back to 30 to match the generic intro line.
+//
+// AIRCRAFT KEYS:
+// The manual's crew matrix says "B777 = 2", but this app's fleet data models
+// the 777 family as "B772" and "B773" (there is no "B777"). JCL crew is
+// therefore keyed by the actual fleet model strings: A380 = 4, B773 = 2,
+// B772 = 2, A350 = 2. Premium Economy (WCL) is carried on A350 and 4-class
+// aircraft; its crew is manual (supervisor-entered), so it is not keyed here.
 
 // MARK: - Cabin Code
 

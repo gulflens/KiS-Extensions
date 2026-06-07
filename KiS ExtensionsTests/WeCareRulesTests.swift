@@ -53,7 +53,8 @@ final class WeCareRulesTests: XCTestCase {
         let jcl = loadRules().cabin(.JCL)
         XCTAssertEqual(jcl?.crew.mode, .fixed)
         XCTAssertEqual(jcl?.fixedCrew(forAircraft: "A380"), 4)
-        XCTAssertEqual(jcl?.fixedCrew(forAircraft: "B777"), 2)
+        XCTAssertEqual(jcl?.fixedCrew(forAircraft: "B773"), 2)
+        XCTAssertEqual(jcl?.fixedCrew(forAircraft: "B772"), 2)
         XCTAssertEqual(jcl?.fixedCrew(forAircraft: "A350"), 2)
         XCTAssertNil(jcl?.fixedCrew(forAircraft: "A320"), "Unknown aircraft yields no fixed JCL crew")
     }

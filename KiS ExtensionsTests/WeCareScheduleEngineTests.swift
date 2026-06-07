@@ -35,8 +35,8 @@ final class WeCareScheduleEngineTests: XCTestCase {
         let a380 = try WeCareScheduleEngine.generate(context: context(aircraft: "A380", cabins: [.JCL]), rules: rules)
         XCTAssertEqual(a380.cabin(.JCL)?.crewCount, 4)
 
-        let b777 = try WeCareScheduleEngine.generate(context: context(aircraft: "B777", cabins: [.JCL]), rules: rules)
-        XCTAssertEqual(b777.cabin(.JCL)?.crewCount, 2)
+        let b773 = try WeCareScheduleEngine.generate(context: context(aircraft: "B773", cabins: [.JCL]), rules: rules)
+        XCTAssertEqual(b773.cabin(.JCL)?.crewCount, 2)
     }
 
     // MARK: FCL cat 2 vs cat 6 (timing + duties)
