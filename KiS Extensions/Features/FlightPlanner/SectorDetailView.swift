@@ -363,10 +363,7 @@ struct SectorDetailView: View {
 
             Spacer()
 
-            NavigationLink {
-                AddTripView(flightToEdit: trip)
-                    .navigationBarBackButtonHidden(true)
-            } label: {
+            NavigationLink(value: trip.map { FlightPlannerDestination.editTrip($0.id) }) {
                 HStack(spacing: 4) {
                     Image(systemName: "pencil")
                     Text("Edit Flight")

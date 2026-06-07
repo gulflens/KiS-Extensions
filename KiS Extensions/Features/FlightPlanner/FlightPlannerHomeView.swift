@@ -378,10 +378,7 @@ struct FlightPlannerHomeView: View {
             if !isSelecting {
                 VStack(spacing: 8) {
                     if let sector = selectedSector {
-                        NavigationLink {
-                            SectorDetailView(sector: sector)
-                                .navigationBarBackButtonHidden(true)
-                        } label: {
+                        NavigationLink(value: FlightPlannerDestination.sectorDetail(sector.id)) {
                             Text("Confirm Selection")
                                 .font(.headline)
                                 .foregroundStyle(.white)
@@ -431,10 +428,7 @@ struct FlightPlannerHomeView: View {
                         .buttonStyle(.borderedProminent)
                         .tint(.red)
 
-                        NavigationLink {
-                            AddTripView()
-                                .navigationBarBackButtonHidden(true)
-                        } label: {
+                        NavigationLink(value: FlightPlannerDestination.addTrip) {
                             HStack(spacing: 4) {
                                 Image(systemName: "plus")
                                 Text("Add Trip")
@@ -699,10 +693,7 @@ struct FlightPlannerHomeView: View {
                             }
                             .buttonStyle(.plain)
                         } else {
-                            NavigationLink {
-                                AddTripView(flightToEdit: trip)
-                                    .navigationBarBackButtonHidden(true)
-                            } label: {
+                            NavigationLink(value: FlightPlannerDestination.editTrip(trip.id)) {
                                 TripRow(trip: trip)
                             }
                             .buttonStyle(.plain)

@@ -8,6 +8,10 @@ import SwiftData
 /// trip popup pushing the user straight into trip edit).
 enum FlightPlannerDestination: Hashable {
     case editTrip(UUID)
+    /// Sector detail, by `PlannedSector.id`.
+    case sectorDetail(UUID)
+    /// Add a new trip manually.
+    case addTrip
 }
 
 // MARK: - Flight Planner Mini-App
@@ -26,6 +30,10 @@ struct FlightPlannerApp: View {
                         switch destination {
                         case .editTrip(let id):
                             EditTripLookupView(flightID: id)
+                        case .sectorDetail(let id):
+                            SectorDetailLookupView(sectorID: id)
+                        case .addTrip:
+                            AddTripView()
                         }
                     }
                     // Single back affordance lives in the app top bar.
@@ -52,6 +60,27 @@ private struct EditTripLookupView: View {
                 "Trip Not Found",
                 systemImage: "exclamationmark.triangle",
                 description: Text("This trip may have been deleted.")
+            )
+        }
+    }
+}
+
+// MARK: - Sector Detail Lookup
+
+/// Loads a `PlannedSector` by id so the sector detail can be pushed as a
+/// value-based destination (keeping the typed navigation path authoritative).
+private struct SectorDetailLookupView: View {
+    let sectorID: UUID
+    @Query private var sectors: [PlannedSector]
+
+    var body: some View {
+        if let sector = sectors.first(where: { $0.id == sectorID }) {
+            SectorDetailView(sector: sector)
+        } else {
+            ContentUnavailableView(
+                "Sector Not Found",
+                systemImage: "exclamationmark.triangle",
+                description: Text("This sector may have been deleted.")
             )
         }
     }
