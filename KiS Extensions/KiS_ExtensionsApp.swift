@@ -29,6 +29,7 @@ struct KiS_ExtensionsApp: App {
             PlannedDuty.self,
             PolaroidEvidence.self,
             PolaroidStack.self,
+            WeCareConfig.self,
         ])
         let cloudConfig = ModelConfiguration(
             schema: schema,

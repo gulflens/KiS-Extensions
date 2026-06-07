@@ -26,11 +26,6 @@ struct SectorDetailView: View {
     @State private var showCrewRestResults = false
     @State private var crewRestInitialized = false
 
-    // MARK: - We Care (embedded)
-
-    @State private var weCareState = WeCareState()
-    @State private var weCareInitialized = false
-
     // MARK: - Adjustable Time Fields
 
     @State private var std: Date = Date()
@@ -988,22 +983,7 @@ struct SectorDetailView: View {
     // MARK: - We Care Main Content
 
     private var weCareMainContent: some View {
-        WeCareView(state: weCareState, sector: sector)
-            .onAppear {
-                initializeWeCareState()
-            }
-    }
-
-    private func initializeWeCareState() {
-        guard !weCareInitialized else { return }
-        weCareInitialized = true
-
-        if let result = crewRestState.result {
-            weCareState.loadFromCalculationResult(result, sector: sector)
-        } else {
-            weCareState.loadFromSector(sector)
-        }
-        weCareState.loadCrew(from: sector)
+        WeCareInputView(sector: sector)
     }
 
     // MARK: - Sector Break Groups

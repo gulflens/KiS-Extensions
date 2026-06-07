@@ -13,9 +13,16 @@ import Foundation
 
 // MARK: - Meal Service Block
 
-struct WeCareMealBlock: Equatable {
-    let start: Int
-    let end: Int
+struct WeCareMealBlock: Equatable, Codable, Identifiable {
+    var id: UUID = UUID()
+    var start: Int
+    var end: Int
+
+    init(id: UUID = UUID(), start: Int, end: Int) {
+        self.id = id
+        self.start = start
+        self.end = end
+    }
 }
 
 // MARK: - Flight Context (engine input)
