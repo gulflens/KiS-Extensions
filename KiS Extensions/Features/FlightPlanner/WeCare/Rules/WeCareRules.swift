@@ -163,6 +163,8 @@ struct WeCareRules: Codable {
     let sourceVersion: String
     /// Inclusive [min, max] flight-category band that requires the We Care e-form.
     let eFormCategories: [Int]
+    /// Governance and suspension rules, verbatim for the printable guideline.
+    let governanceRules: [String]
     let cabins: [WeCareCabinRule]
 
     func cabin(_ code: WeCareCabinCode) -> WeCareCabinRule? {

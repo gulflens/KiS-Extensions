@@ -2,6 +2,15 @@
   "version": 1,
   "sourceVersion": "V1.30 (24APR2026)",
   "eFormCategories": [3, 8],
+  "governanceRules": [
+    "The Purser and cabin supervisors ensure cycles are completed in all cabins. Planner by cabin: First to the Purser; Business to the CSV; Economy and Premium Economy to the cabin supervisor.",
+    "The same crew may run consecutive cycles. The supervisor or Purser may self-assign when crew are reduced for rest breaks.",
+    "If a cycle overruns, all available crew help to finish it.",
+    "If time is short before landing, run a Cleanliness-only cycle, then stop for before-landing duties.",
+    "Crew must notify the supervisor or Purser if a cycle is not completed.",
+    "With two galleys, draw crew from both to balance the workload.",
+    "Cycles run as a rotation between and after meal services, and are suspended to start a meal service or to begin before-landing duties."
+  ],
   "cabins": [
     {
       "code": "YCL",

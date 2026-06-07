@@ -80,6 +80,8 @@ private struct WeCareConfigForm: View {
 
     @State private var lastSchedule: WeCareSchedule?
     @State private var lastError: String?
+    @State private var shareURL: URL?
+    @State private var showShare = false
 
     private let aircraftKeys = ["A380", "B773", "B772", "A350"]
 
@@ -197,6 +199,11 @@ private struct WeCareConfigForm: View {
                 Text("We Care schedule")
                     .font(.headline)
                 Spacer()
+                Button { export() } label: {
+                    Label("Export", systemImage: "square.and.arrow.up")
+                }
+                .buttonStyle(.bordered)
+                .disabled(lastSchedule == nil)
                 Button { generate() } label: {
                     Label("Generate", systemImage: "arrow.clockwise")
                 }
@@ -221,6 +228,11 @@ private struct WeCareConfigForm: View {
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .sheet(isPresented: $showShare) {
+            if let shareURL {
+                ShareSheet(items: [shareURL]) { showShare = false }
+            }
+        }
     }
 
     // MARK: Actions
@@ -236,6 +248,20 @@ private struct WeCareConfigForm: View {
             lastError = "An unexpected error occurred while generating the schedule."
             lastSchedule = nil
         }
+    }
+
+    @MainActor
+    private func export() {
+        guard let lastSchedule else { return }
+        if let url = WeCareGuidelineExporter.makePDF(schedule: lastSchedule, sectorLabel: sectorLabel) {
+            shareURL = url
+            showShare = true
+        }
+    }
+
+    private var sectorLabel: String {
+        let route = "\(sector.departureStation) to \(sector.arrivalStation)"
+        return sector.flightNumber.isEmpty ? route : "\(sector.flightNumber)  \(route)"
     }
 
     private func addMeal() {

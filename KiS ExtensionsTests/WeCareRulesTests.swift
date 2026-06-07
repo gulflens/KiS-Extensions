@@ -115,6 +115,12 @@ final class WeCareRulesTests: XCTestCase {
 
     // MARK: e-form
 
+    func testGovernanceRulesPresent() {
+        let rules = loadRules()
+        XCTAssertFalse(rules.governanceRules.isEmpty)
+        XCTAssertGreaterThanOrEqual(rules.governanceRules.count, 6)
+    }
+
     func testEFormRequiredCategories3To8() {
         let rules = loadRules()
         XCTAssertEqual(rules.eFormRequired(category: 2), false)
