@@ -13,6 +13,10 @@ struct WeCareInputView: View {
     /// from midnight (Dubai).
     let timelineTakeoffMinute: Int
     let timelineLandingMinute: Int
+    /// Whether the sector's aircraft has a Premium Economy cabin (from the
+    /// timeline's auto-detection plus the manual override). Governs the WCL
+    /// operating cabin in We Care.
+    let premiumEconomyAvailable: Bool
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -50,6 +54,8 @@ struct WeCareInputView: View {
         // Always carry the times forward from the timeline.
         config?.takeoffMinute = timelineTakeoffMinute
         config?.landingMinute = timelineLandingMinute
+        // The Premium Economy cabin follows the timeline override / detection.
+        config?.setOperating(.WCL, premiumEconomyAvailable)
     }
 
     /// Seed a new config from the sector: aircraft and operating cabins from the

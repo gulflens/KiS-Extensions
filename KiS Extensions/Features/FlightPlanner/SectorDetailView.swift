@@ -1007,7 +1007,8 @@ struct SectorDetailView: View {
         WeCareInputView(
             sector: sector,
             timelineTakeoffMinute: minuteOfDay(takeOffTime),
-            timelineLandingMinute: minuteOfDay(calculatedLandingTime)
+            timelineLandingMinute: minuteOfDay(calculatedLandingTime),
+            premiumEconomyAvailable: hasWCCabin
         )
     }
 
