@@ -84,21 +84,24 @@ private struct WeCareConfigForm: View {
     private let aircraftKeys = ["A380", "B773", "B772", "A350"]
 
     var body: some View {
-        if isRegular {
-            HStack(alignment: .top, spacing: 0) {
-                form.frame(maxWidth: .infinity)
-                Divider()
-                detailPanel.frame(width: 360)
-            }
-        } else {
-            ScrollView {
-                VStack(spacing: 16) {
-                    formBody
-                    detailPanel
+        Group {
+            if isRegular {
+                HStack(alignment: .top, spacing: 0) {
+                    form.frame(width: 380)
+                    Divider()
+                    detailPanel.frame(maxWidth: .infinity)
                 }
-                .padding()
+            } else {
+                ScrollView {
+                    VStack(spacing: 16) {
+                        formBody
+                        detailPanel
+                    }
+                    .padding()
+                }
             }
         }
+        .onAppear { generate() }
     }
 
     // MARK: Form
@@ -189,52 +192,40 @@ private struct WeCareConfigForm: View {
     // MARK: Detail panel
 
     private var detailPanel: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            Text("We Care schedule")
-                .font(.headline)
-
-            Button { generate() } label: {
-                Label("Generate schedule", systemImage: "wand.and.stars")
-                    .frame(maxWidth: .infinity)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text("We Care schedule")
+                    .font(.headline)
+                Spacer()
+                Button { generate() } label: {
+                    Label("Generate", systemImage: "arrow.clockwise")
+                }
+                .buttonStyle(.bordered)
             }
-            .buttonStyle(.borderedProminent)
+            .padding([.horizontal, .top])
 
             if let lastError {
                 Label(lastError, systemImage: "exclamationmark.triangle.fill")
                     .font(.callout)
                     .foregroundStyle(.red)
+                    .padding(.horizontal)
+                Spacer()
             } else if let lastSchedule {
-                let totalCycles = lastSchedule.cabins.reduce(0) { $0 + $1.cycles.count }
-                VStack(alignment: .leading, spacing: 8) {
-                    Label("Schedule is valid", systemImage: "checkmark.seal.fill")
-                        .foregroundStyle(.green)
-                    Text("\(lastSchedule.cabins.count) cabin(s), \(totalCycles) cycle(s).")
-                        .font(.callout)
-                    ForEach(lastSchedule.cabins, id: \.cabin) { cabin in
-                        Text("\(Self.cabinName(cabin.cabin)): \(cabin.cycles.count) cycle(s), \(cabin.crewCount) crew")
-                            .font(.caption)
-                            .foregroundStyle(.secondary)
-                    }
-                    Text("The full timeline is rendered in the schedule view.")
-                        .font(.caption2)
-                        .foregroundStyle(.tertiary)
-                }
+                WeCareScheduleView(schedule: lastSchedule, config: config)
             } else {
-                Text("Fill in the configuration, then generate to validate it.")
+                Text("Complete the configuration to see the schedule.")
                     .font(.callout)
                     .foregroundStyle(.secondary)
+                    .padding(.horizontal)
+                Spacer()
             }
-
-            Spacer()
         }
-        .padding()
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     // MARK: Actions
 
     private func generate() {
-        config.updatedAt = Date()
         do {
             lastSchedule = try WeCareScheduleEngine.generate(context: config.makeContext())
             lastError = nil

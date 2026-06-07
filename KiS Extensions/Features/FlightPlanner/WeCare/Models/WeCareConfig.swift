@@ -35,6 +35,9 @@ final class WeCareConfig {
 
     var updatedAt: Date?
 
+    /// Completed cycles, keyed by cabin and start minute ("YCL#120").
+    var completedCycleKeys: [String]?
+
     init(sectorID: UUID) {
         self.sectorID = sectorID
         self.beforeLandingBufferMinutes = 30
@@ -96,6 +99,22 @@ final class WeCareConfig {
             beforeLandingBufferMinutes: beforeLandingBufferMinutes ?? 30,
             manualCrew: manual
         )
+    }
+
+    // MARK: - Completion Tracking
+
+    private func cycleKey(_ cabin: WeCareCabinCode, _ start: Int) -> String {
+        "\(cabin.rawValue)#\(start)"
+    }
+
+    func isCycleCompleted(_ cabin: WeCareCabinCode, start: Int) -> Bool {
+        (completedCycleKeys ?? []).contains(cycleKey(cabin, start))
+    }
+
+    func setCycleCompleted(_ cabin: WeCareCabinCode, start: Int, _ done: Bool) {
+        var keys = Set(completedCycleKeys ?? [])
+        if done { keys.insert(cycleKey(cabin, start)) } else { keys.remove(cycleKey(cabin, start)) }
+        completedCycleKeys = Array(keys)
     }
 }
 
