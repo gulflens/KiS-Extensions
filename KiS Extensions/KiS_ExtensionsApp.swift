@@ -13,6 +13,10 @@ struct KiS_ExtensionsApp: App {
         if let dubai = TimeZone(identifier: "Asia/Dubai") {
             NSTimeZone.default = dubai
         }
+
+        // Load and validate the We Care rule base at launch (fails loudly if the
+        // bundled resource is missing or malformed).
+        _ = WeCareRulesLoader.shared
     }
 
     var sharedModelContainer: ModelContainer = {

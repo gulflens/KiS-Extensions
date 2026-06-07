@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "sourceVersion": "V1.30 (24APR2026)",
+  "eFormCategories": [3, 8],
+  "cabins": [
+    {
+      "code": "YCL",
+      "cycleIntervalMinutes": 45,
+      "duties": { "cleanliness": 15, "customerCare": 15, "refreshments": 15 },
+      "refreshmentStyle": "cart",
+      "refreshmentMinCategory": 3,
+      "crew": {
+        "mode": "manual",
+        "manualHint": "Supervisor-entered. Cart-derivable (2 carts give 2, 4 carts give 4)."
+      },
+      "timing": "betweenServices",
+      "notes": "Refreshments are cart-based (2 to 4 bar carts). Cat 7 to 8 add a galley social area plus cart snacks."
+    },
+    {
+      "code": "WCL",
+      "cycleIntervalMinutes": 30,
+      "duties": { "cleanliness": 10, "customerCare": 10, "refreshments": 10 },
+      "refreshmentStyle": "tray",
+      "refreshmentMinCategory": 3,
+      "crew": {
+        "mode": "manual",
+        "manualHint": "Supervisor-entered. Economy crew may backfill."
+      },
+      "timing": "betweenServices",
+      "notes": "Refreshments are tray-based (water, orange juice, apple juice, mixed nuts). 500 ml water bottles cat 5 to 8. Cat 8 social-area snack basket."
+    },
+    {
+      "code": "JCL",
+      "cycleIntervalMinutes": 30,
+      "duties": { "cleanliness": 10, "customerCare": 10, "refreshments": 10 },
+      "refreshmentStyle": "tray",
+      "refreshmentMinCategory": 3,
+      "crew": {
+        "mode": "fixed",
+        "byAircraft": { "A380": 4, "B777": 2, "A350": 2 }
+      },
+      "timing": "betweenServices",
+      "notes": "Refreshments include fresh juice, vitality boost or a pre-mixed mocktail, mandatory at least once on cat 4 to 8 (time permitting on cat 3). One cycle crew remains in the galley to prepare and deliver orders before order-taking."
+    },
+    {
+      "code": "FCL",
+      "cycleIntervalMinutes": 30,
+      "duties": { "cleanliness": 10, "customerCare": 10, "refreshments": 10 },
+      "refreshmentStyle": "tray",
+      "refreshmentMinCategory": 3,
+      "crew": {
+        "mode": "fixed",
+        "value": 1
+      },
+      "timing": {
+        "byCategory": [
+          { "from": 1, "to": 3, "mode": "betweenServices" },
+          { "from": 4, "to": 8, "mode": "ongoingAfterTakeoff" }
+        ]
+      },
+      "notes": "Adds Shower Spa checks and toilet roll origami (Cleanliness) and a seat refresh (Customer Care). Refreshments duty applies cat 3 to 8 only; on cat 1 to 2 a cycle is Cleanliness plus Customer Care only."
+    }
+  ]
+}
