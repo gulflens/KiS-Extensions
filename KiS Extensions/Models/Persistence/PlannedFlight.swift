@@ -34,8 +34,15 @@ final class PlannedFlight {
         set { tripTypeRaw = newValue.rawValue }
     }
 
+    // Stored optional for CloudKit (relationships must be optional). Read and
+    // written through the non-optional `sectors` accessor below.
     @Relationship(deleteRule: .cascade, inverse: \PlannedSector.parentTrip)
-    var sectors: [PlannedSector] = []
+    private var sectorsStore: [PlannedSector]?
+
+    var sectors: [PlannedSector] {
+        get { sectorsStore ?? [] }
+        set { sectorsStore = newValue }
+    }
 
     /// Sorted sectors by index for display
     var sortedSectors: [PlannedSector] {

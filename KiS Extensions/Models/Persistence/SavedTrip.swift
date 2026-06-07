@@ -16,8 +16,14 @@ final class SavedTrip {
     var savedAt: Date = Date()
     var notes: String = ""
 
+    // Stored optional for CloudKit; accessed through `crewAllocations` below.
     @Relationship(deleteRule: .cascade, inverse: \SavedCrewAllocation.savedTrip)
-    var crewAllocations: [SavedCrewAllocation] = []
+    private var crewAllocationsStore: [SavedCrewAllocation]?
+
+    var crewAllocations: [SavedCrewAllocation] {
+        get { crewAllocationsStore ?? [] }
+        set { crewAllocationsStore = newValue }
+    }
 
     // Store raw JSON so trip can be re-imported / re-allocated
     var rawJSON: Data?

@@ -18,8 +18,14 @@ final class PolaroidStack {
     var createdAt: Date = Date()
     var libraryOrder: Int = 0
 
+    // Stored optional for CloudKit; accessed through `polaroids` below.
     @Relationship(deleteRule: .cascade, inverse: \PolaroidEvidence.stack)
-    var polaroids: [PolaroidEvidence] = []
+    private var polaroidsStore: [PolaroidEvidence]?
+
+    var polaroids: [PolaroidEvidence] {
+        get { polaroidsStore ?? [] }
+        set { polaroidsStore = newValue }
+    }
 
     // MARK: Kind
 

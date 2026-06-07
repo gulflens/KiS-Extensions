@@ -72,8 +72,14 @@ final class PlannedSector {
 
     var flightCrewChecklistJSON: Data?
 
+    // Stored optional for CloudKit; accessed through `evidencePhotos` below.
     @Relationship(deleteRule: .cascade, inverse: \PolaroidEvidence.sector)
-    var evidencePhotos: [PolaroidEvidence] = []
+    private var evidencePhotosStore: [PolaroidEvidence]?
+
+    var evidencePhotos: [PolaroidEvidence] {
+        get { evidencePhotosStore ?? [] }
+        set { evidencePhotosStore = newValue }
+    }
 
     var parentTrip: PlannedFlight?
 
