@@ -983,7 +983,17 @@ struct SectorDetailView: View {
     // MARK: - We Care Main Content
 
     private var weCareMainContent: some View {
-        WeCareInputView(sector: sector)
+        WeCareInputView(
+            sector: sector,
+            timelineTakeoffMinute: minuteOfDay(takeOffTime),
+            timelineLandingMinute: minuteOfDay(calculatedLandingTime)
+        )
+    }
+
+    /// Minutes from midnight (Dubai) for a timeline date, carried into We Care.
+    private func minuteOfDay(_ date: Date) -> Int {
+        let parts = Calendar.current.dateComponents([.hour, .minute], from: date)
+        return (parts.hour ?? 0) * 60 + (parts.minute ?? 0)
     }
 
     // MARK: - Sector Break Groups

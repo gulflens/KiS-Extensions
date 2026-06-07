@@ -9,6 +9,10 @@ import SwiftData
 
 struct WeCareInputView: View {
     let sector: PlannedSector
+    /// Take-off and landing carried forward from the timeline tab, as minutes
+    /// from midnight (Dubai).
+    let timelineTakeoffMinute: Int
+    let timelineLandingMinute: Int
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.horizontalSizeClass) private var sizeClass
@@ -31,17 +35,21 @@ struct WeCareInputView: View {
     // MARK: - Load or Create
 
     private func loadOrCreate() {
-        guard config == nil else { return }
-        let id = sector.id
-        let descriptor = FetchDescriptor<WeCareConfig>(predicate: #Predicate { $0.sectorID == id })
-        if let existing = try? modelContext.fetch(descriptor).first {
-            config = existing
-            return
+        if config == nil {
+            let id = sector.id
+            let descriptor = FetchDescriptor<WeCareConfig>(predicate: #Predicate { $0.sectorID == id })
+            if let existing = try? modelContext.fetch(descriptor).first {
+                config = existing
+            } else {
+                let new = WeCareConfig(sectorID: id)
+                applyDefaults(to: new)
+                modelContext.insert(new)
+                config = new
+            }
         }
-        let new = WeCareConfig(sectorID: id)
-        applyDefaults(to: new)
-        modelContext.insert(new)
-        config = new
+        // Always carry the times forward from the timeline.
+        config?.takeoffMinute = timelineTakeoffMinute
+        config?.landingMinute = timelineLandingMinute
     }
 
     /// Seed a new config from the sector: aircraft and operating cabins from the
@@ -59,18 +67,7 @@ struct WeCareInputView: View {
         if config.operatingCabins.isEmpty {
             config.operatingCabins = [.JCL, .YCL]
         }
-        if let takeoff = sector.savedTakeOffTime {
-            config.takeoffMinute = Self.parseHHmm(takeoff)
-        }
-        if let takeoff = config.takeoffMinute, let flight = sector.savedFlightTime {
-            config.landingMinute = takeoff + Self.parseHHmm(flight)
-        }
-    }
-
-    private static func parseHHmm(_ string: String) -> Int {
-        let parts = string.split(separator: ":")
-        guard parts.count == 2, let h = Int(parts[0]), let m = Int(parts[1]) else { return 0 }
-        return h * 60 + m
+        // Take-off and landing are carried forward from the timeline, not seeded here.
     }
 }
 
@@ -140,13 +137,16 @@ private struct WeCareConfigForm: View {
             }
         }
 
-        Section("Times (Dubai)") {
-            DatePicker("Take-off", selection: timeBinding(\.takeoffMinute), displayedComponents: .hourAndMinute)
-            DatePicker("Landing", selection: timeBinding(\.landingMinute), displayedComponents: .hourAndMinute)
+        Section("Times (Dubai, from timeline)") {
+            LabeledContent("Take-off", value: Self.hhmm(config.takeoffMinute))
+            LabeledContent("Landing", value: Self.hhmm(config.landingMinute))
             Stepper("Before-landing buffer: \(config.beforeLandingBufferMinutes ?? 30) min",
                     value: Binding(get: { config.beforeLandingBufferMinutes ?? 30 },
                                    set: { config.beforeLandingBufferMinutes = $0 }),
                     in: 0...90, step: 5)
+            Text("Take-off and landing are carried forward from the timeline.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
 
         Section("Meal services") {
@@ -263,11 +263,10 @@ private struct WeCareConfigForm: View {
 
     // MARK: Bindings & helpers
 
-    private func timeBinding(_ keyPath: ReferenceWritableKeyPath<WeCareConfig, Int?>) -> Binding<Date> {
-        Binding(
-            get: { Self.date(fromMinutes: config[keyPath: keyPath] ?? 0) },
-            set: { config[keyPath: keyPath] = Self.minutes(from: $0) }
-        )
+    private static func hhmm(_ minutes: Int?) -> String {
+        guard let m = minutes else { return "Not set" }
+        let v = ((m % 1440) + 1440) % 1440
+        return String(format: "%02d:%02d", v / 60, v % 60)
     }
 
     private func mealBinding(_ index: Int, isStart: Bool) -> Binding<Date> {
