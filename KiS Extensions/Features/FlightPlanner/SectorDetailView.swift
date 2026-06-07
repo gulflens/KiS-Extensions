@@ -370,6 +370,7 @@ struct SectorDetailView: View {
 
             NavigationLink {
                 AddTripView(flightToEdit: trip)
+                    .navigationBarBackButtonHidden(true)
             } label: {
                 HStack(spacing: 4) {
                     Image(systemName: "pencil")

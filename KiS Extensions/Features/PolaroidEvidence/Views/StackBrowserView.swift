@@ -85,9 +85,13 @@ struct StackBrowserView: View {
             }
             #if canImport(UIKit)
             .navigationDestination(for: PolaroidNavItem.self) { item in
-                if let polaroid = store.polaroids.first(where: { $0.id == item.id }) {
-                    EditPolaroidView(polaroid: polaroid, store: store)
+                Group {
+                    if let polaroid = store.polaroids.first(where: { $0.id == item.id }) {
+                        EditPolaroidView(polaroid: polaroid, store: store)
+                    }
                 }
+                // Single back affordance lives in the app top bar.
+                .navigationBarBackButtonHidden(true)
             }
             #endif
         }

@@ -380,6 +380,7 @@ struct FlightPlannerHomeView: View {
                     if let sector = selectedSector {
                         NavigationLink {
                             SectorDetailView(sector: sector)
+                                .navigationBarBackButtonHidden(true)
                         } label: {
                             Text("Confirm Selection")
                                 .font(.headline)
@@ -432,6 +433,7 @@ struct FlightPlannerHomeView: View {
 
                         NavigationLink {
                             AddTripView()
+                                .navigationBarBackButtonHidden(true)
                         } label: {
                             HStack(spacing: 4) {
                                 Image(systemName: "plus")
@@ -699,6 +701,7 @@ struct FlightPlannerHomeView: View {
                         } else {
                             NavigationLink {
                                 AddTripView(flightToEdit: trip)
+                                    .navigationBarBackButtonHidden(true)
                             } label: {
                                 TripRow(trip: trip)
                             }

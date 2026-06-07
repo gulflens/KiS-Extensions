@@ -82,6 +82,7 @@ struct PolaroidDetailContent: View {
             ToolbarItem(placement: .topBarTrailing) {
                 NavigationLink {
                     EditPolaroidView(polaroid: polaroid, store: store)
+                        .navigationBarBackButtonHidden(true)
                 } label: {
                     Text("Edit")
                         .fontWeight(.semibold)

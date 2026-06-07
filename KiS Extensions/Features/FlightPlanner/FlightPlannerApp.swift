@@ -22,10 +22,14 @@ struct FlightPlannerApp: View {
         NavigationStack(path: $appState.flightPlannerPath) {
             FlightPlannerHomeView()
                 .navigationDestination(for: FlightPlannerDestination.self) { destination in
-                    switch destination {
-                    case .editTrip(let id):
-                        EditTripLookupView(flightID: id)
+                    Group {
+                        switch destination {
+                        case .editTrip(let id):
+                            EditTripLookupView(flightID: id)
+                        }
                     }
+                    // Single back affordance lives in the app top bar.
+                    .navigationBarBackButtonHidden(true)
                 }
         }
     }

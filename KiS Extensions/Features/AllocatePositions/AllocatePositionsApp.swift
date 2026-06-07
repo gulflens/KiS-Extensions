@@ -14,14 +14,18 @@ struct AllocatePositionsApp: View {
         NavigationStack(path: $appState.allocatePositionsPath) {
             DashboardView()
                 .navigationDestination(for: NavigationDestination.self) { destination in
-                    switch destination {
-                    case .tripsList:
-                        TripsListView()
-                    case .crewTable(let tripIndex, let doPositions):
-                        if tripIndex < appState.parsedTrips.count {
-                            CrewTableView(trip: appState.parsedTrips[tripIndex], doPositions: doPositions)
+                    Group {
+                        switch destination {
+                        case .tripsList:
+                            TripsListView()
+                        case .crewTable(let tripIndex, let doPositions):
+                            if tripIndex < appState.parsedTrips.count {
+                                CrewTableView(trip: appState.parsedTrips[tripIndex], doPositions: doPositions)
+                            }
                         }
                     }
+                    // Single back affordance lives in the app top bar.
+                    .navigationBarBackButtonHidden(true)
                 }
         }
     }

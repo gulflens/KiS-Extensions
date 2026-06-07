@@ -38,10 +38,6 @@ struct DashboardHomeView: View {
 
     private var isRegular: Bool { sizeClass == .regular }
 
-    private var monthSummary: OperationalContext.MonthSummary {
-        OperationalContext.monthSummary(sectors: sectors)
-    }
-
     // MARK: Body
 
     var body: some View {
@@ -54,7 +50,6 @@ struct DashboardHomeView: View {
                 VStack(alignment: .leading, spacing: AppSpacing.xxl) {
                     clocksRow
                     featuresSection
-                    monthSection
                 }
                 .padding(.horizontal, isRegular ? AppSpacing.xxxl : AppSpacing.lg)
                 .padding(.vertical, AppSpacing.xxl)
@@ -127,7 +122,7 @@ struct DashboardHomeView: View {
 
     private var featureColumns: [GridItem] {
         Array(repeating: GridItem(.flexible(), spacing: AppSpacing.lg),
-              count: isRegular ? 3 : 2)
+              count: isRegular ? 4 : 2)
     }
 
     private var featuresSection: some View {
@@ -144,16 +139,6 @@ struct DashboardHomeView: View {
                     )
                 }
             }
-        }
-    }
-
-    // MARK: - This Month
-
-    private var monthSection: some View {
-        VStack(alignment: .leading, spacing: AppSpacing.md) {
-            SectionHeader(title: "This Month", systemImage: "chart.bar",
-                          trailingText: monthSummary.monthLabel)
-            MonthOverviewStats(summary: monthSummary, isRegular: isRegular)
         }
     }
 

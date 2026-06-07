@@ -77,14 +77,18 @@ struct DXBAirportHomeView: View {
             BayDetailSheet(bay: bay)
         }
         .navigationDestination(for: DXBAirportRoute.self) { route in
-            switch route {
-            case .lounges:
-                LoungesListView()
-            case .routePlanner:
-                RoutePlannerView()
-            case .map(let plannedRoute):
-                DXBSchematicMapView(route: plannedRoute)
+            Group {
+                switch route {
+                case .lounges:
+                    LoungesListView()
+                case .routePlanner:
+                    RoutePlannerView()
+                case .map(let plannedRoute):
+                    DXBSchematicMapView(route: plannedRoute)
+                }
             }
+            // Single back affordance lives in the app top bar.
+            .navigationBarBackButtonHidden(true)
         }
     }
 

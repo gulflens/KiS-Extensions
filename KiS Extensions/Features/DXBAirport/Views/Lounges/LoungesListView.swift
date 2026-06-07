@@ -82,6 +82,8 @@ struct LoungesListView: View {
         .navigationBarTitleDisplayMode(.inline)
         .navigationDestination(for: Lounge.self) { lounge in
             LoungeDetailView(lounge: lounge)
+                // Single back affordance lives in the app top bar.
+                .navigationBarBackButtonHidden(true)
         }
     }
 

@@ -18,10 +18,14 @@ struct EKCrewRestApp: View {
         NavigationStack(path: $appState.ekCrewRestPath) {
             inputContent
                 .navigationDestination(for: Route.self) { route in
-                    switch route {
-                    case .results:
-                        CrewRestResultsView()
+                    Group {
+                        switch route {
+                        case .results:
+                            CrewRestResultsView()
+                        }
                     }
+                    // Single back affordance lives in the app top bar.
+                    .navigationBarBackButtonHidden(true)
                 }
                 .toolbar {
                     ToolbarItem(placement: .topBarTrailing) {

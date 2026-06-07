@@ -30,7 +30,7 @@ struct MainAppView: View {
             if let opened = appState.openedFeature {
                 AppTopBar(
                     featureTitle: FeatureRegistry.module(for: opened).title,
-                    onBack: { appState.openedFeature = nil }
+                    onBack: { goBack() }
                 )
                 rootView(for: opened)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -58,6 +58,30 @@ struct MainAppView: View {
                         }
                     }
             }
+        }
+    }
+
+    // MARK: - Navigation
+
+    /// Single dynamic back action for the top bar: pop one step inside the
+    /// active feature's navigation stack, or close the feature (return to the
+    /// dashboard) when already at its root.
+    private func goBack() {
+        switch appState.openedFeature {
+        case .flightPlanner where !appState.flightPlannerPath.isEmpty:
+            appState.flightPlannerPath.removeLast()
+        case .ekCrewRest where !appState.ekCrewRestPath.isEmpty:
+            appState.ekCrewRestPath.removeLast()
+        case .allocatePositions where !appState.allocatePositionsPath.isEmpty:
+            appState.allocatePositionsPath.removeLast()
+        case .dxbAirport where !appState.dxbAirportPath.isEmpty:
+            appState.dxbAirportPath.removeLast()
+        case .polaroidEvidence where !appState.polaroidEvidencePath.isEmpty:
+            appState.polaroidEvidencePath.removeLast()
+        case .flightCrewChecklist where !appState.flightCrewChecklistPath.isEmpty:
+            appState.flightCrewChecklistPath.removeLast()
+        default:
+            appState.openedFeature = nil
         }
     }
 
