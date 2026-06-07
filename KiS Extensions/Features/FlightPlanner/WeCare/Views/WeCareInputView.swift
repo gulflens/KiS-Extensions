@@ -110,11 +110,14 @@ private struct WeCareConfigForm: View {
 
     private var form: some View {
         Form { formContent }
+            // British locale so meal-service time pickers use 24-hour format.
+            .environment(\.locale, Locale(identifier: "en_GB"))
     }
 
     @ViewBuilder private var formBody: some View {
         Form { formContent }
             .frame(minHeight: 480)
+            .environment(\.locale, Locale(identifier: "en_GB"))
     }
 
     @ViewBuilder private var formContent: some View {
