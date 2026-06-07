@@ -54,8 +54,6 @@ struct WeCareInputView: View {
         // Always carry the times forward from the timeline.
         config?.takeoffMinute = timelineTakeoffMinute
         config?.landingMinute = timelineLandingMinute
-        // The Premium Economy cabin follows the timeline override / detection.
-        config?.setOperating(.WCL, premiumEconomyAvailable)
     }
 
     /// Seed a new config from the sector: aircraft and operating cabins from the
@@ -73,6 +71,9 @@ struct WeCareInputView: View {
         if config.operatingCabins.isEmpty {
             config.operatingCabins = [.JCL, .YCL]
         }
+        // Default the Premium Economy cabin from the timeline override /
+        // detection. It stays a free manual toggle afterward.
+        config.setOperating(.WCL, premiumEconomyAvailable)
         // Take-off and landing are carried forward from the timeline, not seeded here.
     }
 }
