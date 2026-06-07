@@ -560,13 +560,13 @@ struct SectorDetailView: View {
         )
     }
 
-    // MARK: - Timeline Main Content (40/60 split)
+    // MARK: - Timeline Main Content (50/50 split)
 
     private var timelineMainContent: some View {
         GeometryReader { geo in
             let available = geo.size.width - 24 - 12 // padding (12*2) + spacing
-            let leftWidth = available * 0.35
-            let rightWidth = available * 0.65
+            let leftWidth = available * 0.5
+            let rightWidth = available * 0.5
 
             HStack(alignment: .top, spacing: 12) {
                 AnyView(timelineInputPanel(width: leftWidth))
