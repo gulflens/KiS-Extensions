@@ -201,10 +201,12 @@ struct SectorDetailView: View {
     }
 
     private var hasWCCabin: Bool {
-        guard let reg = sector.registration,
-              let typeCode = FleetRegistry.fleet[reg],
+        guard let reg = sector.registration else { return false }
+        let clean = reg.replacingOccurrences(of: "-", with: "").uppercased()
+        guard let typeCode = FleetRegistry.fleet[clean],
               let acType = AircraftTypes.types[typeCode] else { return false }
-        return acType.classes >= 4
+        // Premium Economy is carried on 4-class aircraft and on the A350.
+        return acType.classes >= 4 || acType.aircraftModel == "A350"
     }
 
     private var settlingInStart: Date {
